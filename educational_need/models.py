@@ -9,7 +9,7 @@ class EducationalNeed(models.Model):
     college_school_contact_details = models.TextField(blank=True, null=True)
     view_count = models.IntegerField(default=0)
     status = models.CharField(max_length=200)
-    amount_required = models.IntegerField(default=0)
+    amount_required = models.FloatField()
     documents = models.TextField()
     requirement_description = models.TextField()
     communication_mode = models.CharField(max_length=200)
