@@ -10,9 +10,27 @@ class EducationalNeed(models.Model):
     view_count = models.IntegerField(default=0)
     status = models.CharField(max_length=200)
     amount_required = models.FloatField()
-    documents = models.TextField()
+    documents = models.FileField()
     requirement_description = models.TextField()
-    communication_mode = models.CharField(max_length=200)
 
-    def _str_(self):
-        return 'Educational Need ' + self.pk
+    # Define choices for communication_mode field
+    # See: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.choices
+    PHONE = 'PH'
+    MOBILE = 'MO'
+    EMAIL = 'EM'
+    COMMUNICATION_MODE_CHOICES = (
+        (PHONE, 'Phone'),
+        (MOBILE, 'Mobile'),
+        (EMAIL, 'E-mail'),
+    )
+
+    communication_mode = models.CharField(
+        max_length=2,
+        choices=COMMUNICATION_MODE_CHOICES,
+        default=PHONE,
+    )
+
+    # Return a friendly representation of an object, eg. in Django admin
+    # See: https://docs.djangoproject.com/en/1.11/ref/models/instances/#str
+    def __str__(self):
+        return 'Educational Need ' +  str(self.pk)
