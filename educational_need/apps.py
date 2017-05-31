@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class EducationalneedConfig(AppConfig):
-    name = 'educationalneed'
+    name = 'educational_need'
