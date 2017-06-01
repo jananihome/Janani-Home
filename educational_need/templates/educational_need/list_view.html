@@ -1,0 +1,63 @@
+{% extends 'educational_need/base.html' %}
+
+{% block content %}
+
+{% include 'educational_need/filter_xs.html' %}
+
+<div class="container-fluid">
+    <div class="row content">
+
+        {% include 'educational_need/filter.html' %}
+
+        <div class="col-sm-9">
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Country</th>
+                        <th>Amount Required</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                        <th>XXX</th>
+                    </tr>
+                    <tr>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                        <th>YYY</th>
+                    </tr>
+                    <tr>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                        <th>ZZZ</th>
+                    </tr>
+                </tbody>
+            <table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
