@@ -25,36 +25,18 @@
                 </thead>
 
                 <tbody>
+                {% for educational_need in educational_needs %}
                     <tr>
-                        <th>XXX</th>
-                        <th>XXX</th>
-                        <th>XXX</th>
-                        <th>XXX</th>
-                        <th>XXX</th>
-                        <th>XXX</th>
-                        <th>XXX</th>
-                        <th>XXX</th>
+                        <th>{{ educational_need.user.first_name }}</th>
+                        <th>{{ educational_need.user.last_name }}</th>
+                        <th>{{ educational_need.user.email }}</th>
+                        <th>{{ educational_need.user }} phone</th>
+                        <th>{{ educational_need.user }} city</th>
+                        <th>{{ educational_need.user }} state</th>
+                        <th>{{ educational_need.user }} country</th>
+                        <th>{{ educational_need.amount }}</th>
                     </tr>
-                    <tr>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                        <th>YYY</th>
-                    </tr>
-                    <tr>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                        <th>ZZZ</th>
-                    </tr>
+                {% endfor %}
                 </tbody>
             <table>
         </div>
