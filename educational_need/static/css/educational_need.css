@@ -40,3 +40,19 @@ a{
     color: #ffffff;
     background-color: #000000;
 }
+
+#results-list {
+    list-style: none;
+}
+
+.result-container {
+    height: 200px;
+    clear: both;
+    margin-bottom: 20px;
+}
+
+.result-container .profile-image {
+    float: left;
+    height: 100%;
+    margin-right: 15px;
+}

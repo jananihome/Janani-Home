@@ -1,45 +1,35 @@
 {% extends 'educational_need/base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% include 'educational_need/filter_xs.html' %}
+    {% include 'educational_need/filter_xs.html' %}
 
-<div class="container-fluid">
-    <div class="row content">
+    <div class="container-fluid">
+        <div class="row content">
 
-        {% include 'educational_need/filter.html' %}
+            {% include 'educational_need/filter.html' %}
 
-        <div class="col-sm-9">
-            <table class="table table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Country</th>
-                        <th>Amount Required</th>
-                    </tr>
-                </thead>
+            <div class="col-sm-9">
+                <ul id="results-list">
+                    {% for result in educational_needs %}
+                    <li id="result-{{ result.pk }}">
+                        <div class="result-container">
+                            <img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ result.user.first_name }} {{ result.user.name_name }}">
+                            <p><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></p>
+                            <p>E-mail: {{ result.user.email }}</p>
+                            <p>Phone: </p>
+                            <p>City: </p>
+                            <p>State: </p>
+                            <p>Country: </p>
+                            <p>Amount required: <strong>${{ result.amount_required }}</strong></p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
 
-                <tbody>
-                {% for educational_need in educational_needs %}
-                    <tr>
-                        <th>{{ educational_need.user.first_name }}</th>
-                        <th>{{ educational_need.user.last_name }}</th>
-                        <th>{{ educational_need.user.email }}</th>
-                        <th>{{ educational_need.user }} phone</th>
-                        <th>{{ educational_need.user }} city</th>
-                        <th>{{ educational_need.user }} state</th>
-                        <th>{{ educational_need.user }} country</th>
-                        <th>{{ educational_need.amount }}</th>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            <table>
+
+            </div>
         </div>
     </div>
-</div>
 {% endblock content %}
