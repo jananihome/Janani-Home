@@ -15,7 +15,7 @@
                     {% for result in educational_needs %}
                     <li id="result-{{ result.pk }}">
                         <div class="result-container">
-                            <img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ result.user.first_name }} {{ result.user.name_name }}">
+                            <img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}">
                             <p><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></p>
                             <p>E-mail: {{ result.user.email }}</p>
                             <p>Phone: </p>
