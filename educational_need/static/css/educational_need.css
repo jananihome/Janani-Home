@@ -45,10 +45,15 @@ a{
     list-style: none;
 }
 
+#results-list li {
+    border-bottom: 1px solid #ddd;
+}
+
 .result-container {
     height: 200px;
     clear: both;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .result-container .profile-image {
