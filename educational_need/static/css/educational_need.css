@@ -1,10 +1,10 @@
 .navbar {
     border-radius: 0px;
-    margin-bottom: 5px;
+    margin: 0;
 }
 
 .navbar-brand{
-    width: 239px;
+    width: 238px; /* This width must match width of sidenav - 2px */
     font-family: 'Satisfy', cursive;
     text-align: center;
     color: #ffffff;
@@ -18,7 +18,9 @@
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {height: 550px}
+.row.content {
+    height: 562px;
+}
 
 /* Set gray background color and 100% height */
 .sidenav {
