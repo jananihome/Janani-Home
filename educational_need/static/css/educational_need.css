@@ -1,3 +1,19 @@
+/* GLOBAL */
+
+/* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+    .row.content {height: auto;}
+}
+
+a {
+    color: #9d9d9d
+}
+
+/* end GLOBAL */
+
+
+/* NAVIGATION */
+
 .navbar {
     border-radius: 0px;
     margin: 0;
@@ -17,13 +33,16 @@
     line-height: 35px;
 }
 
-/* Set gray background color and 100% height */
+/* end NAVIGATION */
+
+/* SIDEBAR */
+
 .sidenav {
     background-color: #282828;
     height: 100%;
-    color:#9d9d9d;
-    padding: 0 10px;
-    width: 240px;
+    color: #9d9d9d;
+    padding: 50px 15px;
+    width: 240px;  /* This width matches the navbar-brand */
 	
 	/* Below 4 lines make sure that sidenav is always 100% */
 	min-height: 100%;
@@ -32,23 +51,18 @@
 	padding-bottom: 9999px;
 }
 
-/* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: 767px) {
-    .row.content {height: auto;}
+/* end SIDEBAR */
+
+/* FILTERS */
+
+#apply-filters-btn-container {
+    text-align: center;
+    padding: 10px 0 0 0;
 }
 
+/* end FILTERS */
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
-    color: #fff;
-    background-color: #000000;
-}
-a{
-    color: #9d9d9d
-}
-.nav>li>a:hover{
-    color: #ffffff;
-    background-color: #000000;
-}
+/* LIST VIEW */
 
 #results-list {
     list-style: none;
@@ -71,7 +85,4 @@ a{
     margin-right: 15px;
 }
 
-#apply-filters-btn-container {
-    text-align: center;
-    padding: 10px 0 0 0;
-}
+/* end LIST VIEW */
