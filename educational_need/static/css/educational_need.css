@@ -1,12 +1,16 @@
 .navbar {
     border-radius: 0px;
-  }
+    margin-bottom: 5px;
+}
 
 .navbar-brand{
+    width: 239px;
     font-family: 'Satisfy', cursive;
     text-align: center;
     color: #ffffff;
-    line-height: 15px;
+    margin: 10px 0 5px 0;
+    padding: 0;
+    display: block;
 }
 
 .navbar-nav>li>a{
@@ -21,7 +25,8 @@
     background-color: #282828;
     height: 100%;
     color:#9d9d9d;
-    width:15%;
+    padding: 0 10px;
+    width: 240px;
 }
 /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
@@ -60,4 +65,9 @@ a{
     float: left;
     height: 100%;
     margin-right: 15px;
+}
+
+#apply-filters-btn-container {
+    text-align: center;
+    padding: 10px 0 0 0;
 }
