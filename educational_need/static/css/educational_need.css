@@ -17,11 +17,6 @@
     line-height: 35px;
 }
 
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {
-    height: 562px;
-}
-
 /* Set gray background color and 100% height */
 .sidenav {
     background-color: #282828;
@@ -29,7 +24,14 @@
     color:#9d9d9d;
     padding: 0 10px;
     width: 240px;
+	
+	/* Below 4 lines make sure that sidenav is always 100% */
+	min-height: 100%;
+	overflow: hidden;		
+	margin-bottom: -9999px;
+	padding-bottom: 9999px;
 }
+
 /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
     .row.content {height: auto;}
