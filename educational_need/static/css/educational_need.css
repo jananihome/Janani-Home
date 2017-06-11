@@ -1,0 +1,88 @@
+/* GLOBAL */
+
+/* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+    .row.content {height: auto;}
+}
+
+a {
+    color: #9d9d9d
+}
+
+/* end GLOBAL */
+
+
+/* NAVIGATION */
+
+.navbar {
+    border-radius: 0px;
+    margin: 0;
+}
+
+.navbar-brand{
+    width: 238px; /* This width must match width of sidenav - 2px */
+    font-family: 'Satisfy', cursive;
+    text-align: center;
+    color: #ffffff;
+    margin: 10px 0 5px 0;
+    padding: 0;
+    display: block;
+}
+
+.navbar-nav>li>a{
+    line-height: 35px;
+}
+
+/* end NAVIGATION */
+
+/* SIDEBAR */
+
+.sidenav {
+    background-color: #282828;
+    height: 100%;
+    color: #9d9d9d;
+    padding: 50px 15px;
+    width: 240px;  /* This width matches the navbar-brand */
+	
+	/* Below 4 lines make sure that sidenav is always 100% */
+	min-height: 100%;
+	overflow: hidden;		
+	margin-bottom: -9999px;
+	padding-bottom: 9999px;
+}
+
+/* end SIDEBAR */
+
+/* FILTERS */
+
+#apply-filters-btn-container {
+    text-align: center;
+    padding: 10px 0 0 0;
+}
+
+/* end FILTERS */
+
+/* LIST VIEW */
+
+#results-list {
+    list-style: none;
+}
+
+#results-list li {
+    border-bottom: 1px solid #ddd;
+}
+
+.result-container {
+    height: 200px;
+    clear: both;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.result-container .profile-image {
+    float: left;
+    height: 100%;
+    margin-right: 15px;
+}
+
+/* end LIST VIEW */
