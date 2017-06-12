@@ -9,10 +9,15 @@
             <div class="col-sm-3 sidenav hidden-xs">
             Side bar content blablabla
             </div>
-
+			
             <div class="col-sm-9">
 				<h1>Educational Need <small class="text-muted">Submit your application</small></h1>
 				<hr />
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ form.as_ul }}
+					<input type="submit" value="Submit" />
+				</form>
             </div>
         </div>
     </div>
