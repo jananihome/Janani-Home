@@ -10,3 +10,7 @@ def list_view(request):
     # Create context dictionary which can be accessed in template
     context = {'educational_needs': educational_needs}
     return render(request, template, context)
+
+
+def add_educational_need(request):
+	return
