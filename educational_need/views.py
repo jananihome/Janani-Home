@@ -13,4 +13,5 @@ def list_view(request):
 
 
 def add_educational_need(request):
-	return
+	template = 'educational_need/form_view.html'
+	return render(request, template)
