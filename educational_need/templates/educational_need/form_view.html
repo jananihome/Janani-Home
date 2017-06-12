@@ -7,17 +7,28 @@
         <div class="row content">
 
             <div class="col-sm-3 sidenav hidden-xs">
-            Side bar content blablabla
+            <h2><small>Guidelines</small></h2>
+			<p><strong>Permanent address</strong>: your permanent registration address visible on your ID/passport (required)</p>
+			<p><strong>Current address</strong>: your current address of residence (required)</p>
+			<p><strong>College school address</strong>: ??? (optional)</p>
+			<p><strong>College school contact details</strong>: ??? (optional)</p>
+			<p><strong>Status</strong>: ??? (required)</p>
+			<p><strong>Amount required</strong>: Amount required in currency based on your country of residence (required)</p>
+			<p><strong>Documents</strong>: ??? (required)</p>
+			<p><strong>Requirement description</strong>: ??? (required)</p>
+			<p><strong>Communication mode</strong>: select your preferred communication mode (required)</p>
             </div>
 			
             <div class="col-sm-9">
 				<h1>Educational Need <small class="text-muted">Submit your application</small></h1>
 				<hr />
-				<form method="post" enctype="multipart/form-data">
-					{% csrf_token %}
-					{{ form.as_ul }}
-					<input type="submit" value="Submit" />
-				</form>
+				<div id="educational-need-form-container">
+					<form method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ form.as_ul }}
+						<input type="submit" value="Submit" />
+					</form>
+				</div>
             </div>
         </div>
     </div>
