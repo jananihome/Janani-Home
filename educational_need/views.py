@@ -18,12 +18,12 @@ def list_view(request):
 def detail_view(request, pk):
     """Returns a detailed view of a specific EducationalNeed object."""
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
-	
-	# Increment view count every time view is requested.
-	# TODO: Find a way to increment view count only once per user session.
+    
+    # Increment view count every time view is requested.
+    # TODO: Find a way to increment view count only once per user session.
     educational_need.view_count += 1
     educational_need.save()
-	
+    
     # Create context dictionary which can be accessed in template
     context = {'educational_need': educational_need}
     template = 'educational_need/detail_view.html'
