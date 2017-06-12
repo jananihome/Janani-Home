@@ -85,6 +85,10 @@ a {
     margin-right: 15px;
 }
 
+.result-container .view-details-btn {
+	float: right;
+}
+
 /* end LIST VIEW */
 
 /* FORM VIEW */
