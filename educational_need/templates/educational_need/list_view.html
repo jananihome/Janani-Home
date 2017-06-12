@@ -15,6 +15,7 @@
 
             <div class="col-sm-9">
 				<h1>Educational Need <small class="text-muted">Find and help people in educational need</small></h1>
+				<a href="{% url 'add_educational_need' %}" class="btn btn-info" role="button">Add Educational Need</a>
 				<hr />
                 <ul id="results-list">
                     {% for result in educational_needs %}
