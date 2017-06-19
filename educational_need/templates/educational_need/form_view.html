@@ -24,6 +24,7 @@
             <div class="col-sm-9">
 				<h1>Educational Need <small class="text-muted">Submit your application</small></h1>
 				<hr />
+				{% if user.is_authenticated %}
 				<div id="educational-need-form-container">
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
@@ -31,6 +32,10 @@
 						<input type="submit" value="Submit" />
 					</form>
 				</div>
+				{% else %}
+					<p class="alert alert-danger">Development Info: You are not logged in! <a href="../admin">Log in</a> before using this form.</p>
+				{% endif %}
+
             </div>
         </div>
     </div>
