@@ -85,4 +85,24 @@ a {
     margin-right: 15px;
 }
 
+.result-container .view-details-btn {
+	float: right;
+}
+
 /* end LIST VIEW */
+
+/* FORM VIEW */
+
+#educational-need-form-container {
+    list-style: none;
+}
+
+#educational-need-form-container form label {
+    display: block;
+}
+#educational-need-form-container form textarea {
+    width: 90%;
+	height: 70px;
+}
+
+/* end FORM VIEW */

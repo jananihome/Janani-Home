@@ -1,0 +1,44 @@
+{% extends 'educational_need/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row content">
+
+            <div class="col-sm-3 sidenav hidden-xs">
+            <a href="{% url 'list_view' %}">&laquo; Back to list view</a>
+            </div>
+
+            <div class="col-sm-9">
+				<h1>{{ educational_need }} by {{ educational_need.user }}</h1>
+				<hr />
+				<div class="col-sm-3">
+					<img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
+					
+				</div>
+				<div class="col-sm-3">
+					<p><strong>{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}</strong></p>
+					<p>E-mail: {{ educational_need.user.email }}</p>
+					<p>Phone: </p>
+					<p>City: </p>
+					<p>State: </p>
+					<p>Country: </p>
+					<p>Amount required: <strong>${{ educational_need.amount_required }}</strong></p>
+					<p>Requirement description: {{ educational_need.requirement_description }}</p>
+				</div>					
+				
+				<div class="col-sm-3">
+					<p>Permanent address: {{ educational_need.permanent_address }}</p>
+					<p>Current address: {{ educational_need.current_address }}</p>
+					<p>College school address: {{ educational_need.college_school_address }}</p>
+					<p>College school contact details: {{ educational_need.college_school_contact_details }}</p>
+					<p>View count: {{ educational_need.view_count }}</p>
+					<p>Status: {{ educational_need.status }}</p>
+					<p>Documents: <a href="{{ educational_need.documents.url }}">Download</a></p>
+					<p>Communication mode: {{ educational_need.get_communication_mode_display }}</p>
+				</div>				
+            </div>
+        </div>
+    </div>
+{% endblock content %}

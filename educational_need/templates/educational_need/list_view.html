@@ -15,19 +15,22 @@
 
             <div class="col-sm-9">
 				<h1>Educational Need <small class="text-muted">Find and help people in educational need</small></h1>
+				<a href="{% url 'add_educational_need' %}" class="btn btn-default" role="button">Add Educational Need</a>
 				<hr />
                 <ul id="results-list">
                     {% for result in educational_needs %}
                     <li id="result-{{ result.pk }}">
                         <div class="result-container">
-                            <img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}">
+                            <a href="{% url 'detail_view' pk=result.pk %}"><img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}"></a>
                             <p><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></p>
+							<div class="view-details-btn"><a href="{% url 'detail_view' pk=result.pk %}" class="btn btn-default btn-lg" role="button">View Details</a></div>
                             <p>E-mail: {{ result.user.email }}</p>
                             <p>Phone: </p>
                             <p>City: </p>
                             <p>State: </p>
                             <p>Country: </p>
                             <p>Amount required: <strong>${{ result.amount_required }}</strong></p>
+							
                         </div>
                     </li>
                     {% endfor %}
