@@ -15,13 +15,18 @@
 
             <div class="col-sm-9">
 				<h1>Educational Need <small class="text-muted">Find and help people in educational need</small></h1>
+                {% if user.is_authenticated %}
 				<a href="{% url 'add_educational_need' %}" class="btn btn-default" role="button">Add Educational Need</a>
+                {% else %}
+                <p class="alert alert-info">Want to submit your application or help others in their need? <a href="{% url 'signup' %}">Sign-up</a> or
+                    <a href="{% url 'login' %}">log in</a> to your account.</p>
+                {% endif %}
 				<hr />
                 <ul id="results-list">
                     {% for result in educational_needs %}
                     <li id="result-{{ result.pk }}">
                         <div class="result-container">
-                            <a href="{% url 'detail_view' pk=result.pk %}"><img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}"></a>
+                            <a href="{% url 'detail_view' pk=result.pk %}"><img class="profile-image" src="{% if result.user.profile.photo %}{{ result.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}"></a>
                             <p><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></p>
 							<div class="view-details-btn"><a href="{% url 'detail_view' pk=result.pk %}" class="btn btn-default btn-lg" role="button">View Details</a></div>
                             <p>E-mail: {{ result.user.email }}</p>
@@ -30,7 +35,6 @@
                             <p>State: </p>
                             <p>Country: </p>
                             <p>Amount required: <strong>${{ result.amount_required }}</strong></p>
-							
                         </div>
                     </li>
                     {% endfor %}

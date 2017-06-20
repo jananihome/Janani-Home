@@ -1,0 +1,33 @@
+{% extends 'educational_need/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row content">
+
+        <div class="col-sm-3 sidenav hidden-xs">
+        </div>
+        <div class="col-sm-9">
+          <div id="user-profile">
+          <h2>Profile for {{ request.user }}</h2>
+            <ul>
+              {% if request.user.profile.photo %}
+                <div id="profile-image"><img src="{{ request.user.profile.photo.url }}" alt="{{ request.user }}"a></div>
+              {% endif %}
+              <li>First name: {{ request.user.first_name }}</li>
+              <li>Last name: {{ request.user.last_name }}</li>
+              <li>Birth date: {{ request.user.profile.birth_date }}</li>
+              <li>Mobile number: {{ request.user.profile.mobile_number }}</li>
+              <li>Phone number: {{ request.user.profile.phone_number }}</li>
+              <li>Country: {{ request.user.profile.country.name }} <img src="{{ request.user.profile.country.flag }}" alt="{{ request.user.profile.country }}"></li>
+              <li>State: {{ request.user.profile.state }}</li>
+              <li>Zip code: {{ request.user.profile.zip_code }}</li>
+              <li>City: {{ request.user.profile.city }}</li>
+              <li>District: {{ request.user.profile.district }}</li>
+              <li>About: {{ request.user.profile.about }}</li>
+            </ul>
+            <p><a href="{% url 'update_profile' %}" class="btn btn-default" role="button">Edit profile</a></p>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

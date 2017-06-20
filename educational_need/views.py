@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 # Model imports
 from .models import EducationalNeed
+from accounts.models import Profile
 # Form imports
 from .forms import EducationalNeedForm
 
@@ -8,9 +9,8 @@ from .forms import EducationalNeedForm
 def list_view(request):
     """Returns a view with a list of all EducationalNeed objects."""
     educational_needs = EducationalNeed.objects.all()
-    
     # Create context dictionary which can be accessed in template
-    context = {'educational_needs': educational_needs}
+    context = {'educational_needs': educational_needs,}
     template = 'educational_need/list_view.html'
     return render(request, template, context)
 

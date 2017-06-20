@@ -13,7 +13,7 @@ SECRET_KEY = '&lg+6v7yafcdksp6at3bv6s8&ux(h_m2m^*=0a+yh$dv%+!l9!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'educational_need'
 ]
 
@@ -110,3 +111,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'common-static'),
+)
+
+# Email server configuration
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'  # E.g. smtp.gmail.com
+EMAIL_HOST_USER = 'jananicaredev@gmail.com'  # E.g. user@gmail.com
+EMAIL_HOST_PASSWORD = 'jananipassword'
+EMAIL_PORT = 587

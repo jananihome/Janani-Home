@@ -1,0 +1,9 @@
+#user-profile #profile-image img {
+    max-height: 200px;
+    float: left;
+    margin: 0 15px 10px 0;
+}
+
+#user-profile ul {
+    list-style: none;
+}

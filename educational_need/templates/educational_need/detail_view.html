@@ -14,8 +14,7 @@
 				<h1>{{ educational_need }} by {{ educational_need.user }}</h1>
 				<hr />
 				<div class="col-sm-3">
-					<img class="profile-image" src="{% static 'images/no-image.jpg' %}" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
-					
+					<img class="profile-image" src="{% if educational_need.user.profile.photo %}{{ educational_need.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}"" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
 				</div>
 				<div class="col-sm-3">
 					<p><strong>{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}</strong></p>

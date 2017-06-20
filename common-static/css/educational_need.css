@@ -106,3 +106,25 @@ a {
 }
 
 /* end FORM VIEW */
+
+/* DETAIL VIEW */
+
+.profile-image {
+    max-height: 300px;
+}
+
+/* end DETAIL VIEW */
+
+/* USER PROFILE */
+
+#user-profile #profile-image img {
+    max-height: 200px;
+    float: left;
+    margin: 0 15px 10px 0;
+}
+
+#user-profile ul {
+    list-style: none;
+}
+
+/* end USER PROFILE */

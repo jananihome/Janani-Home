@@ -14,8 +14,13 @@
                 <li><a href="#"><span class="glyphicon glyphicon-phone"></span><span> Blood Donar Contacts</span></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span><span> Profile</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-off"></span><span> Logout</span></a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'view_profile' %}"><span class="glyphicon glyphicon-user"></span><span> Profile</span></a></li>
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span><span> Logout</span></a></li>
+                {% else %}
+                    <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span><span> Sign-up</span></a></li>
+                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-off"></span><span> Login</span></a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
