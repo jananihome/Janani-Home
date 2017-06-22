@@ -14,7 +14,6 @@ class EducationalNeed(models.Model):
     status = models.CharField(max_length=200)
     # TODO: Make sure the amount is in a currency based on user country.
     amount_required = models.FloatField()
-    documents = models.FileField()
     requirement_description = models.TextField()
 
     # Define choices for communication_mode field

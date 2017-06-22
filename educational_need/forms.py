@@ -13,6 +13,5 @@ class EducationalNeedForm(forms.ModelForm):
             'college_school_contact_details',
             'status',
             'amount_required',
-            'documents',
             'requirement_description',
             'communication_mode',)
