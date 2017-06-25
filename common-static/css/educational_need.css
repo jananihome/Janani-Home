@@ -127,4 +127,12 @@ a {
     list-style: none;
 }
 
+#edit-profile-form input, textarea {
+    width: 70%;
+}
+
+#edit-profile-form .helptext, label {
+    display: block;
+}
+
 /* end USER PROFILE */

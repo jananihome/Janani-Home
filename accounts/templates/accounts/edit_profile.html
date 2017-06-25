@@ -4,15 +4,18 @@
     <div class="row content">
 
         <div class="col-sm-3 sidenav hidden-xs">
+            <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
         </div>
         <div class="col-sm-9">
           <h2>Edit profile</h2>
+        <div id="edit-profile-form">
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
             <button type="submit">Save changes</button>
           </form>
+        </div>
         </div>
     </div>
 </div>
