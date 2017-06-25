@@ -14,29 +14,41 @@
 				<h1>{{ educational_need }} by {{ educational_need.user }}</h1>
 				<hr />
 				<div class="col-sm-3">
-					<img class="profile-image" src="{% if educational_need.user.profile.photo %}{{ educational_need.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}"" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
 				</div>
 				<div class="col-sm-3">
-					<p><strong>{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}</strong></p>
-					<p>E-mail: {{ educational_need.user.email }}</p>
-					<p>Phone: </p>
-					<p>City: </p>
-					<p>State: </p>
-					<p>Country: </p>
+				</div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">Educational need description</div>
+                  <div class="panel-body">
 					<p>Amount required: <strong>${{ educational_need.amount_required }}</strong></p>
-					<p>Requirement description: {{ educational_need.requirement_description }}</p>
-				</div>					
-				
-				<div class="col-sm-3">
-					<p>Permanent address: {{ educational_need.permanent_address }}</p>
-					<p>Current address: {{ educational_need.current_address }}</p>
-					<p>College school address: {{ educational_need.college_school_address }}</p>
-					<p>College school contact details: {{ educational_need.college_school_contact_details }}</p>
-					<p>View count: {{ educational_need.view_count }}</p>
-					<p>Status: {{ educational_need.status }}</p>
-					<p>Documents: <a href="{{ educational_need.documents.url }}">Download</a></p>
-					<p>Communication mode: {{ educational_need.get_communication_mode_display }}</p>
-				</div>				
+					<p><strong>Description: </strong>{{ educational_need.requirement_description }}</p>
+                  </div>
+                </div>
+
+				<div class="panel panel-default">
+                  <div class="panel-heading">User details</div>
+                  <div class="panel-body">
+                    {% if request.user.profile.photo %}
+					<img class="profile-image" src="{% if educational_need.user.profile.photo %}{{ educational_need.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}"" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
+                    {% endif %}
+
+                    <p><strong>Name: </strong>{{ educational_need.user.first_name }}</p>
+                    <p><strong>Surname: </strong>{{ educational_need.user.last_name }}</p>
+                    <p><strong>Birth date: </strong>{{ educational_need.user.profile.birth_date }}</p>
+                    <p><strong>Location: </strong>{{ educational_need.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, <strong>{{ request.user.profile.country.name }}</strong></p>
+                    <p><strong>Description: </strong>{{ educational_need.user.profile.about }}</p>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">Contact details</div>
+                  <div class="panel-body">
+                    <p><strong>Mobile number: </strong>{{ educational_need.user.profile.mobile_number }}</p>
+                    <p><strong>Phone number: </strong>{{ educational_need.user.profile.phone_number }}</p>
+                    <p><strong>E-mail: </strong>{{ educational_need.user.email }}</p>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
