@@ -22,24 +22,23 @@
                     <a href="{% url 'login' %}">log in</a> to your account.</p>
                 {% endif %}
 				<hr />
-                <ul id="results-list">
+                <div id="results-list">
                     {% for result in educational_needs %}
-                    <li id="result-{{ result.pk }}">
-                        <div class="result-container">
-                            <a href="{% url 'detail_view' pk=result.pk %}"><img class="profile-image" src="{% if result.user.profile.photo %}{{ result.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}"></a>
-                            <p><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></p>
-							<div class="view-details-btn"><a href="{% url 'detail_view' pk=result.pk %}" class="btn btn-default btn-lg" role="button">View Details</a></div>
-                            <p>E-mail: {{ result.user.email }}</p>
-                            <p>Phone: </p>
-                            <p>City: </p>
-                            <p>State: </p>
-                            <p>Country: </p>
-                            <p>Amount required: <strong>${{ result.amount_required }}</strong></p>
+                        <div class="result-{{ result.pk }}">
+                            <div class="panel panel-default">
+                              <div class="panel-heading"><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></div>
+                              <div class="panel-body">
+							    <div class="view-details-btn"><a href="{% url 'detail_view' pk=result.pk %}" class="btn btn-default btn-lg" role="button">View Details</a></div>
+                                <p><a href="{% url 'detail_view' pk=result.pk %}"><img class="profile-image" src="{% if result.user.profile.photo %}{{ result.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}" alt="{{ result.user.first_name }} {{ result.user.last_name }}"></a></p>
+                                <p>Country: <strong>{{ result.user.profile.country.name }}</strong></p>
+                                <p>State: {{ result.user.profile.state }}</p>
+                                <p>City: {{ result.user.profile.city }}</p>
+                                <p>Amount required: <strong>${{ result.amount_required }}</strong></p>
+                              </div>
+                            </div>
                         </div>
-                    </li>
                     {% endfor %}
-                </ul>
-
+                </div>
 
             </div>
         </div>

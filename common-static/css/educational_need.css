@@ -64,28 +64,14 @@ a {
 
 /* LIST VIEW */
 
-#results-list {
-    list-style: none;
-}
-
-#results-list li {
-    border-bottom: 1px solid #ddd;
-}
-
-.result-container {
-    height: 200px;
-    clear: both;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.result-container .profile-image {
+#results-list .profile-image {
     float: left;
-    height: 100%;
+    height: 150px;
+    width: 150px;
     margin-right: 15px;
 }
 
-.result-container .view-details-btn {
+#results-list .view-details-btn {
 	float: right;
 }
 
