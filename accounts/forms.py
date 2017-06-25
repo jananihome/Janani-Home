@@ -24,7 +24,9 @@ class ProfileForm(forms.ModelForm):
         fields = ('birth_date', 'mobile_number', 'phone_number',
                   'country', 'state', 'zip_code', 'city', 'district', 'photo',
                   'about',)
-
+        widgets = {
+            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
+        }
 
 class PasswordChangeForm(PasswordChangeForm):
     class Meta:
