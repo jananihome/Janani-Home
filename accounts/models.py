@@ -20,9 +20,6 @@ class Profile(models.Model):
     district = models.CharField(max_length=50, blank=True)
     photo = models.ImageField(blank=True)
     about = models.TextField(max_length=500, blank=True)
-    educational_need = models.OneToOneField(EducationalNeed,
-                                            on_delete=models.SET_NULL,
-                                            blank=True, null=True)
 
 # Define signals to update user profile whenever we create/update User model.
 

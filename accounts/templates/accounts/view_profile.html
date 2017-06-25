@@ -5,27 +5,35 @@
     <div class="row content">
 
         <div class="col-sm-3 sidenav hidden-xs">
+            <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
         </div>
         <div class="col-sm-9">
           <div id="user-profile">
           <h2>Profile for {{ request.user }}</h2>
-            <ul>
-              {% if request.user.profile.photo %}
-                <div id="profile-image"><img src="{{ request.user.profile.photo.url }}" alt="{{ request.user }}"a></div>
-              {% endif %}
-              <li>First name: {{ request.user.first_name }}</li>
-              <li>Last name: {{ request.user.last_name }}</li>
-              <li>Birth date: {{ request.user.profile.birth_date }}</li>
-              <li>Mobile number: {{ request.user.profile.mobile_number }}</li>
-              <li>Phone number: {{ request.user.profile.phone_number }}</li>
-              <li>Country: {{ request.user.profile.country.name }} <img src="{{ request.user.profile.country.flag }}" alt="{{ request.user.profile.country }}"></li>
-              <li>State: {{ request.user.profile.state }}</li>
-              <li>Zip code: {{ request.user.profile.zip_code }}</li>
-              <li>City: {{ request.user.profile.city }}</li>
-              <li>District: {{ request.user.profile.district }}</li>
-              <li>About: {{ request.user.profile.about }}</li>
-            </ul>
-            <p><a href="{% url 'update_profile' %}" class="btn btn-default" role="button">Edit profile</a></p>
+
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">User details</div>
+                  <div class="panel-body">
+                    {% if request.user.profile.photo %}
+                      <div id="profile-image"><img src="{{ request.user.profile.photo.url }}" alt="{{ request.user }}"a></div>
+                    {% endif %}
+
+                    <p><strong>Name: </strong>{{ request.user.first_name }}</p>
+                    <p><strong>Surname: </strong>{{ request.user.last_name }}</p>
+                    <p><strong>Birth date: </strong>{{ request.user.profile.birth_date }}</p>
+                    <p><strong>Location: </strong>{{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, <strong>{{ request.user.profile.country.name }}</strong></p>
+                    <p><strong>Description: </strong>{{ request.user.profile.about }}</p>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Contact details</div>
+                  <div class="panel-body">
+                    <p><strong>Mobile number: </strong>{{ request.user.profile.mobile_number }}</p>
+                    <p><strong>Phone number: </strong>{{ request.user.profile.phone_number }}</p>
+                    <p><strong>E-mail: </strong>{{ request.user.email }}</p>
+                  </div>
+                </div>
           </div>
         </div>
     </div>
