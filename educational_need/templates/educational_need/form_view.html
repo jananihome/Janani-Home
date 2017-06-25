@@ -25,15 +25,31 @@
 				<h1>Educational Need <small class="text-muted">Submit your application</small></h1>
 				<hr />
 				{% if user.is_authenticated %}
-				<div id="educational-need-form-container">
-					<form method="post" enctype="multipart/form-data">
-						{% csrf_token %}
-						{{ form.as_ul }}
-						<input type="submit" value="Submit" />
-					</form>
-				</div>
+					{% if request.user.first_name and request.user.last_name and request.user.email and request.user.profile.birth_date and request.user.profile.mobile_number and request.user.profile.city and request.user.profile.state and request.user.profile.country %}
+						<div id="educational-need-form-container">
+							<form method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								{{ form.as_ul }}
+								<input type="submit" value="Submit" />
+							</form>
+						</div>
+					{% else %}
+					<p class="alert alert-danger">Your profile is incomplete! The following fields are required to submit an application:</p>
+						<ul>
+							<li>first name</li>
+							<li>last name</li>
+							<li>e-mail</li>
+							<li>birth date</li>
+							<li>mobile number</li>
+							<li>country</li>
+							<li>state</li>
+							<li>city</li>
+						</ul>
+						<a href="{% url 'update_profile' %}">Please update your profile</a> to include all this information.
+					{% endif %}
 				{% else %}
-					<p class="alert alert-danger">Development Info: You are not logged in! <a href="../admin">Log in</a> before using this form.</p>
+					<p class="alert alert-danger">You are not logged in! <a href="{% url 'login' %}">Log in</a> or <a
+							href="{% url 'signup' %}">sign-up</a> before using this form.</p>
 				{% endif %}
 
             </div>
