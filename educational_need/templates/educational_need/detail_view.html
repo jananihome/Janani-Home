@@ -29,14 +29,14 @@
 				<div class="panel panel-default">
                   <div class="panel-heading">User details</div>
                   <div class="panel-body">
-                    {% if request.user.profile.photo %}
+                    {% if educational_need.user.profile.photo %}
 					<img class="profile-image" src="{% if educational_need.user.profile.photo %}{{ educational_need.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}"" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
                     {% endif %}
 
                     <p><strong>Name: </strong>{{ educational_need.user.first_name }}</p>
                     <p><strong>Surname: </strong>{{ educational_need.user.last_name }}</p>
                     <p><strong>Birth date: </strong>{{ educational_need.user.profile.birth_date }}</p>
-                    <p><strong>Location: </strong>{{ educational_need.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, <strong>{{ request.user.profile.country.name }}</strong></p>
+                    <p><strong>Location: </strong>{{ educational_need.user.profile.zip_code }} {{ educational_need.user.profile.city }}, {{ educational_need.user.profile.district }}, {{ educational_need.user.profile.state }}, <strong>{{ educational_need.user.profile.country.name }}</strong></p>
                     <p><strong>Description: </strong>{{ educational_need.user.profile.about }}</p>
                   </div>
                 </div>
