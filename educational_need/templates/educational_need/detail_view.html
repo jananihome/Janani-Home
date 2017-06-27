@@ -46,7 +46,16 @@
                   <div class="panel-body">
                     <p><strong>Mobile number: </strong>{{ educational_need.user.profile.mobile_number }}</p>
                     <p><strong>Phone number: </strong>{{ educational_need.user.profile.phone_number }}</p>
-                    <p><strong>E-mail: </strong>{{ educational_need.user.email }}</p>
+                    <h3>Contact user</h3>
+                    {% if user.is_authenticated %}
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Send message</button>
+                        </form>
+                    {% else %}
+                        <p class="alert alert-danger">You are not logged in! Please register or log in to contact this user.</p>
+                    {% endif %}
                   </div>
                 </div>
             </div>

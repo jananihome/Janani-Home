@@ -1,9 +1,10 @@
+from django.core.mail import EmailMessage
 from django.shortcuts import get_object_or_404, redirect, render
 # Model imports
 from .models import EducationalNeed
 from accounts.models import Profile
 # Form imports
-from .forms import EducationalNeedForm
+from .forms import EducationalNeedForm, UserContactForm
 
 
 def list_view(request):
@@ -18,17 +19,40 @@ def list_view(request):
 def detail_view(request, pk):
     """Returns a detailed view of a specific EducationalNeed object."""
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
-    
-    # Increment view count every time view is requested.
-    # TODO: Find a way to increment view count only once per user session.
-    educational_need.view_count += 1
-    educational_need.save()
-    
+
+    if request.method == 'POST':
+        form = UserContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            toemail = educational_need.user.email
+            fromemail = request.user.email
+
+            email = EmailMessage(
+                "Message from {} on Janani Care.".format(educational_need.user),
+                message,
+                "{} on Janani Care.".format(educational_need.user),
+                [toemail],
+                headers={'Reply-To': fromemail}
+            )
+            email.send()
+            return redirect('message_sent')
+    else:
+        # Increment view count every time view is requested other than POST.
+        # TODO: Find a way to increment view count only once per user session.
+        educational_need.view_count += 1
+        educational_need.save()
+
+    # Load form class
+    form = UserContactForm
+
     # Create context dictionary which can be accessed in template
-    context = {'educational_need': educational_need}
+    context = {'educational_need': educational_need, 'form': form}
     template = 'educational_need/detail_view.html'
     return render(request, template, context)
 
+def message_sent(request):
+    template = 'educational_need/message_sent.html'
+    return render(request, template)
 
 def add_educational_need(request):
     """Returns a view for adding EducationalNeed objects and handles POST

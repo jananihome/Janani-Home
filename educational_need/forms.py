@@ -2,6 +2,7 @@ from django import forms
 # Models imports
 from .models import EducationalNeed
 
+
 class EducationalNeedForm(forms.ModelForm):
     """Defines a front-end form for EducationalNeed model."""
     class Meta:
@@ -15,3 +16,10 @@ class EducationalNeedForm(forms.ModelForm):
             'amount_required',
             'requirement_description',
             'communication_mode',)
+
+
+class UserContactForm(forms.Form):
+    message = forms.CharField(
+        required=True,
+        widget=forms.Textarea
+    )
