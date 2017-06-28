@@ -12,7 +12,7 @@ def list_view(request):
     """Returns a listing with only active EducationalNeed objects."""
     # Select user profiles with an active educational need
     users = Profile.objects.filter(active_educational_need__isnull=False)
-	# Select active educational needs from the above user set
+    # Select active educational needs from the above user set
     educational_needs = [user.active_educational_need for user in users]
     # Create context dictionary which can be accessed in template
     context = {'educational_needs': educational_needs,}

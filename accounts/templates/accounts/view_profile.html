@@ -16,9 +16,9 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">User details</div>
                   <div class="panel-body">
-					<div id="profile-image">
-						{% avatar user 150 %}
-					</div>
+                    <div id="profile-image">
+                        {% avatar user 150 %}
+                    </div>
                     <p><strong>Name: </strong>{{ request.user.first_name }}</p>
                     <p><strong>Surname: </strong>{{ request.user.last_name }}</p>
                     <p><strong>Birth date: </strong>{{ request.user.profile.birth_date }}</p>
@@ -34,14 +34,14 @@
                     <p><strong>E-mail: </strong>{{ request.user.email }}</p>
                   </div>
                 </div>                
-				<div class="panel panel-default">
+                <div class="panel panel-default">
                   <div class="panel-heading">Active Educational Need</div>
                   <div class="panel-body">
-					{% if request.user.profile.active_educational_need %}
+                    {% if request.user.profile.active_educational_need %}
                     <p><a href="{% url 'detail_view' pk=request.user.profile.active_educational_need.pk %}">{{ request.user.profile.active_educational_need }}</a></p>
-					{% else %}
-						You don't have an active educational need. You can create one and activate it in your profile settings.
-					{% endif %}
+                    {% else %}
+                        You don't have an active educational need. You can create one and activate it in your profile settings.
+                    {% endif %}
                   </div>
                 </div>
           </div>

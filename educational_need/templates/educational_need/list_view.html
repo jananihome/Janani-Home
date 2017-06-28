@@ -15,22 +15,21 @@
             </div>
 
             <div class="col-sm-9">
-				<h1>Educational Need <small class="text-muted">Find and help people in educational need</small></h1>
+                <h1>Educational Need <small class="text-muted">Find and help people in educational need</small></h1>
                 {% if user.is_authenticated %}
-				<a href="{% url 'add_educational_need' %}" class="btn btn-default" role="button">Add Educational Need</a>
+                <a href="{% url 'add_educational_need' %}" class="btn btn-default" role="button">Add Educational Need</a>
                 {% else %}
                 <p class="alert alert-info">Want to submit your application or help others in their need? <a href="{% url 'signup' %}">Sign-up</a> or
                     <a href="{% url 'login' %}">log in</a> to your account.</p>
                 {% endif %}
-				<hr />
+                <hr />
                 <div id="results-list">
                     {% for result in educational_needs %}
-						{{ result }}
                         <div class="result-{{ result.pk }}">
                             <div class="panel panel-default">
                               <div class="panel-heading"><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></div>
                               <div class="panel-body">
-							    <div class="view-details-btn"><a href="{% url 'detail_view' pk=result.pk %}" class="btn btn-default btn-lg" role="button">View Details</a></div>
+                                <div class="view-details-btn"><a href="{% url 'detail_view' pk=result.pk %}" class="btn btn-default btn-lg" role="button">View Details</a></div>
                                 <div class="profile-image">{% avatar result.user 150 %}</div>
                                 <p>Country: <strong>{{ result.user.profile.country.name }}</strong></p>
                                 <p>State: {{ result.user.profile.state }}</p>
