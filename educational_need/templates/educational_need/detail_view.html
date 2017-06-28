@@ -1,5 +1,6 @@
 {% extends 'educational_need/base.html' %}
 {% load static %}
+{% load avatar_tags %}
 
 {% block content %}
 
@@ -29,9 +30,7 @@
 				<div class="panel panel-default">
                   <div class="panel-heading">User details</div>
                   <div class="panel-body">
-                    {% if educational_need.user.profile.photo %}
-					<img class="profile-image" src="{% if educational_need.user.profile.photo %}{{ educational_need.user.profile.photo.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}"" alt="{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}">
-                    {% endif %}
+                    {% avatar educational_need.user 250 class="profile-image" %}
 
                     <p><strong>Name: </strong>{{ educational_need.user.first_name }}</p>
                     <p><strong>Surname: </strong>{{ educational_need.user.last_name }}</p>

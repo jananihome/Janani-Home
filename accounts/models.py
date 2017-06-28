@@ -18,7 +18,6 @@ class Profile(models.Model):
     zip_code = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length=50, blank=True)
     district = models.CharField(max_length=50, blank=True)
-    photo = models.ImageField(blank=True)
     about = models.TextField(max_length=500, blank=True)
 
 # Define signals to update user profile whenever we create/update User model.
