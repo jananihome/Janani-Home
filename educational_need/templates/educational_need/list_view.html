@@ -25,6 +25,7 @@
 				<hr />
                 <div id="results-list">
                     {% for result in educational_needs %}
+						{{ result }}
                         <div class="result-{{ result.pk }}">
                             <div class="panel panel-default">
                               <div class="panel-heading"><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></div>

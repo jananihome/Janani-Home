@@ -33,6 +33,16 @@
                     <p><strong>Phone number: </strong>{{ request.user.profile.phone_number }}</p>
                     <p><strong>E-mail: </strong>{{ request.user.email }}</p>
                   </div>
+                </div>                
+				<div class="panel panel-default">
+                  <div class="panel-heading">Active Educational Need</div>
+                  <div class="panel-body">
+					{% if request.user.profile.active_educational_need %}
+                    <p><a href="{% url 'detail_view' pk=request.user.profile.active_educational_need.pk %}">{{ request.user.profile.active_educational_need }}</a></p>
+					{% else %}
+						You don't have an active educational need. You can create one and activate it in your profile settings.
+					{% endif %}
+                  </div>
                 </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.shortcuts import get_object_or_404, redirect, render
 # Model imports
@@ -8,8 +9,11 @@ from .forms import EducationalNeedForm, UserContactForm
 
 
 def list_view(request):
-    """Returns a view with a list of all EducationalNeed objects."""
-    educational_needs = EducationalNeed.objects.all()
+    """Returns a listing with only active EducationalNeed objects."""
+    # Select user profiles with an active educational need
+    users = Profile.objects.filter(active_educational_need__isnull=False)
+	# Select active educational needs from the above user set
+    educational_needs = [user.active_educational_need for user in users]
     # Create context dictionary which can be accessed in template
     context = {'educational_needs': educational_needs,}
     template = 'educational_need/list_view.html'
