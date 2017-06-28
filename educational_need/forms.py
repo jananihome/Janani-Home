@@ -16,6 +16,10 @@ class EducationalNeedForm(forms.ModelForm):
             'amount_required',
             'requirement_description',
             'communication_mode',)
+        amount_required = forms.CharField(
+            required=True,
+            widget=forms.CharField
+        )
 
 
 class UserContactForm(forms.Form):
