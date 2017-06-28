@@ -1,10 +1,12 @@
 {% extends 'educational_need/base.html' %}
+{% load avatar_tags %}
 {% block content %}
 <div class="container-fluid">
     <div class="row content">
 
         <div class="col-sm-3 sidenav hidden-xs">
             <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
+            <p><a href="{% url 'avatar_change' %}">Change profile image</a></p>
         </div>
         <div class="col-sm-9">
           <div id="user-profile">
@@ -14,10 +16,9 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">User details</div>
                   <div class="panel-body">
-                    {% if request.user.profile.photo %}
-                      <div id="profile-image"><img src="{{ request.user.profile.photo.url }}" alt="{{ request.user }}"a></div>
-                    {% endif %}
-
+					<div id="profile-image">
+						{% avatar user 150 %}
+					</div>
                     <p><strong>Name: </strong>{{ request.user.first_name }}</p>
                     <p><strong>Surname: </strong>{{ request.user.last_name }}</p>
                     <p><strong>Birth date: </strong>{{ request.user.profile.birth_date }}</p>
