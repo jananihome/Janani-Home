@@ -19,6 +19,12 @@ class Profile(models.Model):
     city = models.CharField(max_length=50, blank=True)
     district = models.CharField(max_length=50, blank=True)
     about = models.TextField(max_length=500, blank=True)
+    active_educational_need = models.ForeignKey(
+        EducationalNeed,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
 
 # Define signals to update user profile whenever we create/update User model.
 
