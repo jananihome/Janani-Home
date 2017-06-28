@@ -1,3 +1,5 @@
+import moneyed
+from djmoney.models.fields import MoneyField
 from django.db import models
 
 
@@ -12,8 +14,7 @@ class EducationalNeed(models.Model):
     # TODO: Find a way to increment view count on object views.
     view_count = models.IntegerField(default=0)
     status = models.CharField(max_length=200)
-    # TODO: Make sure the amount is in a currency based on user country.
-    amount_required = models.FloatField()
+    amount_required = MoneyField(max_digits=10, decimal_places=2, default_currency='INR')
     requirement_description = models.TextField()
 
     # Define choices for communication_mode field
