@@ -35,14 +35,17 @@
                   </div>
                 </div>                
                 <div class="panel panel-default">
-                  <div class="panel-heading">Active Educational Need</div>
+                  <div class="panel-heading">Educational Needs</div>
                   <div class="panel-body">
-                    {% if request.user.profile.active_educational_need %}
-                    <p><a href="{% url 'detail_view' pk=request.user.profile.active_educational_need.pk %}">{{ request.user.profile.active_educational_need }}</a></p>
-                    {% else %}
-                        You don't have an active educational need. You can create one and activate it in your profile settings.
+                    {% if educational_needs %}
+						{% for need in educational_needs %}
+							<p><a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a> (<a href="{% url 'edit_educational_need' pk=need.pk %}">Edit</a> | <a href="{% url 'delete_need' pk=need.pk %}">Delete</a>){% if need.pk == request.user.profile.active_educational_need.pk %} <strong>Active</strong>{% else %} <a href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% endif %}</p>
+						{% endfor %}
+					{% else %}
+                        You don't have any educational needs.
                     {% endif %}
-                  </div>
+					<a href="{% url 'add_educational_need' %}" class="btn btn-default" role="button">Add Educational Need</a>
+                  </div>				  
                 </div>
           </div>
         </div>

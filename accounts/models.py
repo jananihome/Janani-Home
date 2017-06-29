@@ -21,7 +21,7 @@ class Profile(models.Model):
     about = models.TextField(max_length=500, blank=True)
     active_educational_need = models.ForeignKey(
         EducationalNeed,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True
     )

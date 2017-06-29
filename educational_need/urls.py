@@ -7,4 +7,7 @@ urlpatterns = [
     url(r'^educational_need/(?P<pk>\d+)/$', views.detail_view, name='detail_view'),
     url(r'^educational_need/message_sent/$', views.message_sent, name='message_sent'),
     url(r'^add-educational-need/$', views.add_educational_need, name='add_educational_need'),
+    url(r'^educational-need/(?P<pk>\d+)/edit/$', views.edit_educational_need, name='edit_educational_need'),
+    url(r'^educational-need/(?P<pk>\d+)/delete/$', views.delete_need, name='delete_need'),
+	url(r'^educational-need/(?P<pk>\d+)/activate/$', views.activate_need, name='activate_need')
 ]
