@@ -19,16 +19,11 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-
-    def __init__(self, user, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['active_educational_need'].queryset = EducationalNeed.objects.filter(user=user)
         
     class Meta:
         model = Profile
         fields = ('birth_date', 'mobile_number', 'phone_number',
-                  'country', 'state', 'zip_code', 'city', 'district', 'about',
-                  'active_educational_need')
+                  'country', 'state', 'zip_code', 'city', 'district', 'about')
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
         }

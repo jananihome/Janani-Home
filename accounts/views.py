@@ -6,14 +6,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db import transaction
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
 from .forms import ProfileForm, SignupForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
-
+from educational_need.models import EducationalNeed
 
 def signup(request):
     if request.user.is_authenticated():
@@ -58,7 +58,10 @@ def activate(request, uidb64, token):
 
 @login_required
 def view_profile(request):
-    return render(request, 'accounts/view_profile.html')
+    educational_needs = EducationalNeed.objects.filter(user=request.user)
+    template = 'accounts/view_profile.html'
+    context = {'educational_needs': educational_needs}
+    return render(request, template, context)
 
 
 @login_required
@@ -66,7 +69,7 @@ def view_profile(request):
 def update_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.user, request.POST, request.FILES, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -76,7 +79,7 @@ def update_profile(request):
             messages.error(request, _('Please correct the error below.'))
     else:
         user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(request.user, instance=request.user.profile)
+        profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'accounts/edit_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
@@ -100,3 +103,4 @@ def change_password(request):
     return render(request, 'accounts/change_password.html', {
         'form': form
     })
+
