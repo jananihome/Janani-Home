@@ -80,8 +80,15 @@ def add_educational_need(request):
     # If request is not POST, create empty form.
     else:
         form = EducationalNeedForm()
-        
+    
+    # Check if user profile has required information for adding a need
+	# It will be False if any of the fields is blank or null
+    profile_complete = all([request.user.first_name, request.user.last_name,
+                           request.user.email, request.user.profile.birth_date,
+                           request.user.profile.mobile_number, request.user.profile.city,
+                           request.user.profile.state, request.user.profile.country])
+    
     # Create context dictionary which can be accessed in template
-    context = {'form': form}
+    context = {'form': form, 'profile complete': profile_complete}
     template = 'educational_need/form_view.html'
     return render(request, template, context)
