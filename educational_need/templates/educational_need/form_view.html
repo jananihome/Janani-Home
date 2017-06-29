@@ -13,7 +13,7 @@
 				<h1>Educational Need <small class="text-muted">Submit your application</small></h1>
 				<hr />
 				{% if user.is_authenticated %}
-					{% if request.user.first_name and request.user.last_name and request.user.email and request.user.profile.birth_date and request.user.profile.mobile_number and request.user.profile.city and request.user.profile.state and request.user.profile.country %}
+					{% if profile_complete %}
 						<div id="educational-need-form-container">
 							<form method="post" enctype="multipart/form-data">
 								{% csrf_token %}
