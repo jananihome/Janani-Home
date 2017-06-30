@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic.list import ListView
 # Model imports
 from .models import EducationalNeed
 from accounts.models import Profile
@@ -9,18 +9,28 @@ from accounts.models import Profile
 from .forms import EducationalNeedForm, UserContactForm
 
 
-def list_view(request):
+class EducationalNeedListView(ListView):
     """Returns a listing with only active EducationalNeed objects."""
+
+    model = EducationalNeed
+    template_name = 'educational_need/list_view.html'
+    paginate_by = 1
+
     # Select user profiles with an active educational need
     users = Profile.objects.filter(active_educational_need__isnull=False)
-    # Select active educational needs from the above user set
-    educational_needs = [user.active_educational_need for user in users]
-    # Select distinct countries from active educational needs
-    countries = [need.user.profile.country.name for need in educational_needs]
-    # Create context dictionary which can be accessed in template
-    context = {'educational_needs': educational_needs,'countries': countries}
-    template = 'educational_need/list_view.html'
-    return render(request, template, context)
+
+    def get_queryset(self):
+        # Select active educational needs from the user list
+        queryset = [user.active_educational_need for user in self.users]
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['page_title'] = 'JananiCare - find and help people in educational need'
+        # Select active educational needs from the above user set
+        educational_needs = [user.active_educational_need for user in self.users]
+        data['countries'] = [need.user.profile.country.name for need in educational_needs]
+        return data
 
 
 def detail_view(request, pk):

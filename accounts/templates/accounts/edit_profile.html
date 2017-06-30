@@ -1,22 +1,34 @@
 {% extends 'educational_need/base.html' %}
-{% block content %}
-<div class="container-fluid">
-    <div class="row content">
+{% load widget_tweaks %}
+{% block sidebar %}
+    <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
+{% endblock sidebar %}
 
-        <div class="col-sm-3 sidenav hidden-xs">
-            <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
+{% block heading %}
+    <h4 class="margin-padding-0">Edit profile</h4>
+{% endblock heading %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ user_form.non_field_errors }}
+        {{ profile_form.non_field_errors }}
+        {% for field in user_form %}
+            <div class="form-group row">
+                {{ field.errors }}
+                <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                {% render_field field class+="form-control" %}
+            </div>
+        {% endfor %}
+        {% for field in profile_form %}
+            <div class="form-group row">
+                {{ field.errors }}
+                <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                {% render_field field class+="form-control" %}
+            </div>
+        {% endfor %}
+        <br>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-secondary">Submit</button>
         </div>
-        <div class="col-sm-9">
-          <h2>Edit profile</h2>
-        <div id="edit-profile-form">
-          <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <button type="submit">Save changes</button>
-          </form>
-        </div>
-        </div>
-    </div>
-</div>
+    </form>
 {% endblock %}

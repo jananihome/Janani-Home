@@ -1,27 +1,39 @@
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-                <span class = 'icon-bar'></span>
-                <span class = 'icon-bar'></span>
-                <span class = 'icon-bar'></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'list_view' %}">Janani Care</br><sub><span> Powered to rejuvinate your birth.</span></sub></a>
-        </div>
-        <div class = "collapse navbar-collapse" id = "topNavBar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'list_view' %}"><span class="glyphicon glyphicon-education"></span><span> Educational Need</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-phone"></span><span> Blood Donar Contacts</span></a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'view_profile' %}"><span class="glyphicon glyphicon-user"></span><span> Profile</span></a></li>
-                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span><span> Logout</span></a></li>
-                {% else %}
-                    <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span><span> Sign-up</span></a></li>
-                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-off"></span><span> Login</span></a></li>
-                {% endif %}
-            </ul>
-        </div>
+<nav class=" navbar navbar-toggleable-sm navbar-inverse bg-inverse border-bottom-black">
+
+    <div class="navbar-brand text-15 col-md-3 text-center text-title">
+        <a>Janani Home<br>Mothers love</a>
+    </div>
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse col-md-9" id="navbarNavDropdown">
+        <ul class="navbar-nav text-14 col-md-8">
+            <li class="nav-item active">
+                <a class="nav-link hover-gray" href="{% url 'list_view' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">school</i></span>&nbsp;Educational Need <span class="sr-only">(current)</span></a>
+            </li>
+            &nbsp;&nbsp;
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="#" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">phone_android</i></span>&nbsp;Blood Donar Contacts</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-14 col-md-4">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="{% url 'view_profile' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">account_circle</i></span>&nbsp;Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="{% url 'logout' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">power_settings_new</i></span>&nbsp;Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="{% url 'signup' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">account_circle</i></span>&nbsp;Sign-up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="{% url 'login' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">power_settings_new</i></span>&nbsp;Login</a>
+            </li>
+            {% endif %}
+        </ul>
     </div>
 </nav>

@@ -1,54 +1,56 @@
 {% extends 'educational_need/base.html' %}
 {% load avatar_tags %}
+{% block sidebar %}
+    <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
+    <p><a href="{% url 'avatar_change' %}">Change profile image</a></p>
+    <p><a href="{% url 'change_password' %}">Change password</a></p>
+{% endblock sidebar %}
+{% block heading %}
+<h4 class="margin-padding-0">Profile settings</h4>
+{% endblock heading %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row content">
-
-        <div class="col-sm-3 sidenav hidden-xs">
-            <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
-            <p><a href="{% url 'avatar_change' %}">Change profile image</a></p>
-        </div>
-        <div class="col-sm-9">
-          <div id="user-profile">
-          <h2>Profile for {{ request.user }}</h2>
-
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">User details</div>
-                  <div class="panel-body">
-                    <div id="profile-image">
-                        {% avatar user 150 %}
-                    </div>
-                    <p><strong>Name: </strong>{{ request.user.first_name }}</p>
-                    <p><strong>Surname: </strong>{{ request.user.last_name }}</p>
-                    <p><strong>Birth date: </strong>{{ request.user.profile.birth_date }}</p>
-                    <p><strong>Location: </strong>{{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, <strong>{{ request.user.profile.country.name }}</strong></p>
-                    <p><strong>Description: </strong>{{ request.user.profile.about }}</p>
-                  </div>
+    <div class="card w-100">
+        <div class="card-header">User details</div>
+        <div class="card-block row">
+            <div class="col-md-3 text-center">
+                <div id="profile-image">
+                    {% avatar user 150 %}
                 </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">Contact details</div>
-                  <div class="panel-body">
-                    <p><strong>Mobile number: </strong>{{ request.user.profile.mobile_number }}</p>
-                    <p><strong>Phone number: </strong>{{ request.user.profile.phone_number }}</p>
-                    <p><strong>E-mail: </strong>{{ request.user.email }}</p>
-                  </div>
-                </div>                
-                <div class="panel panel-default">
-                  <div class="panel-heading">Educational Needs</div>
-                  <div class="panel-body">
-                    {% if educational_needs %}
-						{% for need in educational_needs %}
-							<p><a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a> (<a href="{% url 'edit_educational_need' pk=need.pk %}">Edit</a> | <a href="{% url 'delete_need' pk=need.pk %}">Delete</a>){% if need.pk == request.user.profile.active_educational_need.pk %} <strong>Active</strong>{% else %} <a href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% endif %}</p>
-						{% endfor %}
-					{% else %}
-                        You don't have any educational needs.
-                    {% endif %}
-					<a href="{% url 'add_educational_need' %}" class="btn btn-default" role="button">Add Educational Need</a>
-                  </div>				  
-                </div>
-          </div>
+            </div>
+            <div class="col-md-7 text-14 align-middle">
+                <p>Name: {{ request.user.first_name }}</p>
+                <p>Surname: {{ request.user.last_name }}</p>
+                <p>Birth date: {{ request.user.profile.birth_date }}</p>
+                <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, <strong>{{ request.user.profile.country.name }}</strong></p>
+                <p>Description: {{ request.user.profile.about }}</p>
+            </div>
         </div>
     </div>
-</div>
+    <br/>
+    <div class="card w-100">
+        <div class="card-header">Contact details</div>
+        <div class="card-block row">
+            <div class="col-md-7 text-14 align-middle">
+                <p>Mobile number: {{ request.user.profile.mobile_number }}</p>
+                <p>Phone number: {{ request.user.profile.phone_number }}</p>
+                <p>E-mail: {{ request.user.email }}</p>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="card w-100">
+    <div class="card-header">Educational Needs</div>
+        <div class="card-block row">
+            <div class="col-md-7 text-14 align-middle">
+                {% if educational_needs %}
+                    {% for need in educational_needs %}
+                        <p><a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a> (<a href="{% url 'edit_educational_need' pk=need.pk %}">Edit</a> | <a href="{% url 'delete_need' pk=need.pk %}">Delete</a>){% if need.pk == request.user.profile.active_educational_need.pk %} <strong>Active</strong>{% else %} <a href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% endif %}</p>
+                    {% endfor %}
+                {% else %}
+                    You don't have any educational needs.
+                {% endif %}
+                <a href="{% url 'add_educational_need' %}" class="btn btn-secondary" role="button">Add Educational Need</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
