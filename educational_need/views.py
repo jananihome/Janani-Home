@@ -15,8 +15,10 @@ def list_view(request):
     users = Profile.objects.filter(active_educational_need__isnull=False)
     # Select active educational needs from the above user set
     educational_needs = [user.active_educational_need for user in users]
+    # Select distinct countries from active educational needs
+    countries = [need.user.profile.country.name for need in educational_needs]
     # Create context dictionary which can be accessed in template
-    context = {'educational_needs': educational_needs,}
+    context = {'educational_needs': educational_needs,'countries': countries}
     template = 'educational_need/list_view.html'
     return render(request, template, context)
 
@@ -43,7 +45,6 @@ def detail_view(request, pk):
             return redirect('message_sent')
     else:
         # Increment view count every time view is requested other than POST.
-        # TODO: Find a way to increment view count only once per user session.
         educational_need.view_count += 1
         educational_need.save()
 
