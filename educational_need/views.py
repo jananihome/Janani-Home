@@ -43,7 +43,6 @@ def detail_view(request, pk):
             return redirect('message_sent')
     else:
         # Increment view count every time view is requested other than POST.
-        # TODO: Find a way to increment view count only once per user session.
         educational_need.view_count += 1
         educational_need.save()
 
