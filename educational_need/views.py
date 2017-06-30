@@ -16,19 +16,19 @@ class EducationalNeedListView(ListView):
     template_name = 'educational_need/list_view.html'
     paginate_by = 1
 
-    # Select user profiles with an active educational need
-    users = Profile.objects.filter(active_educational_need__isnull=False)
 
     def get_queryset(self):
+        # Select user profiles with an active educational need
+        users = Profile.objects.filter(active_educational_need__isnull=False)
         # Select active educational needs from the user list
-        queryset = [user.active_educational_need for user in self.users]
+        queryset = [user.active_educational_need for user in users]
         return queryset
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['page_title'] = 'JananiCare - find and help people in educational need'
-        # Select active educational needs from the above user set
-        educational_needs = [user.active_educational_need for user in self.users]
+        users = Profile.objects.filter(active_educational_need__isnull=False)
+        educational_needs = [user.active_educational_need for user in users]
         data['countries'] = [need.user.profile.country.name for need in educational_needs]
         return data
 
