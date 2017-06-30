@@ -13,8 +13,11 @@
   <h3>Filter</h3>
  <div>
     <h4>Country</h4>
-    <select multiple class="form-control">
-            <option>country</option>
+    <select class="form-control">
+            <option>All</option>
+            {% for country in countries %}
+                <option>{{ country }}</option>
+            {% endfor %}
     </select>
   </div>
   <div id="apply-filters-btn-container">
