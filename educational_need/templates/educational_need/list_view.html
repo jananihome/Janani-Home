@@ -23,7 +23,7 @@
                 {% endif %}
                 <hr />
                 <div id="results-list">
-                    {% for result in educational_needs %}
+                    {% for result in object_list %}
                         <div class="result-{{ result.pk }}">
                             <div class="panel panel-default">
                               <div class="panel-heading"><strong>{{ result.user.first_name }} {{ result.user.last_name }}</strong></div>
@@ -38,6 +38,25 @@
                             </div>
                         </div>
                     {% endfor %}
+
+                    {% if is_paginated %}
+                        <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li>
+                                <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+                            </li>
+                        {% endif %}
+                            <li class="">
+                                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                            </li>
+                        {% if page_obj.has_next %}
+                            <li>
+                                <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                            </li>
+                        {% endif %}
+                        </ul>
+                    {% endif %}
+
                 </div>
 
             </div>
