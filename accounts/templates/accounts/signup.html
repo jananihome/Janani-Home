@@ -1,31 +1,25 @@
 {% extends 'educational_need/base.html' %}
+{% block heading %}
+<h4 class="margin-padding-0">Sign up</h4>
+{% endblock heading %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row content">
 
-        <div class="col-sm-3 sidenav hidden-xs">
-        </div>
-        <div class="col-sm-9">
-          <h2>Sign up</h2>
-          <form method="post">
-            {% csrf_token %}
-              {% for field in form %}
-              <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                  <small style="display: none">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                  <p style="color: red">{{ error }}</p>
-                {% endfor %}
-              </p>
-              {% endfor %}
+<form method="post">
+{% csrf_token %}
+{% for field in form %}
+<p>
+{{ field.label_tag }}<br>
+{{ field }}
+{% if field.help_text %}
+  <small style="display: none">{{ field.help_text }}</small>
+{% endif %}
+{% for error in field.errors %}
+  <p style="color: red">{{ error }}</p>
+{% endfor %}
+</p>
+{% endfor %}
 
-            <button type="submit">Sign up</button>
-          </form>
-          <p>Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
-        </div>
-    </div>
-</div>
+<button type="submit">Sign up</button>
+</form>
+<p>Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
 {% endblock %}

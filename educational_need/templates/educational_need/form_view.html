@@ -1,46 +1,89 @@
 {% extends 'educational_need/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
+
+{% block sidebar %}
+    <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
+{% endblock sidebar %}
+
+{% block heading %}
+<h4 class="margin-padding-0">Educational Need <small class="text-muted">Application Form</small></h4>
+{% endblock heading %}
 
 {% block content %}
+	{% if user.is_authenticated %}
 
-    <div class="container-fluid">
-        <div class="row content">
+		{% if profile_complete %}
+			<form class="col-8 offset-2" method="post" enctype="multipart/form-data">{% csrf_token %}
+				{{ form.non_field_errors }}
 
-            <div class="col-sm-3 sidenav hidden-xs">
-			</div>
-            <div class="col-sm-9">
-				<h1>Educational Need <small class="text-muted">Submit your application</small></h1>
-				<hr />
-				{% if user.is_authenticated %}
-					
-					{% if profile_complete %}
-						<div id="educational-need-form-container">
-							<form method="post" enctype="multipart/form-data">
-								{% csrf_token %}
-								{{ form.as_ul }}
-								<input type="submit" value="Submit" />
-							</form>
-						</div>
-					{% else %}
-					<p class="alert alert-danger">Your profile is incomplete! The following fields are required to submit an application:</p>
-						<ul>
-							<li>first name</li>
-							<li>last name</li>
-							<li>e-mail</li>
-							<li>birth date</li>
-							<li>mobile number</li>
-							<li>country</li>
-							<li>state</li>
-							<li>city</li>
-						</ul>
-						<a href="{% url 'update_profile' %}">Please update your profile</a> to include all this information.
-					{% endif %}
-				{% else %}
-					<p class="alert alert-danger">You are not logged in! <a href="{% url 'login' %}">Log in</a> or <a
-							href="{% url 'signup' %}">sign-up</a> before using this form.</p>
-				{% endif %}
+				<div class="form-group row">
+					{{ form.permanent_address.errors }}
+					<label for="{{ form.permanent_address.id_for_label }}">{{ form.permanent_address.label }}*</label>
+					{% render_field form.permanent_address class+="form-control" rows=2 %}
+				</div>
 
-            </div>
-        </div>
-    </div>
+				<div class="form-group row">
+					{{ form.current_address.errors }}
+					<label for="{{ form.current_address.id_for_label }}">{{ form.current_address.label }}*</label>
+					{% render_field form.current_address class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.college_school_address.errors }}
+					<label for="{{ form.college_school_address.id_for_label }}">{{ form.college_school_address.label }}</label>
+					{% render_field form.college_school_address class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.college_school_contact_details.errors }}
+					<label for="{{ form.college_school_contact_details.id_for_label }}">{{ form.college_school_contact_details.label }}</label>
+					{% render_field form.college_school_contact_details class+="form-control" %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.status.errors }}
+					<label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+					{% render_field form.status class+="form-control" %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.amount_required.errors }}
+					<label for="{{ form.status.id_for_label }}">{{ form.amount_required.label }}</label>
+					{% render_field form.amount_required class+="form-control" %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.requirement_description.errors }}
+					<label for="{{ form.college_school_address.id_for_label }}">{{ form.requirement_description.label }}</label>
+					{% render_field form.requirement_description class+="form-control" rows=3 %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.communication_mode.errors }}
+					<label for="{{ form.status.id_for_label }}">{{ form.communication_mode.label }}</label>
+					{% render_field form.communication_mode class+="form-control" %}
+				</div>
+				<br>
+				<div class="col-12 text-center">
+					<button type="submit" class="btn btn-secondary">Submit</button>
+				</div>
+			</form>
+		{% else %}
+			<p class="alert alert-danger"><strong>Your profile is incomplete!</strong> The following fields are required to submit an application:
+				<br><br>- first name
+				<br>- last name
+				<br>- e-mail
+				<br>- birth date
+				<br>- mobile number
+				<br>- country
+				<br>- state
+				<br>- city
+				<br><br><a href="{% url 'update_profile' %}">Please update your profile</a> to include all this information.
+			</p>
+		{% endif %}
+	{% else %}
+		<p class="alert alert-danger">You are not logged in! <a href="{% url 'login' %}">Log in</a> or <a
+				href="{% url 'signup' %}">sign-up</a> before using this form.</p>
+{% endif %}
 {% endblock content %}

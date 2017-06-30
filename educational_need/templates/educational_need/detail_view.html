@@ -1,64 +1,63 @@
 {% extends 'educational_need/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% load avatar_tags %}
+{% block sidebar %}
+    <a href="{% url 'list_view' %}">&laquo; Back to list</a>
+{% endblock sidebar %}
+{% block heading %}
+<h4 class="margin-padding-0">{{ educational_need }} by {{ educational_need.user }}</h4>
+{% endblock heading %}
 
 {% block content %}
 
-    <div class="container-fluid">
-        <div class="row content">
-
-            <div class="col-sm-3 sidenav hidden-xs">
-            <a href="{% url 'list_view' %}">&laquo; Back to list view</a>
-            </div>
-
-            <div class="col-sm-9">
-				<h1>{{ educational_need }} by {{ educational_need.user }}</h1>
-				<hr />
-				<div class="col-sm-3">
-				</div>
-				<div class="col-sm-3">
-				</div>
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">Educational need description</div>
-                  <div class="panel-body">
-					<p>Amount required: <strong>{{ educational_need.amount_required }}</strong></p>
-					<p><strong>Description: </strong>{{ educational_need.requirement_description }}</p>
-					<small>View count: {{ educational_need.view_count }}</small>
-                  </div>
-                </div>
-
-				<div class="panel panel-default">
-                  <div class="panel-heading">User details</div>
-                  <div class="panel-body">
-                    {% avatar educational_need.user 250 class="profile-image" %}
-
-                    <p><strong>Name: </strong>{{ educational_need.user.first_name }}</p>
-                    <p><strong>Surname: </strong>{{ educational_need.user.last_name }}</p>
-                    <p><strong>Birth date: </strong>{{ educational_need.user.profile.birth_date }}</p>
-                    <p><strong>Location: </strong>{{ educational_need.user.profile.zip_code }} {{ educational_need.user.profile.city }}, {{ educational_need.user.profile.district }}, {{ educational_need.user.profile.state }}, <strong>{{ educational_need.user.profile.country.name }}</strong></p>
-                    <p><strong>Description: </strong>{{ educational_need.user.profile.about }}</p>
-                  </div>
-                </div>
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">Contact details</div>
-                  <div class="panel-body">
-                    <p><strong>Mobile number: </strong>{{ educational_need.user.profile.mobile_number }}</p>
-                    <p><strong>Phone number: </strong>{{ educational_need.user.profile.phone_number }}</p>
-                    <h3>Contact user</h3>
-                    {% if user.is_authenticated %}
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit">Send message</button>
-                        </form>
-                    {% else %}
-                        <p class="alert alert-danger">You are not logged in! Please register or log in to contact this user.</p>
-                    {% endif %}
-                  </div>
-                </div>
-            </div>
+    <div class="card w-100">
+      <div class="card-header">Educational need description</div>
+      <div class="card-block row">
+        <div class="col-md-7 text-14 align-middle">
+            <p>Amount required: <strong>{{ educational_need.amount_required }}</strong></p>
+            <p><strong>Description: </strong>{{ educational_need.requirement_description }}</p>
+            <small>View count: {{ educational_need.view_count }}</small>
         </div>
+      </div>
+    </div>
+
+    <div class="card w-100">
+      <div class="card-header">User details</div>
+      <div class="card-block row">
+        <div class="col-md-3 text-center">
+            {% avatar educational_need.user 250 class="profile-image" %}
+        </div>
+        <div class="col-md-7 text-14 align-middle">
+            <p><strong>Name: </strong>{{ educational_need.user.first_name }}</p>
+            <p><strong>Surname: </strong>{{ educational_need.user.last_name }}</p>
+            <p><strong>Birth date: </strong>{{ educational_need.user.profile.birth_date }}</p>
+            <p><strong>Location: </strong>{{ educational_need.user.profile.zip_code }} {{ educational_need.user.profile.city }}, {{ educational_need.user.profile.district }}, {{ educational_need.user.profile.state }}, <strong>{{ educational_need.user.profile.country.name }}</strong></p>
+            <p><strong>Description: </strong>{{ educational_need.user.profile.about }}</p>
+        </div>
+    </div>
+    </div>
+
+    <div class="card w-100">
+      <div class="card-header">Contact details</div>
+      <div class="card-block row">
+          <div class="col-md-7 text-14 align-middle">
+            <p><strong>Mobile number: </strong>{% if user.is_authenticated %}{{ educational_need.user.profile.mobile_number }}{% else %}[hidden]{% endif %}</p>
+            <p><strong>Phone number: </strong>{% if user.is_authenticated %}{{ educational_need.user.profile.phone_number }}{% else %}[hidden]{% endif %}</p>
+            {% if user.is_authenticated %}
+                <form method="post">{% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="form-group">
+						{{ form.permanent_address.errors }}
+						<label for="{{ form.message.id_for_label }}">{{ form.message.label }}:</label>
+                        {% render_field form.message class+="form-control" rows=3 %}
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+            {% else %}
+                <p class="alert alert-danger">You are not logged in! Please register or log in to contact this user.</p>
+            {% endif %}
+          </div>
+      </div>
     </div>
 {% endblock content %}

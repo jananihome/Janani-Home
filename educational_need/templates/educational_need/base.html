@@ -2,18 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    {% include 'educational_need/styles.html' %}
-
     <title>{% if page_title %}{{ page_title }}{% else %}Janani Care{% endif %}</title>
+    {% include 'educational_need/styles.html' %}
 </head>
 <body>
-
     {% include 'educational_need/navigation.html' %}
-
-    {% block content %}{% endblock content %}
-
-    {% include 'educational_need/javascripts.html' %}
-
+    <div class="container-fluid" style="height: 89.8%;">
+        <div class="row" style="height: 100%;">
+            <div class="block-left col-md-3 background-black text-white" style="overflow: hidden;">
+                <div class="container container-block-left">
+                <br>
+                {% block sidebar %}
+                {% endblock sidebar %}
+                </div>
+            </div>
+            <div class="block-right col-md-9 scroll-y">
+                <br>
+                <br>
+                <div class="row padding-left-20">
+                    {% block heading %}
+                    {% endblock heading %}
+                </div>
+                <br>
+                <hr>
+                <div class="container">
+                    <br>
+                    {% block content %}
+                    {% endblock content %}
+                    <br>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+{% include 'educational_need/javascripts.html' %}
 </body>
 </html>
