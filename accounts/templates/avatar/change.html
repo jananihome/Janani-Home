@@ -1,0 +1,30 @@
+{% extends 'educational_need/base.html' %}
+{% load avatar_tags %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs">
+            <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
+        </div>
+        <div class="col-sm-9">
+          <h2>Change profile image</h2>
+    <p>Your current avatar :</p>
+    {% avatar user %}
+    {% if not avatars %}
+        <p>You haven't uploaded an avatar yet. Please upload one now.</p>
+    {% else %}
+        <form method="POST" action="{% url 'avatar_change' %}">
+            <ul>
+                {{ primary_avatar_form.as_ul }}
+            </ul>
+            <p>{% csrf_token %}<input type="submit" value="Choose new Default" /></p>
+        </form>
+    {% endif %}
+    <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+        {{ upload_avatar_form.as_p }}
+        <p>{% csrf_token %}<input type="submit" value="Upload New Image" /></p>
+    </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

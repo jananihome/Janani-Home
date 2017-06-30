@@ -25,9 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'avatar',
     'accounts',
-    'educational_need'
+    'educational_need',
+    'avatar',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +123,5 @@ EMAIL_HOST = 'smtp.gmail.com'  # E.g. smtp.gmail.com
 EMAIL_HOST_USER = 'jananicaredev@gmail.com'  # E.g. user@gmail.com
 EMAIL_HOST_PASSWORD = 'jananipassword'
 EMAIL_PORT = 587
+
+AVATAR_CHANGE_TEMPLATE = os.path.join(BASE_DIR, 'accounts/templates/avatar/change.html')
