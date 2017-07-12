@@ -2,8 +2,25 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
-from django_countries.fields import CountryField
 from educational_need.models import EducationalNeed
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=200)
+    code = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.name
+
+
+class State(models.Model):
+    name = models.CharField(max_length=200)
+    code = models.CharField(max_length=2)
+    country = models.ForeignKey('Country', null=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Profile(models.Model):
     """
@@ -13,8 +30,18 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     mobile_number = models.CharField(max_length=20, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
-    country = CountryField(blank=True)
-    state = models.CharField(max_length=50, blank=True)
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    state = models.ForeignKey(
+        State,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     zip_code = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length=50, blank=True)
     district = models.CharField(max_length=50, blank=True)
