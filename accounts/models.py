@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from educational_need.models import EducationalNeed
-
+from smart_selects.db_fields import ChainedForeignKey
 
 class Country(models.Model):
     name = models.CharField(max_length=200)
@@ -36,9 +36,14 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
-    state = models.ForeignKey(
+    state = ChainedForeignKey(
         State,
         on_delete=models.SET_NULL,
+        chained_field="country",
+        chained_model_field="country",
+        show_all=False,
+        auto_choose=True,
+        sort=True,
         null=True,
         blank=True
     )

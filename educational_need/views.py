@@ -27,10 +27,11 @@ class EducationalNeedListView(ListView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['page_title'] = 'JananiCare - find and help people in educational need'
-        users = Profile.objects.filter(active_educational_need__isnull=False)
-        educational_needs = [user.active_educational_need for user in users]
-        data['countries'] = [need.user.profile.country.name for need in educational_needs]
-        data['states'] = [need.user.profile.state.name for need in educational_needs]
+        # Below lines are commented out until we get a proper filtering
+        # users = Profile.objects.filter(active_educational_need__isnull=False)
+        # educational_needs = [user.active_educational_need for user in users]
+        # data['countries'] = [need.user.profile.country.name for need in educational_needs]
+        # data['states'] = [need.user.profile.state.name for need in educational_needs]
         return data
 
 
