@@ -45,9 +45,9 @@ def detail_view(request, pk):
             fromemail = request.user.email
 
             email = EmailMessage(
-                "Message from {} on Janani Care.".format(educational_need.user),
+                "Message from {} on Janani Care.".format(request.user),
                 message,
-                "{} on Janani Care.".format(educational_need.user),
+                "{} on Janani Care.".format(request.user),
                 [toemail],
                 headers={'Reply-To': fromemail}
             )
@@ -65,6 +65,7 @@ def detail_view(request, pk):
     context = {'educational_need': educational_need, 'form': form}
     template = 'educational_need/detail_view.html'
     return render(request, template, context)
+
 
 def message_sent(request):
     template = 'educational_need/message_sent.html'
