@@ -38,6 +38,7 @@ class Profile(models.Model):
     )
     state = ChainedForeignKey(
         State,
+        on_delete=models.SET_NULL,
         chained_field="country",
         chained_model_field="country",
         show_all=False,
