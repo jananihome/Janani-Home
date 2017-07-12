@@ -23,13 +23,11 @@
                             </select>
 
                             <label for="state">State</label>
-                            <select class="form-control" id="state">
-                                <option>-</option>
-                            </select>
 
-                            <label for="city">City</label>
-                            <select class="form-control" id="city">
-                                <option>-</option>
+                            <select class="form-control" id="state">
+                                {% for state in states %}
+                                <option>{{ state }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
