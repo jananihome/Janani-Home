@@ -3,6 +3,7 @@ Django==1.11.1
 django-appconf==1.0.2
 django-avatar==4.0.0
 django-money==0.11.4
+django-smart-selects==1.5.2s
 django-widget-tweaks==1.4.1
 olefile==0.44
 packaging==16.8
