@@ -30,6 +30,7 @@ class EducationalNeedListView(ListView):
         users = Profile.objects.filter(active_educational_need__isnull=False)
         educational_needs = [user.active_educational_need for user in users]
         data['countries'] = [need.user.profile.country.name for need in educational_needs]
+        data['states'] = [need.user.profile.state.name for need in educational_needs]
         return data
 
 
