@@ -96,6 +96,14 @@ class ProfileForm(forms.ModelForm):
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
         }
 
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['birth_date'].required = True
+        self.fields['mobile_number'].required = True
+        self.fields['country'].required = True
+        self.fields['state'].required = True
+        self.fields['about'].required = True
+
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()
         birth_date = cleaned_data['birth_date']

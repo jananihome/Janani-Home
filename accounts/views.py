@@ -52,7 +52,7 @@ def activate(request, uidb64, token):
 
     if request.method == 'POST':
         user_form = UserCompletionForm(request.POST, instance=user)
-        profile_form = ProfileCompletionForm(request.POST, instance=user)
+        profile_form = ProfileCompletionForm(request.POST, instance=user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user.is_active = True
             user_form.save()
