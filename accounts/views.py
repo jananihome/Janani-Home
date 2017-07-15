@@ -11,9 +11,11 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
-from .forms import ProfileForm, SignupForm, UserForm, PasswordChangeForm
+from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
+from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
+
 
 def signup(request):
     if request.user.is_authenticated():
@@ -47,13 +49,27 @@ def activate(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        return render(request, 'accounts/activation_completed.html')
+
+    if request.method == 'POST':
+        user_form = UserCompletionForm(request.POST, instance=user)
+        profile_form = ProfileCompletionForm(request.POST, instance=user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user.is_active = True
+            user_form.save()
+            profile_form.save()
+            login(request, user)
+            return render(request, 'accounts/activation_completed.html')
+        else:
+            messages.error(request, _('Please correct the error below.'))
     else:
-        return HttpResponse('Activation link is invalid!')
+        user_form = UserCompletionForm()
+        profile_form = ProfileCompletionForm()
+        if user is not None and account_activation_token.check_token(user, token):
+            pass
+        else:
+            return HttpResponse('Activation link is invalid!')
+    return render(request, 'accounts/complete_registration.html',
+                  {'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required

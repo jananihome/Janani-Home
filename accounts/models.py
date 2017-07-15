@@ -4,6 +4,8 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from educational_need.models import EducationalNeed
 from smart_selects.db_fields import ChainedForeignKey
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class Country(models.Model):
     name = models.CharField(max_length=200)
@@ -28,8 +30,8 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
-    mobile_number = models.CharField(max_length=20, blank=True)
-    phone_number = models.CharField(max_length=20, blank=True)
+    mobile_number = PhoneNumberField(blank=True)
+    phone_number = PhoneNumberField(blank=True)
     country = models.ForeignKey(
         Country,
         on_delete=models.SET_NULL,

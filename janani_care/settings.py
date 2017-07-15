@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'accounts',
     'educational_need',
     'widget_tweaks',
+    'phonenumber_field',
     'avatar',
 ]
 
@@ -91,6 +92,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+# Custom authentication backend to allow case insenstive usernames
+# https://simpleisbetterthancomplex.com/tutorial/2017/02/06/how-to-implement-case-insensitive-username.html
+AUTHENTICATION_BACKENDS = ('accounts.backends.CaseInsensitiveModelBackend', )
 
 
 # Internationalization

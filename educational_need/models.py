@@ -7,11 +7,10 @@ class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
     permanent_address = models.TextField()
     current_address = models.TextField()
-    college_school_address = models.TextField(blank=True, null=True)
-    college_school_contact_details = models.CharField(max_length=200, blank=True, null=True)
+    college_school_address = models.TextField()
+    college_school_contact_details = models.CharField(max_length=200)
     view_count = models.IntegerField(default=0)
-    status = models.CharField(max_length=200)
-    amount_required = MoneyField(max_digits=10, decimal_places=2, default_currency='INR')
+    amount_required = MoneyField(max_digits=10, decimal_places=2, default_currency='INR', blank=True, null=True)
     requirement_description = models.TextField()
 
     # Define choices for communication_mode field

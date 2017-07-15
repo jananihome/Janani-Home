@@ -9,7 +9,7 @@
     })
 </script>
 
-{% if 'edit_profile' in request.path %}
+{% if 'edit_profile' in request.path or 'activate' in request.path %}
     <!-- Chained select -->
     <script type="text/javascript" src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
     <script type="text/javascript" src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
