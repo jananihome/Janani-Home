@@ -2,6 +2,7 @@ import datetime
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from .models import Profile
 
 
@@ -42,7 +43,8 @@ class ProfileCompletionForm(forms.ModelForm):
         model = Profile
         fields = ('birth_date', 'mobile_number', 'country', 'state', 'about')
         widgets = {
-            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
+            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
+            'mobile_number': PhoneNumberPrefixWidget(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -93,7 +95,9 @@ class ProfileForm(forms.ModelForm):
         fields = ('birth_date', 'mobile_number', 'phone_number',
                   'country', 'state', 'zip_code', 'city', 'district', 'about')
         widgets = {
-            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
+            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
+            'mobile_number': PhoneNumberPrefixWidget(),
+            'phone_number': PhoneNumberPrefixWidget(),
         }
 
     def __init__(self, *args, **kwargs):

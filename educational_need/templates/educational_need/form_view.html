@@ -19,13 +19,13 @@
 
 				<div class="form-group row">
 					{{ form.permanent_address.errors }}
-					<label for="{{ form.permanent_address.id_for_label }}">{{ form.permanent_address.label }}*</label>
+					<label for="{{ form.permanent_address.id_for_label }}">{{ form.permanent_address.label }}</label>
 					{% render_field form.permanent_address class+="form-control" rows=2 %}
 				</div>
 
 				<div class="form-group row">
 					{{ form.current_address.errors }}
-					<label for="{{ form.current_address.id_for_label }}">{{ form.current_address.label }}*</label>
+					<label for="{{ form.current_address.id_for_label }}">{{ form.current_address.label }}</label>
 					{% render_field form.current_address class+="form-control" rows=2 %}
 				</div>
 

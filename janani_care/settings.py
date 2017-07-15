@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'accounts',
     'educational_need',
     'widget_tweaks',
+    'phonenumber_field',
     'avatar',
 ]
 
