@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
@@ -43,6 +44,7 @@ class ProfileCompletionForm(forms.ModelForm):
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
         }
+
     def __init__(self, *args, **kwargs):
         super(ProfileCompletionForm, self).__init__(*args, **kwargs)
         self.fields['birth_date'].required = True
@@ -50,6 +52,16 @@ class ProfileCompletionForm(forms.ModelForm):
         self.fields['country'].required = True
         self.fields['state'].required = True
         self.fields['about'].required = True
+
+    def clean(self):
+        cleaned_data = super(ProfileCompletionForm, self).clean()
+        birth_date = cleaned_data['birth_date']
+        birth_year = birth_date.year
+        current_year = datetime.datetime.today().year
+        max_year = current_year - 6
+        if birth_year > max_year:
+            self.add_error('birth_date', 'You must be at least 6 years old!')
+        return cleaned_data
 
 
 class UserForm(forms.ModelForm):
@@ -83,6 +95,16 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
         }
+
+    def clean(self):
+        cleaned_data = super(ProfileForm, self).clean()
+        birth_date = cleaned_data['birth_date']
+        birth_year = birth_date.year
+        current_year = datetime.datetime.today().year
+        max_year = current_year - 6
+        if birth_year > max_year:
+            self.add_error('birth_date', 'You must be at least 6 years old!')
+        return cleaned_data
 
 
 class PasswordChangeForm(PasswordChangeForm):

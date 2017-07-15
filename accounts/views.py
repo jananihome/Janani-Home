@@ -16,6 +16,7 @@ from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
 
+
 def signup(request):
     if request.user.is_authenticated():
         return redirect('view_profile')
@@ -64,11 +65,11 @@ def activate(request, uidb64, token):
         user_form = UserCompletionForm()
         profile_form = ProfileCompletionForm()
         if user is not None and account_activation_token.check_token(user, token):
-            return render(request, 'accounts/complete_registration.html',
-                          {'user_form': user_form, 'profile_form': profile_form})
+            pass
         else:
             return HttpResponse('Activation link is invalid!')
-
+    return render(request, 'accounts/complete_registration.html',
+                  {'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required
