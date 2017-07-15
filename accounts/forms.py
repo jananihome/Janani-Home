@@ -52,6 +52,7 @@ class ProfileForm(forms.ModelForm):
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
         }
 
+
 class PasswordChangeForm(PasswordChangeForm):
     class Meta:
         model = User
