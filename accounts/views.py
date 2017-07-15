@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
-from .forms import SignupForm, UserCompletionForm
+from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
@@ -50,18 +50,22 @@ def activate(request, uidb64, token):
         user = None
 
     if request.method == 'POST':
-        form = UserCompletionForm(request.POST, instance=user)
-        if form.is_valid():
+        user_form = UserCompletionForm(request.POST, instance=user)
+        profile_form = ProfileCompletionForm(request.POST, instance=user)
+        if user_form.is_valid() and profile_form.is_valid():
             user.is_active = True
-            user.save()
+            user_form.save()
+            profile_form.save()
             login(request, user)
             return render(request, 'accounts/activation_completed.html')
         else:
             messages.error(request, _('Please correct the error below.'))
     else:
-        form = UserCompletionForm()
+        user_form = UserCompletionForm()
+        profile_form = ProfileCompletionForm()
         if user is not None and account_activation_token.check_token(user, token):
-            return render(request, 'accounts/complete_registration.html', {'form': form})
+            return render(request, 'accounts/complete_registration.html',
+                          {'user_form': user_form, 'profile_form': profile_form})
         else:
             return HttpResponse('Activation link is invalid!')
 
