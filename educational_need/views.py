@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from .models import EducationalNeed
 from accounts.models import Profile
 # Form imports
-from .forms import EducationalNeedForm, UserContactForm
+from .forms import EducationalNeedForm, UserContactForm, CommentForm
 
 
 class EducationalNeedListView(ListView):
@@ -157,3 +157,16 @@ def activate_need(request, pk):
     user_profile.active_educational_need = educational_need
     user_profile.save()
     return redirect('view_profile')
+
+def comment(request):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.app_name= "Education Need"
+            post.save()
+            return redirect('comment_list')
+    else:
+        form = CommentForm()
+    return render(request, 'educational_need/comment_form.html', {'form': form})

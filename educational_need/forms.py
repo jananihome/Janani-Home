@@ -1,7 +1,7 @@
 from django import forms
 # Models imports
 from .models import EducationalNeed
-
+from comment.models import Comment
 
 class EducationalNeedForm(forms.ModelForm):
     """Defines a front-end form for EducationalNeed model."""
@@ -12,6 +12,7 @@ class EducationalNeedForm(forms.ModelForm):
             'current_address',
             'college_school_address',
             'college_school_contact_details',
+            'status',
             'amount_required',
             'requirement_description',
             'communication_mode',)
@@ -22,3 +23,8 @@ class UserContactForm(forms.Form):
         required=True,
         widget=forms.Textarea
     )
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comment',)
