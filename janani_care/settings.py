@@ -95,6 +95,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Custom authentication backend to allow case insenstive usernames
+# https://simpleisbetterthancomplex.com/tutorial/2017/02/06/how-to-implement-case-insensitive-username.html
+AUTHENTICATION_BACKENDS = ('accounts.backends.CaseInsensitiveModelBackend', )
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
