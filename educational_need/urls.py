@@ -9,5 +9,7 @@ urlpatterns = [
     url(r'^add-educational-need/$', views.add_educational_need, name='add_educational_need'),
     url(r'^educational-need/(?P<pk>\d+)/edit/$', views.edit_educational_need, name='edit_educational_need'),
     url(r'^educational-need/(?P<pk>\d+)/delete/$', views.delete_need, name='delete_need'),
-	url(r'^educational-need/(?P<pk>\d+)/activate/$', views.activate_need, name='activate_need')
+    url(r'^educational-need/(?P<pk>\d+)/activate/$', views.activate_need, name='activate_need'),
+    url(r'^comment/$', views.comment, name='comment'),
+
 ]
