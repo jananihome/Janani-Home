@@ -25,3 +25,33 @@
         });
     </script>
 {% endif %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#country').on('change',function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      val = $("#country").find(":selected").val();
+      $("#state option").each(function(){
+        if ($(this).data('country')==val) {
+          $(this).show();
+        }else{
+          $(this).hide();
+        }
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#filter_button").on('click',function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var country = $('#country').find(':selected').val()
+    var state = $('#state').find(':selected').val()
+    window.location.href = "/?country="+country+"&state="+state;
+  });
+});
+
+</script>
