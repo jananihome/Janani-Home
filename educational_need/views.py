@@ -3,7 +3,7 @@
 # @Email:  tamyworld@gmail.com
 # @Filename: views.py
 # @Last modified by:   tushar
-# @Last modified time: 2017-07-23T15:58:19+05:30
+# @Last modified time: 2017-07-23T17:30:19+05:30
 
 
 
@@ -16,6 +16,7 @@ from .models import EducationalNeed
 from accounts.models import Profile, Country, State
 # Form imports
 from .forms import EducationalNeedForm, UserContactForm, CommentForm
+from django.db.models import Q
 
 class EducationalNeedListView(ListView):
     """Returns a listing with only active EducationalNeed objects."""
@@ -69,6 +70,9 @@ class EducationalNeedListView(ListView):
                 users = users.filter(state = state)
             except Exception as e:
                 pass
+        if self.request.GET.get('query'):
+            query = self.request.GET.get('query')
+            users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query))
         # Select active educational needs from the user list
         queryset = [user.active_educational_need for user in users]
         return queryset
