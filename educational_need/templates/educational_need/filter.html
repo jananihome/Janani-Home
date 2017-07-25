@@ -2,7 +2,7 @@
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h4>Find</h4>
                 </div>
                 <br>
-                <form class="col-10 offset-1">
+                <form class="col-10 offset-1" action="/" method="get">
                     <div class="form-group row">
                         <div class="form-group row text-14">
                             <h6 class="col-12 margin-padding-0">Search:</h6>
@@ -12,23 +12,39 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" id="filter_div">
                         <div class="form-group row text-14">
                             <h6 class="col-12 margin-padding-0">Filters:</h6>
                             <label for="country">Country</label>
+                            {{country_}}
                             <select class="form-control" id="country">
                                 <option>(All)</option>
+                                {%for country in countries%}
+                                  {%if country.pk == country_%}
+                                  <option value="{{country.pk}}" selected>{{country.name}}({{country.code}})</option>
+                                  {%else%}
+                                  <option value="{{country.pk}}">{{country.name}}({{country.code}})</option>
+                                  {%endif%}
+
+                                {%endfor%}
                             </select>
 
                             <label for="state">State</label>
 
                             <select class="form-control" id="state">
                                 <option>(All)</option>
+                                {%for state in states%}
+                                {%if state.pk == state_%}
+                                <option value="{{state.pk}}" data-country="{{state.country__pk}}" selected>{{state.name}}({{state.code}})</option>
+                                {%else%}
+                                <option value="{{state.pk}}" data-country="{{state.country__pk}}">{{state.name}}({{state.code}})</option>
+                                {%endif%}
+                                {%endfor%}
                             </select>
                         </div>
                     </div>
                     <br>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary">Apply filters</button>
+                        <button type="button" class="btn btn-secondary" id="filter_button">Apply filters</button>
                     </div>
                 </form>

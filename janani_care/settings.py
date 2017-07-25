@@ -1,3 +1,12 @@
+# @Author: Tushar Agarwal(tusharcoder) <tushar>
+# @Date:   2017-07-23T11:01:58+05:30
+# @Email:  tamyworld@gmail.com
+# @Filename: settings.py
+# @Last modified by:   tushar
+# @Last modified time: 2017-07-23T11:24:06+05:30
+
+
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,6 +41,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'avatar',
     'comment',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
