@@ -27,7 +27,6 @@ class EducationalNeedListView(ListView):
     state_=None
     country_=None
 
-
     def get_queryset(self):
         # Select user profiles with an active educational need
         users = Profile.objects.filter(active_educational_need__isnull=False)
@@ -115,9 +114,13 @@ def detail_view(request, pk):
             email.send()
             return redirect('message_sent')
     else:
-        # Increment view count every time view is requested other than POST.
-        educational_need.view_count += 1
-        educational_need.save()
+        # On non-POST requests, increment view_count once per user session
+        try:
+            request.session['viewed_need_{}'.format(educational_need.pk)]
+        except KeyError:
+            request.session['viewed_need_{}'.format(educational_need.pk)] = True
+            educational_need.view_count += 1
+            educational_need.save()
 
     # Load form class
     form = UserContactForm
