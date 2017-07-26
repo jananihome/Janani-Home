@@ -31,8 +31,8 @@
         <div class="card-header">Contact details</div>
         <div class="card-block row">
             <div class="col-md-7 text-14 align-middle">
-                <p>Mobile number: {{ request.user.profile.mobile_number }}</p>
-                <p>Phone number: {{ request.user.profile.phone_number }}</p>
+                <p>Mobile number: {{ request.user.profile.mobile_number }} {% if request.user.profile.hide_mobile_number %}(Hidden from public){% endif %}</p>
+                <p>Phone number: {{ request.user.profile.phone_number }} {% if request.user.profile.hide_phone_number %}(Hidden from public){% endif %}</p>
                 <p>E-mail: {{ request.user.email }}</p>
             </div>
         </div>

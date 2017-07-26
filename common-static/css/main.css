@@ -102,3 +102,10 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 /* END hide increment/decrement arrows on number input */
+
+input[type=checkbox] {
+    width: auto;
+    height: auto;
+    padding:0;
+    margin: 0.5em ;
+}

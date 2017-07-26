@@ -92,8 +92,9 @@ class ProfileForm(forms.ModelForm):
         
     class Meta:
         model = Profile
-        fields = ('birth_date', 'mobile_number', 'phone_number',
-                  'country', 'state', 'zip_code', 'city', 'district', 'about')
+        fields = ('birth_date', 'mobile_number', 'hide_mobile_number', 'phone_number',
+                  'hide_phone_number', 'country', 'state', 'zip_code', 'city', 'district',
+                  'about')
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
             'mobile_number': PhoneNumberPrefixWidget(),

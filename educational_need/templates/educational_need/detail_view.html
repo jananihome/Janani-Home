@@ -42,8 +42,8 @@
       <div class="card-header">Contact details</div>
       <div class="card-block row">
           <div class="col-md-7 text-14 align-middle">
-            <p><strong>Mobile number: </strong>{% if user.is_authenticated %}{{ educational_need.user.profile.mobile_number }}{% else %}[hidden]{% endif %}</p>
-            <p><strong>Phone number: </strong>{% if user.is_authenticated %}{{ educational_need.user.profile.phone_number }}{% else %}[hidden]{% endif %}</p>
+            <p><strong>Mobile number: </strong>{% if user.is_authenticated and educational_need.user.profile.hide_mobile_number == False %}{{ educational_need.user.profile.mobile_number }}{% else %}[hidden]{% endif %}</p>
+            <p><strong>Phone number: </strong>{% if user.is_authenticated and educational_need.user.profile.hide_phone_number == False %}{{ educational_need.user.profile.phone_number }}{% else %}[hidden]{% endif %}</p>
             {% if user.is_authenticated %}
                 <form method="post">{% csrf_token %}
                     {{ form.non_field_errors }}
