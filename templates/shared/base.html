@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{% if page_title %}{{ page_title }}{% else %}Janani Care{% endif %}</title>
-    {% include 'educational_need/styles.html' %}
+    {% include 'shared/styles.html' %}
 </head>
 <body>
-    {% include 'educational_need/navigation.html' %}
+    {% include 'shared/navigation.html' %}
     <div class="container-fluid" style="height: 89.8%;">
         <div class="row" style="height: 100%;">
             <div class="block-left col-md-3 background-black text-white" style="overflow: hidden;">
@@ -35,6 +35,6 @@
             </div>
         </div>
     </div>
-{% include 'educational_need/javascripts.html' %}
+{% include 'shared/javascripts.html' %}
 </body>
 </html>
