@@ -31,7 +31,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
     mobile_number = PhoneNumberField(blank=True)
+    hide_mobile_number = models.BooleanField(default=False)
     phone_number = PhoneNumberField(blank=True)
+    hide_phone_number = models.BooleanField(default=False)
     country = models.ForeignKey(
         Country,
         on_delete=models.SET_NULL,

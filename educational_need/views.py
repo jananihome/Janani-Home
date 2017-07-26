@@ -62,14 +62,18 @@ class EducationalNeedListView(ListView):
             except Exception as e:
                 pass
 
-        if (not filer_done) and self.request.user.is_authenticated():
-            try:
-                country = Profile.objects.get(user=self.request.user).country
-                users = users.filter(country = country)
-                state = Profile.objects.get(user=self.request.user).state
-                users = users.filter(state = state)
-            except Exception as e:
-                pass
+        # Commented out below lines, because they were hiding needs of other
+        # users from the list view when user was authenticated.
+
+        #if (not filer_done) and self.request.user.is_authenticated():
+        #    try:
+        #        country = Profile.objects.get(user=self.request.user).country
+        #        users = users.filter(country = country)
+        #        state = Profile.objects.get(user=self.request.user).state
+        #        users = users.filter(state = state)
+        #    except Exception as e:
+        #        pass
+
         if self.request.GET.get('query'):
             query = self.request.GET.get('query')
             users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query))
@@ -87,11 +91,6 @@ class EducationalNeedListView(ListView):
             data['country_'] = self.country_.pk
         if self.state_:
             data['state_'] = self.state_.pk
-        # Below lines are commented out until we get a proper filtering
-        # users = Profile.objects.filter(active_educational_need__isnull=False)
-        # educational_needs = [user.active_educational_need for user in users]
-        # data['countries'] = [need.user.profile.country.name for need in educational_needs]
-        # data['states'] = [need.user.profile.state.name for need in educational_needs]
         return data
 
 

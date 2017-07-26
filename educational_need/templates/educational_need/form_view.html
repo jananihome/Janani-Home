@@ -30,6 +30,30 @@
 				</div>
 
 				<div class="form-group row">
+					{{ form.additional_mobile_number.errors }}
+					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.additional_mobile_number.label }} <span class="text-muted">(optional)</span></label>
+					{% render_field form.additional_mobile_number class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.hide_mobile_number.errors }}
+					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.hide_mobile_number.label }}</label>
+					{% render_field form.hide_mobile_number class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.additional_phone_number.errors }}
+					<label for="{{ form.additional_phone_number.id_for_label }}">{{ form.additional_phone_number.label }} <span class="text-muted">(optional)</span></label>
+					{% render_field form.additional_phone_number class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
+					{{ form.hide_phone_number.errors }}
+					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.hide_phone_number.label }}</label>
+					{% render_field form.hide_phone_number class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
 					{{ form.college_school_address.errors }}
 					<label for="{{ form.college_school_address.id_for_label }}">{{ form.college_school_address.label }}</label>
 					{% render_field form.college_school_address class+="form-control" rows=2 %}

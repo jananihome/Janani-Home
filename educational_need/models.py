@@ -1,11 +1,16 @@
 import moneyed
 from djmoney.models.fields import MoneyField
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
     permanent_address = models.TextField()
+    additional_mobile_number = PhoneNumberField(blank=True)
+    hide_mobile_number = models.BooleanField(default=False)
+    additional_phone_number = PhoneNumberField(blank=True)
+    hide_phone_number = models.BooleanField(default=False)
     current_address = models.TextField()
     college_school_address = models.TextField()
     college_school_contact_details = models.CharField(max_length=200)
