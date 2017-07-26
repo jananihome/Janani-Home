@@ -42,8 +42,48 @@
       <div class="card-header">Contact details</div>
       <div class="card-block row">
           <div class="col-md-7 text-14 align-middle">
-            <p><strong>Mobile number: </strong>{% if user.is_authenticated and educational_need.user.profile.hide_mobile_number == False %}{{ educational_need.user.profile.mobile_number }}{% else %}[hidden]{% endif %}</p>
-            <p><strong>Phone number: </strong>{% if user.is_authenticated and educational_need.user.profile.hide_phone_number == False %}{{ educational_need.user.profile.phone_number }}{% else %}[hidden]{% endif %}</p>
+            <p>
+                <strong>Mobile number: </strong>
+                {% if user.is_authenticated %}
+                    {% if educational_need.additional_mobile_number %}
+                        {% if educational_need.hide_mobile_number == False %}
+                            {{ educational_need.additional_mobile_number }}
+                        {% else %}
+                            [hidden by the user]
+                        {% endif %}
+                    {% else %}
+                        {% if educational_need.user.profile.hide_mobile_number == False %}
+                            {{ educational_need.user.profile.mobile_number }}
+                        {% else %}
+                            [hidden by the user]
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    [hidden]
+                {% endif %}
+            </p>
+          {% if educational_need.user.profile.phone_number or educational_need.additional_phone_number %}
+            <p>
+                <strong>Phone number: </strong>
+                {% if user.is_authenticated %}
+                    {% if educational_need.additional_phone_number %}
+                        {% if educational_need.hide_phone_number == False %}
+                            {{ educational_need.additional_phone_number }}
+                        {% else %}
+                            [hidden by the user]
+                        {% endif %}
+                    {% else %}
+                        {% if educational_need.user.profile.hide_phone_number == False %}
+                            {{ educational_need.user.profile.phone_number }}
+                        {% else %}
+                            [hidden by the user]
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    [hidden]
+                {% endif %}
+            </p>
+          {% endif %}
             {% if user.is_authenticated %}
                 <form method="post">{% csrf_token %}
                     {{ form.non_field_errors }}
