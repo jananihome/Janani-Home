@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'avatar',
     'comment',
     'django_extensions',
+    'session_security',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -145,3 +147,9 @@ EMAIL_PORT = 587
 
 AVATAR_CHANGE_TEMPLATE = os.path.join(BASE_DIR, 'accounts/templates/avatar/change.html')
 AVATAR_CACHE_ENABLED = False
+
+
+# Session timeout
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SECURITY_EXPIRE_AFTER = 60 * 15
