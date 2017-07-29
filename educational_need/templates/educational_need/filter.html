@@ -6,7 +6,7 @@
                     <div class="form-group row">
                         <div class="form-group row text-14">
                             <h6 class="col-12 margin-padding-0">Search:</h6>
-                            <input type="text" class="form-control col-10" id="search" aria-describedby="search" placeholder="Keyword...">
+                            <input type="text" class="form-control col-10" id="search" aria-describedby="search" placeholder="Keyword..." value="{{query_}}">
                             <span  class="col-1 button-idea">
                                 <i class="material-icons color-gray">search</i>
                             </span>
@@ -16,9 +16,8 @@
                         <div class="form-group row text-14">
                             <h6 class="col-12 margin-padding-0">Filters:</h6>
                             <label for="country">Country</label>
-                            {{country_}}
                             <select class="form-control" id="country">
-                                <option>(All)</option>
+                                <option value="">(All)</option>
                                 {%for country in countries%}
                                   {%if country.pk == country_%}
                                   <option value="{{country.pk}}" selected>{{country.name}}({{country.code}})</option>
@@ -32,7 +31,7 @@
                             <label for="state">State</label>
 
                             <select class="form-control" id="state">
-                                <option>(All)</option>
+                                <option value="">(All)</option>
                                 {%for state in states%}
                                 {%if state.pk == state_%}
                                 <option value="{{state.pk}}" data-country="{{state.country__pk}}" selected>{{state.name}}({{state.code}})</option>
