@@ -10,6 +10,5 @@ urlpatterns = [
     url(r'^educational-need/(?P<pk>\d+)/edit/$', views.edit_educational_need, name='edit_educational_need'),
     url(r'^educational-need/(?P<pk>\d+)/delete/$', views.delete_need, name='delete_need'),
     url(r'^educational-need/(?P<pk>\d+)/activate/$', views.activate_need, name='activate_need'),
-    url(r'^comment/$', views.comment, name='comment'),
-
+    url(r'^educational-need/(?P<pk>\d+)/deactivate/$', views.deactivate_need, name='deactivate_need'),
 ]

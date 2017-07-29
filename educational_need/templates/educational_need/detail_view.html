@@ -10,7 +10,6 @@
 {% endblock heading %}
 
 {% block content %}
-
     <div class="card w-100">
       <div class="card-header">Educational need description</div>
       <div class="card-block row">
@@ -21,7 +20,7 @@
         </div>
       </div>
     </div>
-{% if request.user != educational_need.user %}
+    <br/>
     <div class="card w-100">
       <div class="card-header">User details</div>
       <div class="card-block row">
@@ -37,7 +36,12 @@
         </div>
     </div>
     </div>
-
+    <br/>
+    {% if educational_need.closed %}
+    <div class="alert alert-warning">
+        This educational need has been closed by the user and is not active anymore!
+    </div>
+    {% else %}
     <div class="card w-100">
       <div class="card-header">Contact details</div>
       <div class="card-block row">
@@ -100,9 +104,5 @@
           </div>
       </div>
     </div>
-{% else %}
-<form>
-<input type="button" value="need completed" onclick="window.location.href='{% url 'comment' %}'" />
-</form>
-{% endif %}
+    {% endif %}
 {% endblock content %}

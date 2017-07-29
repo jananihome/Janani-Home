@@ -6,17 +6,18 @@
 # @Last modified time: 2017-07-23T17:30:19+05:30
 
 
-
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.list import ListView
 # Model imports
 from .models import EducationalNeed
 from accounts.models import Profile, Country, State
 # Form imports
-from .forms import EducationalNeedForm, UserContactForm, CommentForm
+from .forms import EducationalNeedForm, UserContactForm
 from django.db.models import Q
+
 
 class EducationalNeedListView(ListView):
     """Returns a listing with only active EducationalNeed objects."""
@@ -178,7 +179,8 @@ def edit_educational_need(request, pk):
     """Returns a view for editing EducationalNeed objects and handles POST
     requests submitted through the form."""
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
-
+    if educational_need.closed:
+        raise Http404("This need has been closed!")
     # If request method is POST, process form data.
     if request.method == 'POST':
         # Collect data from the form.
@@ -208,6 +210,8 @@ def edit_educational_need(request, pk):
 @login_required
 def delete_need(request, pk):
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
+    if educational_need.closed:
+        raise Http404("This need has been closed!")
     educational_need.delete()
     return redirect('view_profile')
 
@@ -215,20 +219,20 @@ def delete_need(request, pk):
 @login_required
 def activate_need(request, pk):
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
+    if educational_need.closed:
+        raise Http404("This need has been closed!")
     user_profile = request.user.profile
     user_profile.active_educational_need = educational_need
     user_profile.save()
     return redirect('view_profile')
 
-def comment(request):
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.app_name= "Education Need"
-            post.save()
-            return redirect('comment_list')
-    else:
-        form = CommentForm()
-    return render(request, 'educational_need/comment_form.html', {'form': form})
+
+@login_required
+def deactivate_need(request, pk):
+    educational_need = get_object_or_404(EducationalNeed, pk=pk)
+    if educational_need.closed:
+        raise Http404("This need has been closed!")
+    user_profile = request.user.profile
+    user_profile.active_educational_need = None
+    user_profile.save()
+    return redirect('view_profile')

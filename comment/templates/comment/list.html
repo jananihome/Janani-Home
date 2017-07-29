@@ -1,0 +1,62 @@
+{% extends 'shared/base.html' %}
+
+{% block heading %}
+    <h4 class="margin-padding-0">Comments</h4>
+    &nbsp; - &nbsp;
+    <h5 class="padding-3">Comments and reviews from our users</h5>
+{% endblock heading %}
+
+{% block content %}
+	{% for comment in comments %}
+		{% if comment.published %}
+			<div class="result-{{ result.pk }} card w-100">
+				<div class="card-header">
+                	<h5 class="card-title">{{ result.author.first_name }} {{ result.author.last_name }}</h5>
+            	</div>
+				<h2>{{ comment.app_name }}</h2>
+				<p>{{ comment.comment }}</p>
+				<div class="card-block row">
+					<div class="col-md-3 text-center">
+						{% avatar comment.author.user 150 class="img-responsive" %}
+					</div>
+					<div class="col-md-7 text-14 align-middle">
+						<table>
+							<tr>
+								<td><span class="text-bold"></span></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><span class="text-bold">Published:</span></td>
+								<td>{{ comment.pub_date }} by {{ comment.author.username }}</td>
+							</tr>
+							<tr>
+								<td><span class="text-bold">Type:</span></td>
+								<td>{{ comment.app_name }}</td>
+							</tr>
+							<tr>
+								<td><span class="text-bold">About:</span></td>
+							</tr>
+							<tr>
+								<td><span class="text-bold">Helper:</span></td>
+								<td>{{ comment.helper.username }} ({{ comment.helper.first_name }} {{ comment.helper.last_name }}}</td>
+							</tr>
+							<tr>
+								<td><span class="text-bold">Rating:&nbsp;</span></td>
+								<td>{{ comment.rating }}</td>
+							</tr>
+							<tr>
+								<td><span class="text-bold">Comment:&nbsp;</span></td>
+								<td>{{ comment.comment }}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-2 text-center align-middle">
+						<br><br>
+						<a href="{% url 'detail_view' pk=result.pk %}" role="button" class="btn btn-secondary">View details</a>
+						<p class="text-13">View count: <span>{{ result.view_count }}</span>&nbsp;</p>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endblock %}

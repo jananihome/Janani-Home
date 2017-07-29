@@ -1,0 +1,36 @@
+{% extends 'shared/base.html' %}
+{% load widget_tweaks %}
+
+{% block heading %}
+<h4 class="margin-padding-0">Close {{ educational_need }}</h4>
+{% endblock heading %}
+
+{% block content %}
+<div class="col-md-6">
+    <form method="post">{% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group row">
+            {{ form.helper.errors }}
+            <label for="{{ form.helper.id_for_label }}">Choose the User who helped you (optional):</label>
+            {% render_field form.helper class+="form-control" %}
+            {{ form.comment.errors }}
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.comment.id_for_label }}">Share your opinion about Janani Care and/or the user who helped you:</label>
+            {% render_field form.comment class+="form-control" rows=3 %}
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.rating.id_for_label }}">Rate you experience with the website:</label>
+            {% render_field form.rating class+="form-control" %}
+        </div>
+        <br>
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> Once you submit the comment, this educational need will be closed and you will not be able publish it again.
+        </div>
+        <br>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-secondary">Close need &amp; submit comment</button>
+        </div>
+    </form>
+</div>
+{% endblock%}

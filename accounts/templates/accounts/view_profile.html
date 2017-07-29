@@ -41,15 +41,27 @@
     <div class="card w-100">
     <div class="card-header">Educational Needs</div>
         <div class="card-block row">
-            <div class="col-md-7 text-14 align-middle">
+            <div class="col-md-8 text-14 align-middle">
                 {% if educational_needs %}
                     {% for need in educational_needs %}
-                        <p><a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a> (<a href="{% url 'edit_educational_need' pk=need.pk %}">Edit</a> | <a href="{% url 'delete_need' pk=need.pk %}">Delete</a>){% if need.pk == request.user.profile.active_educational_need.pk %} <strong>Active</strong>{% else %} <a href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% endif %}</p>
-                    {% endfor %}
+                        {% if not need.closed %}
+                        <p>
+                            {% if need.pk != request.user.profile.active_educational_need.pk %}[Inactive]{% endif %}
+                            {% if need.pk == request.user.profile.active_educational_need.pk %}<strong>[Active]</strong>{% endif %}
+                            <a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a>
+                            {% if need.pk != request.user.profile.active_educational_need.pk %}<a class="btn btn-secondary btn-xs" role="button" href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% else %}<a class="btn btn-secondary btn-xs" role="button" href="{% url 'deactivate_need' pk=need.pk %}">Deactivate</a>{% endif %}
+                            <a class="btn btn-secondary btn-xs" role="button" href="{% url 'edit_educational_need' pk=need.pk %}">Edit</a>
+                            <a class="btn btn-secondary btn-xs" href="{% url 'delete_need' pk=need.pk %}">Delete</a>
+                            <a class="btn btn-secondary btn-xs" role="button" href="{% url 'educational_need_comment' need.pk %}">Close and comment</a>
+                        </p>
+                        {% else %}
+                            <p>[Closed] <a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a></p>
+                        {% endif %}
+                {% endfor %}
                 {% else %}
                     You don't have any educational needs.
                 {% endif %}
-                <a href="{% url 'add_educational_need' %}" class="btn btn-secondary" role="button">Add Educational Need</a>
+                <a href="{% url 'add_educational_need' %}" class="btn btn-primary" role="button">Add Educational Need</a>
             </div>
         </div>
     </div>
