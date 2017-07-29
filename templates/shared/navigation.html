@@ -20,6 +20,11 @@
         </ul>
         <ul class="navbar-nav text-14 col-md-4">
             {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="{% url 'admin:index' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">lock</i></span>&nbsp;Admin</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link hover-gray" href="{% url 'view_profile' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">account_circle</i></span>&nbsp;Profile</a>
             </li>
