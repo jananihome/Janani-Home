@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Custom authentication backend to allow case insenstive usernames
 # https://simpleisbetterthancomplex.com/tutorial/2017/02/06/how-to-implement-case-insensitive-username.html
-AUTHENTICATION_BACKENDS = ('accounts.backends.CaseInsensitiveModelBackend', )
+AUTHENTICATION_BACKENDS = ('accounts.backends.CustomModelBackend', )
 
 
 # Internationalization
