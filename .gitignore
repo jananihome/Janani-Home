@@ -8,3 +8,4 @@ geckodriver.log
 .fuse_hidden*
 .idea/
 /media/*
+secret.txt
