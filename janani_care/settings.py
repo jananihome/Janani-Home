@@ -130,7 +130,6 @@ EMAIL_HOST_PASSWORD = 'jananipassword'
 EMAIL_PORT = 587
 
 # Avatars
-AVATAR_CHANGE_TEMPLATE = os.path.join(BASE_DIR, 'accounts/templates/avatar/change.html')
 AVATAR_CACHE_ENABLED = False
 
 # Session timeout

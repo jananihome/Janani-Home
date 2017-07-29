@@ -1,0 +1,26 @@
+{% extends 'shared/base.html' %}
+{% load avatar_tags %}
+{% block sidebar %}
+    <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
+{% endblock sidebar %}
+{% block heading %}
+    <h4 class="margin-padding-0">Add profile image</h4>
+{% endblock heading %}
+{% block content %}
+<p>Your current avatar :</p>
+{% avatar user %}
+{% if not avatars %}
+    <p>You haven't uploaded an avatar yet. Please upload one now.</p>
+{% else %}
+    <form method="POST" action="{% url 'avatar_change' %}">
+        <ul>
+            {{ primary_avatar_form.as_ul }}
+        </ul>
+        <p>{% csrf_token %}<input type="submit" value="Choose new Default" /></p>
+    </form>
+{% endif %}
+<form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+    {{ upload_avatar_form.as_p }}
+    <p>{% csrf_token %}<input type="submit" value="Upload New Image" /></p>
+</form>
+{% endblock %}
