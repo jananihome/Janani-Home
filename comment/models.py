@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 class Comment(models.Model):
     author = models.ForeignKey('auth.User', related_name='author')
     helper = models.ForeignKey(
@@ -15,7 +16,7 @@ class Comment(models.Model):
     app_name = models.CharField(max_length=200, blank=True)
     comment= models.TextField()
     published = models.BooleanField(default=False)
-    pub_date = models.DateField(default=timezone.now())
+    pub_date = models.DateField(default=timezone.now)
     rejected = models.BooleanField(default=False)
     rejected_reason = models.CharField(max_length=200, blank=True, null=True)
     educational_need = models.ForeignKey(
@@ -48,4 +49,4 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.author.username
+        return 'Comment {} ({} on {})'.format(str(self.pk), self.author.username, str(self.pub_date))

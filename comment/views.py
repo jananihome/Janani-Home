@@ -1,4 +1,5 @@
 from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render,get_object_or_404 , redirect
@@ -35,7 +36,7 @@ def educational_need_comment(request, pk):
                 'educational_need': educational_need,
                 'comment': comment,
             })
-            toemail = 'lorencmaciek@gmail.com'
+            toemail = User.objects.filter(is_staff=True)[0].email
             email = EmailMessage(subject, message, to=[toemail])
             email.send()
             return redirect('comment_submitted')
