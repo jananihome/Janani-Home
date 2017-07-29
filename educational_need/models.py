@@ -17,6 +17,7 @@ class EducationalNeed(models.Model):
     view_count = models.IntegerField(default=0)
     amount_required = MoneyField(max_digits=10, decimal_places=2, default_currency='INR', blank=True, null=True)
     requirement_description = models.TextField()
+    closed = models.BooleanField(default=False)
 
     # Define choices for communication_mode field
     # See: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.choices

@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^comment/', include('comment.urls')),
     url(r'', include('educational_need.urls')),
     url(r'^avatar/', include('avatar.urls')),
+    url(r'session_security/', include('session_security.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

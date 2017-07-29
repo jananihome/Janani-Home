@@ -1,0 +1,32 @@
+{% extends 'shared/base.html' %}
+{% load widget_tweaks %}
+
+{% block heading %}
+<h4 class="margin-padding-0">Approve comment</h4>
+{% endblock heading %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <p>Author: {{ comment.author }}</p>
+        <p>Helper: {{ comment.helper }}</p>
+        <p>Related object: {% if comment.educational_need %}<a href="{% url 'detail_view' comment.educational_need.pk %}">{{ comment.educational_need }}</a>{% endif %}</p>
+        <p>Rating: {{ comment.rating }}</p>
+        <p>Comment text:<br/>{{ comment.comment }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <form action="{% url 'approve_comment' comment.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Accept" class="btn btn-success">
+        </form>
+    </div>
+    <div class="col-md-3">
+        <form action="{% url 'reject_comment' comment.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Reject" class="btn btn-danger">
+        </form>
+    </div>
+</div>
+{% endblock%}

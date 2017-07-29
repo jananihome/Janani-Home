@@ -3,5 +3,9 @@ from . import views
 
 urlpatterns= [
     url(r'^list/$', views.comment_list, name="comment_list"),
-    url(r'^(?P<pk>\d+)/activate/$', views.activate, name="activate"),
+    url(r'^(?P<pk>\d+)/approve/$', views.comment_approve, name="comment_approve"),
+    url(r'^(?P<pk>\d+)/activate/$', views.approve_comment, name="approve_comment"),
+    url(r'^(?P<pk>\d+)/reject/$', views.reject_comment, name="reject_comment"),
+    url(r'^educational_need/(?P<pk>\d+)/$', views.educational_need_comment, name='educational_need_comment'),
+    url(r'^comment_submitted/$', views.comment_submitted, name='comment_submitted'),
 ]

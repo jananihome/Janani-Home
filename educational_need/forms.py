@@ -33,9 +33,3 @@ class UserContactForm(forms.Form):
         required=True,
         widget=forms.Textarea
     )
-
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('comment',)
