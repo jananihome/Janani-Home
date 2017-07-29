@@ -3,7 +3,7 @@
 # @Email:  tamyworld@gmail.com
 # @Filename: views.py
 # @Last modified by:   tushar
-# @Last modified time: 2017-07-23T17:30:19+05:30
+# @Last modified time: 2017-07-30T01:13:59+05:30
 
 
 from django.contrib.auth.decorators import login_required
@@ -27,37 +27,29 @@ class EducationalNeedListView(ListView):
     paginate_by = 2
     state_=None
     country_=None
+    query_=None
 
     def get_queryset(self):
         # Select user profiles with an active educational need
         users = Profile.objects.filter(active_educational_need__isnull=False)
-        filer_done = False
+        #may be in future we use this variable
+        # filer_done = False
         #country filter
         if self.request.GET.get('country'):
             try:
-                country=self.request.GET.get('country')
-                if country.isdigit():
-                    country = Country.objects.get(pk=country)
-                else:
-                    country = Country.objects.filter(code=country).first()
+                country = Country.objects.get(pk=self.request.GET.get('country'))
                 users = users.filter(country = country)
-                filer_done = True
+                # may be in future we use this variable
+                # filer_done = True
                 self.country_ = country
             except Exception as e:
                 pass
         #state filter
         if self.request.GET.get('state'):
             try:
-                state=self.request.GET.get('state')
-                if state.isdigit():
-                    state = State.objects.get(pk=state)
-                else:
-                    if country:
-                        state =  State.objects.filter(country=country).filter(code=state).first()
-                    else:
-                        state =  State.objects.filter(code=state).first()
+                state = State.objects.get(pk=self.request.GET.get('state'))
                 users = users.filter(state = state)
-                filer_done = True
+                # filer_done = True
                 self.state_=state
             except Exception as e:
                 pass
@@ -77,6 +69,7 @@ class EducationalNeedListView(ListView):
         if self.request.GET.get('query'):
             query = self.request.GET.get('query')
             users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query))
+            self.query_=self.request.GET.get('query')
         # Select active educational needs from the user list
         queryset = [user.active_educational_need for user in users]
         return queryset
@@ -91,6 +84,8 @@ class EducationalNeedListView(ListView):
             data['country_'] = self.country_.pk
         if self.state_:
             data['state_'] = self.state_.pk
+        if self.query_:
+            data['query_'] = self.query_
         return data
 
 
