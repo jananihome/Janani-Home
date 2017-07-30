@@ -1,22 +1,14 @@
-# @Author: Tushar Agarwal(tusharcoder) <tushar>
-# @Date:   2017-07-23T11:01:58+05:30
-# @Email:  tamyworld@gmail.com
-# @Filename: views.py
-# @Last modified by:   tushar
-# @Last modified time: 2017-07-30T01:13:59+05:30
-
-
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.list import ListView
-# Model imports
-from .models import EducationalNeed
+
 from accounts.models import Profile, Country, State
-# Form imports
+
+from .models import EducationalNeed
 from .forms import EducationalNeedForm, UserContactForm
-from django.db.models import Q
 
 
 class EducationalNeedListView(ListView):
@@ -30,11 +22,14 @@ class EducationalNeedListView(ListView):
     query_=None
 
     def get_queryset(self):
+
         # Select user profiles with an active educational need
         users = Profile.objects.filter(active_educational_need__isnull=False)
-        #may be in future we use this variable
+
+        # Maybe in future we use this variable
         # filer_done = False
-        #country filter
+
+        # Country filter
         if self.request.GET.get('country'):
             try:
                 country = Country.objects.get(pk=self.request.GET.get('country'))
@@ -44,7 +39,8 @@ class EducationalNeedListView(ListView):
                 self.country_ = country
             except Exception as e:
                 pass
-        #state filter
+
+        # State filter
         if self.request.GET.get('state'):
             try:
                 state = State.objects.get(pk=self.request.GET.get('state'))
@@ -56,7 +52,6 @@ class EducationalNeedListView(ListView):
 
         # Commented out below lines, because they were hiding needs of other
         # users from the list view when user was authenticated.
-
         #if (not filer_done) and self.request.user.is_authenticated():
         #    try:
         #        country = Profile.objects.get(user=self.request.user).country
@@ -70,6 +65,7 @@ class EducationalNeedListView(ListView):
             query = self.request.GET.get('query')
             users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query))
             self.query_=self.request.GET.get('query')
+
         # Select active educational needs from the user list
         queryset = [user.active_educational_need for user in users]
         return queryset
@@ -77,7 +73,8 @@ class EducationalNeedListView(ListView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['page_title'] = 'JananiCare - find and help people in educational need'
-        #country list
+
+        # Country list
         data['countries'] = Country.objects.values('name','code','pk')
         data['states'] = State.objects.values('name','code','country__pk','pk')
         if self.country_:
@@ -96,17 +93,13 @@ def detail_view(request, pk):
     if request.method == 'POST':
         form = UserContactForm(request.POST)
         if form.is_valid():
+            subject = 'Message from {} on Janani Care.'.format(request.user)
             message = form.cleaned_data['message']
-            toemail = educational_need.user.email
-            fromemail = request.user.email
-
-            email = EmailMessage(
-                "Message from {} on Janani Care.".format(request.user),
-                message,
-                "{} on Janani Care.".format(request.user),
-                [toemail],
-                headers={'Reply-To': fromemail}
-            )
+            from_name = '{} on Janani Care.'.format(request.user)
+            to_email = educational_need.user.email
+            from_email = request.user.email
+            headers = {'Reply-To': from_email}
+            email = EmailMessage(subject, message, from_name, [to_email], headers=headers)
             email.send()
             return redirect('message_sent')
     else:
@@ -118,10 +111,7 @@ def detail_view(request, pk):
             educational_need.view_count += 1
             educational_need.save()
 
-    # Load form class
     form = UserContactForm
-
-    # Create context dictionary which can be accessed in template
     context = {'educational_need': educational_need, 'form': form}
     template = 'educational_need/detail_view.html'
     return render(request, template, context)
@@ -133,7 +123,7 @@ def message_sent(request):
 
 
 @login_required
-def add_educational_need(request):
+def add_need(request):
     """Returns a view for adding EducationalNeed objects and handles POST
     requests submitted through the form."""
 
@@ -157,7 +147,7 @@ def add_educational_need(request):
         form = EducationalNeedForm()
 
     # Check if user profile has required information for adding a need
-	# It will be False if any of the fields is blank or null
+    # It will be False if any of the fields is blank or null
     profile_complete = all([request.user.first_name, request.user.last_name,
                            request.user.email, request.user.profile.birth_date,
                            request.user.profile.mobile_number, request.user.profile.city,
@@ -170,7 +160,7 @@ def add_educational_need(request):
 
 
 @login_required
-def edit_educational_need(request, pk):
+def edit_need(request, pk):
     """Returns a view for editing EducationalNeed objects and handles POST
     requests submitted through the form."""
     educational_need = get_object_or_404(EducationalNeed, pk=pk)

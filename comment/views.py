@@ -2,6 +2,7 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import Http404
 from django.shortcuts import render,get_object_or_404 , redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -11,8 +12,16 @@ from .forms import CommentForm
 from .models import Comment
 
 
+def comment_list(request):
+    comments = Comment.objects.filter(published=True)
+    return render(request, 'comment/comment_list.html' , {'comments': comments,})
+
+
+@login_required
 def educational_need_comment(request, pk):
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
+    if educational_need.closed:
+        raise Http404("This need has been closed!")
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -45,19 +54,15 @@ def educational_need_comment(request, pk):
     return render(request, 'comment/comment_form.html', {'form': form, 'educational_need': educational_need})
 
 
+@login_required
 def comment_submitted(request):
     return render(request, 'comment/comment_submitted.html')
 
 
-def comment_list(request):
-    comments = Comment.objects.all()
-    return render(request, 'comment/comment_list.html' , {'comments': comments,})
-
-
 @user_passes_test(lambda u: u.is_superuser)
-def comment_approve(request, pk):
+def comment_approval(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, 'comment/comment_approve.html' , {'comment': comment,})
+    return render(request, 'comment/comment_approval.html' , {'comment': comment,})
 
 
 @user_passes_test(lambda u: u.is_superuser)

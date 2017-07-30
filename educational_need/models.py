@@ -1,4 +1,3 @@
-import moneyed
 from djmoney.models.fields import MoneyField
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -15,12 +14,17 @@ class EducationalNeed(models.Model):
     college_school_address = models.TextField()
     college_school_contact_details = models.CharField(max_length=200)
     view_count = models.IntegerField(default=0)
-    amount_required = MoneyField(max_digits=10, decimal_places=2, default_currency='INR', blank=True, null=True)
+    amount_required = MoneyField(
+        max_digits=10,
+        decimal_places=2,
+        default_currency='INR',
+        blank=True,
+        null=True
+    )
     requirement_description = models.TextField()
     closed = models.BooleanField(default=False)
 
     # Define choices for communication_mode field
-    # See: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.choices
     PHONE = 'PH'
     MOBILE = 'MO'
     EMAIL = 'EM'
@@ -29,7 +33,7 @@ class EducationalNeed(models.Model):
         (MOBILE, 'Mobile'),
         (EMAIL, 'E-mail'),
     )
-    # Define communication_mode field using choices defined above
+
     communication_mode = models.CharField(
         max_length=2,
         choices=COMMUNICATION_MODE_CHOICES,
@@ -37,7 +41,4 @@ class EducationalNeed(models.Model):
     )
 
     def __str__(self):
-        """Return a friendly representation of an object, eg. in Django admin.
-        See: https://docs.djangoproject.com/en/1.11/ref/models/instances/#str
-        """
         return 'Educational Need ' + str(self.pk)

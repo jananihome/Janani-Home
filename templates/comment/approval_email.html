@@ -2,5 +2,5 @@
 There is a new comment for {{ educational_need }}: http://{{ domain }}{% url 'detail_view' educational_need.pk %}
 
 Go to this page to approve or reject the comment:
-http://{{ domain }}{% url 'comment_approve' comment.pk %}
+http://{{ domain }}{% url 'comment_approval' comment.pk %}
 {% endautoescape %}

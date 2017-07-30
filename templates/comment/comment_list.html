@@ -10,7 +10,6 @@
 
 {% block content %}
 	{% for comment in comments %}
-		{% if comment.published %}
 			<div class="result-{{ result.pk }} card w-100">
 				<div class="card-header">
                 	<h5 class="card-title">{{ comment.author.first_name }} {{ comment.author.last_name }} on {{ comment.pub_date }}</h5>
@@ -47,6 +46,5 @@
 				</div>
 			</div>
 			<br>
-		{% endif %}
 	{% endfor %}
 {% endblock %}

@@ -1,8 +1,7 @@
 from django import forms
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
-# Models imports
+
 from .models import EducationalNeed
-from comment.models import Comment
 
 
 class EducationalNeedForm(forms.ModelForm):

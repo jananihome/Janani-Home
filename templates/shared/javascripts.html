@@ -1,106 +1,25 @@
 {% load static %}
+<!-- jQuery -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!-- Tether -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-<script>
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
-</script>
+<!-- Popover -->
+<script type="text/javascript" src="{% static 'js/popover.js' %}"></script>
 
 {% if 'edit_profile' in request.path or 'activate' in request.path %}
-    <!-- Chained select -->
-    <script type="text/javascript" src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
-    <script type="text/javascript" src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
-
-    <!-- Datepicker -->
-    <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
-    <script>
-        $(function () {
-            $('.datetime-input').datetimepicker({
-                format:'YYYY-MM-DD'
-            });
-        });
-    </script>
+<!-- Chained select -->
+<script type="text/javascript" src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
+<script type="text/javascript" src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
+<!-- Datetimepicker -->
+<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="{% static 'js/datetimepicker.js' %}"></script>
 {% endif %}
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    if ($("#country").val()!='') {
-      val = $("#country").find(":selected").val();
-      $("#state option").each(function(){
-        if ($(this).data('country')==val) {
-          $(this).show();
-        }else{
-          $(this).hide();
-        }
-      });
-    }
-    $('#country').on('change',function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      val = $("#country").find(":selected").val();
-      $("#state option").each(function(){
-        if ($(this).data('country')==val) {
-          $(this).show();
-        }else{
-          $(this).hide();
-        }
-      });
-    });
-  });
-</script>
+{% if request.resolver_match.view_name == 'list_view' %}
+<!-- Filtering and search -->
+<script type="text/javascript" src="{% static 'js/filtering.js' %}"></script>
+{% endif%}
 
-<script type="text/javascript">
-$(document).ready(function() {
-  function runSearch(){
-    var country = $('#country').find(':selected').val()
-    var state = $('#state').find(':selected').val()
-    var query = $('#search').val()
-    // if(query.trim()!=''||query!=undefined)
-    // {
-    window.location.href = "/?country="+country+"&state="+state+"&query="+query.trim();
-    // }else{
-    //   window.location.href = "/?country="+country+"&state="+state;
-    // }
-  }
-  $("#filter_button").on('click',function(event) {
-    // event.preventDefault();
-    /* Act on the event */
-    runSearch();
-  });
-
-function runevent(){
-  var ele = $(event.target);
-  // if ((function(val){return ['country','state','search'].indexOf(val)})(ele.attr("id"))){
-    // if (event.which == 13 || event.keyCode == 13) {
-      event.preventDefault();
-      runSearch();
-    // }
-  // }
-}
-  $("#country").keydown(function(event) {
-    /* Act on the event */
-    if (event.which != 13 || event.keyCode != 13)
-    return;
-    runevent();
-  });
-  $("#state").keydown(function(event) {
-    /* Act on the event */
-    if (event.which != 13 || event.keyCode != 13)
-    return;
-    runevent();
-  });
-  $("#search").keydown(function(event) {
-    /* Act on the event */
-    if (event.which != 13 || event.keyCode != 13)
-    return;
-    runevent();
-  });
-});
-
-</script>
-
-{% include 'session_security/all.html' %}

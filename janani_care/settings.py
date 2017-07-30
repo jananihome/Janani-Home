@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'avatar',
     'comment',
     'django_extensions',
-    'session_security',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +53,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'session_security.middleware.SessionSecurityMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -119,7 +117,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'common-static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 # Email server configuration
@@ -133,5 +131,4 @@ EMAIL_PORT = 587
 AVATAR_CACHE_ENABLED = False
 
 # Session timeout
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_SECURITY_EXPIRE_AFTER = 60 * 15
+SESSION_COOKIE_AGE = 60 ^ 15
