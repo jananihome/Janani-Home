@@ -16,7 +16,7 @@ class EducationalNeedListView(ListView):
 
     model = EducationalNeed
     template_name = 'educational_need/list_view.html'
-    paginate_by = 2
+    paginate_by = 10
     state_=None
     country_=None
     query_=None
