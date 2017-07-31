@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
     permanent_address = models.TextField()
-    additional_mobile_number = PhoneNumberField(blank=True)
+    additional_mobile_number = models.CharField(max_length=20,blank=True,null=True)
     hide_mobile_number = models.BooleanField(default=False)
     additional_phone_number = models.CharField(max_length=20,blank=True,null=True)
     hide_phone_number = models.BooleanField(default=False)
