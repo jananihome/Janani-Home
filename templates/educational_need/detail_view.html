@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {% load avatar_tags %}
 {% block sidebar %}
-    <a href="{% url 'list_view' %}">&laquo; Back to list</a>
+    <a href="" onclick="goBack()">&laquo; Back to list</a>
 {% endblock sidebar %}
 {% block heading %}
 <h4 class="margin-padding-0">{{ educational_need }} by {{ educational_need.user }}</h4>
