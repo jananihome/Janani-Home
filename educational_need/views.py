@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.db.models import Q
@@ -101,7 +102,7 @@ def detail_view(request, pk):
             headers = {'Reply-To': from_email}
             email = EmailMessage(subject, message, from_name, [to_email], headers=headers)
             email.send()
-            return redirect('message_sent')
+            messages.success(request, 'Message sent.')
     else:
         # On non-POST requests, increment view_count once per user session
         try:
@@ -115,11 +116,6 @@ def detail_view(request, pk):
     context = {'educational_need': educational_need, 'form': form}
     template = 'educational_need/detail_view.html'
     return render(request, template, context)
-
-
-def message_sent(request):
-    template = 'educational_need/message_sent.html'
-    return render(request, template)
 
 
 @login_required
@@ -196,7 +192,7 @@ def edit_need(request, pk):
 def delete_need(request, pk):
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
     if educational_need.closed:
-        raise Http404("This need has been closed!")
+        raise Http404('This need has been closed!')
     educational_need.delete()
     return redirect('view_profile')
 
@@ -205,7 +201,7 @@ def delete_need(request, pk):
 def activate_need(request, pk):
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
     if educational_need.closed:
-        raise Http404("This need has been closed!")
+        raise Http404('This need has been closed!')
     user_profile = request.user.profile
     user_profile.active_educational_need = educational_need
     user_profile.save()
@@ -216,7 +212,7 @@ def activate_need(request, pk):
 def deactivate_need(request, pk):
     educational_need = get_object_or_404(EducationalNeed, pk=pk)
     if educational_need.closed:
-        raise Http404("This need has been closed!")
+        raise Http404('This need has been closed!')
     user_profile = request.user.profile
     user_profile.active_educational_need = None
     user_profile.save()

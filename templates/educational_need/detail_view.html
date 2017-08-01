@@ -10,6 +10,14 @@
 {% endblock heading %}
 
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable"{% endif %}>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+            </div>
+    {% endfor %}
+    {% endif %}
     <div class="card w-100">
       <div class="card-header">Educational need description</div>
       <div class="card-block row">

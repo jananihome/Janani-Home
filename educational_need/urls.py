@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^educational-need/(?P<pk>\d+)/delete/$', views.delete_need, name='delete_need'),
     url(r'^educational-need/(?P<pk>\d+)/activate/$', views.activate_need, name='activate_need'),
     url(r'^educational-need/(?P<pk>\d+)/deactivate/$', views.deactivate_need, name='deactivate_need'),
-    url(r'^educational_need/message_sent/$', views.message_sent, name='message_sent'),
 ]
