@@ -56,4 +56,4 @@ class EducationalNeed(models.Model):
     )
 
     def __str__(self):
-        return 'Educational Need ' + str(self.pk)
+        return 'Educational Need {}'.format(str(self.pk))

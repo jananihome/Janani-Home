@@ -79,7 +79,7 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return '{} ({} {})'.format(self.user, self.user.first_name, self.user.last_name)
+        return self.user
 
 
 # Define signals to update user profile whenever we create/update User model.
