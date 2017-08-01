@@ -1,10 +1,13 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.utils import timezone
+
 from djmoney.models.fields import MoneyField
 
 
 class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
+    pub_date = models.DateField(default=timezone.now)
     permanent_address = models.TextField()
     additional_mobile_number = models.CharField(
         max_length=20,

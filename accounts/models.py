@@ -79,7 +79,7 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 # Define signals to update user profile whenever we create/update User model.
