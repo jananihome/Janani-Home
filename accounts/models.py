@@ -1,10 +1,10 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from educational_need.models import EducationalNeed
 from smart_selects.db_fields import ChainedForeignKey
-from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Country(models.Model):
@@ -30,9 +30,25 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
-    mobile_number = PhoneNumberField(blank=True)
+    mobile_number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )])
     hide_mobile_number = models.BooleanField(default=False)
-    phone_number = PhoneNumberField(blank=True)
+    phone_number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )])
     hide_phone_number = models.BooleanField(default=False)
     country = models.ForeignKey(
         Country,
@@ -61,6 +77,10 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
+
+    def __str__(self):
+        return '{} ({} {})'.format(self.user, self.user.first_name, self.user.last_name)
+
 
 # Define signals to update user profile whenever we create/update User model.
 

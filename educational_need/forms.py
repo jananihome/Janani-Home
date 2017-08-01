@@ -1,5 +1,4 @@
 from django import forms
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 from .models import EducationalNeed
 
@@ -20,11 +19,6 @@ class EducationalNeedForm(forms.ModelForm):
             'amount_required',
             'requirement_description',
             'communication_mode',)
-
-        widgets = {
-            'additional_mobile_number': PhoneNumberPrefixWidget(),
-            'additional_phone_number': PhoneNumberPrefixWidget(),
-        }
 
 
 class UserContactForm(forms.Form):

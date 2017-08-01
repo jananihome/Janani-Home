@@ -1,14 +1,29 @@
-from djmoney.models.fields import MoneyField
+from django.core.validators import RegexValidator
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
+from djmoney.models.fields import MoneyField
 
 
 class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
     permanent_address = models.TextField()
-    additional_mobile_number = models.CharField(max_length=20,blank=True,null=True)
+    additional_mobile_number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )])
     hide_mobile_number = models.BooleanField(default=False)
-    additional_phone_number = models.CharField(max_length=20,blank=True,null=True)
+    additional_phone_number = models.CharField(max_length=20,
+                                               blank=True,
+                                               null=True,
+                                               validators=[
+                                                   RegexValidator(
+                                                       regex='^[0-9]*$',
+                                                       message='Please use only numeric characters.'
+                                                   )])
     hide_phone_number = models.BooleanField(default=False)
     current_address = models.TextField()
     college_school_address = models.TextField()

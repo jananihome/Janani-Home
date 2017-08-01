@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'smart_selects',
     'educational_need',
     'widget_tweaks',
-    'phonenumber_field',
     'avatar',
     'comment',
     'django_extensions',
