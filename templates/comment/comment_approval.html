@@ -12,7 +12,7 @@
         <p>Helper: {{ comment.helper }}</p>
         <p>Related object: {% if comment.educational_need %}<a href="{% url 'detail_view' comment.educational_need.pk %}">{{ comment.educational_need }}</a>{% endif %}</p>
         <p>Rating: {{ comment.rating }}</p>
-        <p>Comment text:<br/>{{ comment.comment }}</p>
+        <p>Comment text:<br/><blockquote class="blockquote">{{ comment.comment }}</blockquote></p>
     </div>
 </div>
 <div class="row">

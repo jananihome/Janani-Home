@@ -12,7 +12,7 @@
 	{% for comment in comments %}
 			<div class="result-{{ result.pk }} card w-100">
 				<div class="card-header">
-                	<h5 class="card-title">{{ comment.author.first_name }} {{ comment.author.last_name }} on {{ comment.pub_date }}</h5>
+                	<h5 class="card-title">{{ comment.pub_date }}</h5>
             	</div>
 				<div class="card-block row">
 					<div class="col-md-3 text-center">
@@ -20,25 +20,29 @@
 					</div>
 					<div class="col-md-7 text-14 align-middle">
 						<table>
+							{% if comment.helper %}
 							<tr>
-								<td><span class="text-bold">About:</span></td>
-								<td>{% if comment.educational_need %}<a href="{% url 'detail_view' comment.educational_need.pk %}">{{ comment.educational_need }}</a>{% endif %}</td>
+								<td>Helper: {{ comment.helper.username }}</td>
 							</tr>
+							{% endif %}
 							<tr>
-								<td><span class="text-bold">Helper:</span></td>
-								<td>{% if comment.helper %}{{ comment.helper.username }}{% else %}N/A{% endif %}</td>
-							</tr>
-							<tr>
-								<td><span class="text-bold">Rating:&nbsp;</span></td>
-								<td>{{ comment.rating }}</td>
-							</tr>
-							<tr>
-								<td><span class="text-bold">Comment:&nbsp;</span></td>
-							</tr>
-							<tr>
-								<td>{{ comment.comment }}</td>
+								<td>
+								{% for x in 'xxxxx' %}
+									{% if forloop.counter0 < comment.rating %}
+										<span><i class="material-icons text-14">favorite</i></span>
+									{% else %}
+										<span><i class="material-icons text-14">favorite_border</i></span>
+									{% endif %}
+								{% endfor %}
+								</td>
 							</tr>
 						</table>
+						<blockquote class="blockquote">
+							<p>{{ comment.comment }}</p>
+							<footer class="blockquote-footer">
+								{{ comment.author.first_name }} {{ comment.author.last_name }} {% if comment.educational_need %}about <a href="{% url 'detail_view' comment.educational_need.pk %}"><cite title="{{ comment.educational_need }}">{{ comment.educational_need }}</cite></a>{% endif %}
+							</footer>
+						</blockquote>
 					</div>
 					<div class="col-md-2 text-center align-middle">
 						<br><br>
