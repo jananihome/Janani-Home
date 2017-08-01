@@ -17,6 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link hover-gray" href="#" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">phone_android</i></span>&nbsp;Blood Donar Contacts</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link hover-gray" href="{% url 'comment_list' %}" style="color: white" onmouseover="this.style.color='#A5AAAD'" onmouseout="this.style.color='white'"><span><i class="material-icons text-14">comment</i></span>&nbsp;Comments</a>
+            </li>
         </ul>
         <ul class="navbar-nav text-14 col-md-4">
             {% if user.is_authenticated %}
