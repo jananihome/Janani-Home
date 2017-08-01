@@ -14,15 +14,23 @@
         {{ profile_form.non_field_errors }}
         {% for field in user_form %}
             <div class="form-group row">
-                {{ field.errors }}
                 <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                {% for error in field.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
                 {% render_field field class+="form-control" %}
             </div>
         {% endfor %}
         {% for field in profile_form %}
             <div class="form-group row">
-                {{ field.errors }}
                 <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                {% for error in field.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
                 {% render_field field class+="form-control" %}
             </div>
         {% endfor %}
