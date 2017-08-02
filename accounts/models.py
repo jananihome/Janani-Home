@@ -32,8 +32,8 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     mobile_number = models.CharField(
         max_length=20,
-        blank=True,
         null=True,
+        blank=True,
         validators=[
             RegexValidator(
                 regex='^[0-9]*$',
@@ -42,8 +42,8 @@ class Profile(models.Model):
     hide_mobile_number = models.BooleanField(default=False)
     phone_number = models.CharField(
         max_length=20,
-        blank=True,
         null=True,
+        blank=True,
         validators=[
             RegexValidator(
                 regex='^[0-9]*$',
