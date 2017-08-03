@@ -6,6 +6,7 @@ Django==1.11.1
 django-appconf==1.0.2
 django-avatar==4.0.0
 django-countries==4.6.1
+django-debug-toolbar==1.8
 django-extensions==1.8.1
 django-money==0.11.4
 django-smart-selects==1.5.2
@@ -29,6 +30,7 @@ pyparsing==2.2.0
 pytz==2017.2
 simplegeneric==0.8.1
 six==1.10.0
+sqlparse==0.2.3
 traitlets==4.3.2
 typing==3.6.1
 wcwidth==0.1.7

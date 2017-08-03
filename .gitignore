@@ -1,7 +1,7 @@
 *.pyc
 *~
 __pycache__/
-db.sqlite3
+*.sqlite3
 /static
 .DS_Store
 geckodriver.log

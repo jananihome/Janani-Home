@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import Http404
@@ -25,7 +26,7 @@ class EducationalNeedListView(ListView):
     def get_queryset(self):
 
         # Select user profiles with an active educational need
-        users = Profile.objects.filter(active_educational_need__isnull=False)
+        users = Profile.objects.filter(active_educational_need__isnull=False).select_related('active_educational_need').select_related('user')
 
         # Maybe in future we use this variable
         # filer_done = False
