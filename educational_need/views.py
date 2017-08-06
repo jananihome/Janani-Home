@@ -1,3 +1,12 @@
+# @Author: Tushar Agarwal(tusharcoder) <tushar>
+# @Date:   2017-08-06T15:06:28+05:30
+# @Email:  tamyworld@gmail.com
+# @Filename: views.py
+# @Last modified by:   tushar
+# @Last modified time: 2017-08-06T16:29:07+05:30
+
+
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -65,7 +74,7 @@ class EducationalNeedListView(ListView):
 
         if self.request.GET.get('query'):
             query = self.request.GET.get('query')
-            users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query))
+            users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query)|Q(mobile_number__icontains=query)|Q(phone_number__icontains=query)| Q(about__icontains=query))
             self.query_=self.request.GET.get('query')
 
         # Select active educational needs from the user list
