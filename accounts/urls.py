@@ -1,12 +1,3 @@
-# @Author: Tushar Agarwal(tusharcoder) <tushar>
-# @Date:   2017-07-30T00:52:11+05:30
-# @Email:  tamyworld@gmail.com
-# @Filename: urls.py
-# @Last modified by:   tushar
-# @Last modified time: 2017-08-06T15:18:47+05:30
-
-
-
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 from . import views
