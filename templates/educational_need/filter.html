@@ -34,9 +34,9 @@
                                 <option value="">(All)</option>
                                 {%for state in states%}
                                 {%if state.pk == state_%}
-                                <option value="{{state.pk}}" data-country="{{state.country__pk}}" selected>{{state.name}}({{state.code}})</option>
+                                <option value="{{state.pk}}" selected>{{state.name}}({{state.code}})</option>
                                 {%else%}
-                                <option value="{{state.pk}}" data-country="{{state.country__pk}}">{{state.name}}({{state.code}})</option>
+                                <option value="{{state.pk}}">{{state.name}}({{state.code}})</option>
                                 {%endif%}
                                 {%endfor%}
                             </select>

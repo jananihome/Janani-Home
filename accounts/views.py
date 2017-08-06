@@ -15,6 +15,8 @@ from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
+import json
+from .models import State
 
 
 def signup(request):
@@ -120,3 +122,10 @@ def change_password(request):
         'form': form
     })
 
+def StateAjaxView(request):
+    """function to render the states accourding to the city passed"""
+    try:
+        country_id = request.GET.get('country_id')
+        return HttpResponse(json.dumps(tuple(i for i in State.objects.filter(country_id=country_id).values('name','id','code'))),content_type='application/json')
+    except Exception as e:
+        return HttpResponse(json.dumps([]),content_type='application/json')

@@ -1,26 +1,30 @@
+function triggerCountrySelectEvent(){
+   val = $("#country").find(":selected").val();
+   var ele = $("#state");
+   $.get('/accounts/country/states/?country_id='+val,function(response,status){
+     $("#state option").remove();
+     var string_ = '<option value="">(All)</option>';
+     for (var val in response) {
+       val=response[val];
+       string_=string_+'<option value="'+val.id+'">'+val.name+'('+val.code+')'+'</option>';
+     }
+     ele.append(string_)
+       });
+     //clear the state box
+     ele.find("option:selected").removeAttr("selected");
+ }
+
 $(document).ready(function() {
 if ($("#country").val()!='') {
   val = $("#country").find(":selected").val();
-  $("#state option").each(function(){
-    if ($(this).data('country')==val) {
-      $(this).show();
-    }else{
-      $(this).hide();
-    }
-  });
+  //trigger select state event for already selected country
+  // triggerCountrySelectEvent();
 }
 $('#country').on('change',function(event) {
   event.preventDefault();
   /* Act on the event */
-  val = $("#country").find(":selected").val();
-  $("#state option").each(function(){
-    if ($(this).data('country')==val) {
-      $(this).show();
-    }else{
-      $(this).hide();
-    }
-  });
-});
+      triggerCountrySelectEvent();
+   });
 });
 
 $(document).ready(function() {
@@ -28,12 +32,7 @@ $(document).ready(function() {
     var country = $('#country').find(':selected').val()
     var state = $('#state').find(':selected').val()
     var query = $('#search').val()
-    // if(query.trim()!=''||query!=undefined)
-    // {
     window.location.href = "/?country="+country+"&state="+state+"&query="+query.trim();
-    // }else{
-    //   window.location.href = "/?country="+country+"&state="+state;
-    // }
   }
   $("#filter_button").on('click',function(event) {
     // event.preventDefault();
@@ -41,31 +40,29 @@ $(document).ready(function() {
     runSearch();
   });
 
-function runevent(){
+function runevent(event){
   var ele = $(event.target);
-  // if ((function(val){return ['country','state','search'].indexOf(val)})(ele.attr("id"))){
-    // if (event.which == 13 || event.keyCode == 13) {
       event.preventDefault();
       runSearch();
-    // }
-  // }
 }
+
+
   $("#country").keydown(function(event) {
     /* Act on the event */
     if (event.which != 13 || event.keyCode != 13)
     return;
-    runevent();
+    runevent(event);
   });
   $("#state").keydown(function(event) {
     /* Act on the event */
     if (event.which != 13 || event.keyCode != 13)
     return;
-    runevent();
+    runevent(event);
   });
   $("#search").keydown(function(event) {
     /* Act on the event */
     if (event.which != 13 || event.keyCode != 13)
     return;
-    runevent();
+    runevent(event);
   });
 });

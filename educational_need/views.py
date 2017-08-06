@@ -65,7 +65,7 @@ class EducationalNeedListView(ListView):
 
         if self.request.GET.get('query'):
             query = self.request.GET.get('query')
-            users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query))
+            users=users.filter(Q(city__icontains=query)|Q(district__icontains=query)|Q(zip_code__icontains=query)|Q(mobile_number__icontains=query)|Q(phone_number__icontains=query)| Q(about__icontains=query))
             self.query_=self.request.GET.get('query')
 
         # Select active educational needs from the user list
@@ -78,13 +78,14 @@ class EducationalNeedListView(ListView):
 
         # Country list
         data['countries'] = Country.objects.values('name','code','pk')
-        data['states'] = State.objects.values('name','code','country__pk','pk')
         if self.country_:
             data['country_'] = self.country_.pk
+            data['states'] = State.objects.filter(country=self.country_).values('name','code','pk')
         if self.state_:
             data['state_'] = self.state_.pk
         if self.query_:
             data['query_'] = self.query_
+
         return data
 
 
