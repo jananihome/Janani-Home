@@ -1,3 +1,12 @@
+# @Author: Tushar Agarwal(tusharcoder) <tushar>
+# @Date:   2017-07-23T11:01:58+05:30
+# @Email:  tamyworld@gmail.com
+# @Filename: views.py
+# @Last modified by:   tushar
+# @Last modified time: 2017-08-06T15:22:56+05:30
+
+
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, update_session_auth_hash
@@ -15,6 +24,8 @@ from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
+import json
+from .models import State
 
 
 def signup(request):
@@ -120,3 +131,10 @@ def change_password(request):
         'form': form
     })
 
+def StateAjaxView(request):
+    """function to render the states accourding to the city passed"""
+    try:
+        country_id = request.GET.get('country_id')
+        return HttpResponse(json.dumps(tuple(i for i in State.objects.filter(country_id=country_id).values('name','id','code'))),content_type='application/json')
+    except Exception as e:
+        return HttpResponse(json.dumps([]),content_type='application/json')

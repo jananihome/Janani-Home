@@ -1,3 +1,12 @@
+# @Author: Tushar Agarwal(tusharcoder) <tushar>
+# @Date:   2017-07-30T00:52:11+05:30
+# @Email:  tamyworld@gmail.com
+# @Filename: urls.py
+# @Last modified by:   tushar
+# @Last modified time: 2017-08-06T15:18:47+05:30
+
+
+
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 from . import views
@@ -18,4 +27,5 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+    url(r'^country/states/$', views.StateAjaxView, name='states_of_country'),
 ]

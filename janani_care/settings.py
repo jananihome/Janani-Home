@@ -1,3 +1,12 @@
+# @Author: Tushar Agarwal(tusharcoder) <tushar>
+# @Date:   2017-08-06T15:08:04+05:30
+# @Email:  tamyworld@gmail.com
+# @Filename: settings.py
+# @Last modified by:   tushar
+# @Last modified time: 2017-08-06T15:26:50+05:30
+
+
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
