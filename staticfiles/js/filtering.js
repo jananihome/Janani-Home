@@ -1,15 +1,4 @@
-/**
- * @Author: Tushar Agarwal(tusharcoder) <tushar>
- * @Date:   2017-08-06T15:06:28+05:30
- * @Email:  tamyworld@gmail.com
- * @Filename: filtering.js
- * @Last modified by:   tushar
- * @Last modified time: 2017-08-06T16:38:58+05:30
- */
-
-
-
- function triggerCountrySelectEvent(){
+function triggerCountrySelectEvent(){
    val = $("#country").find(":selected").val();
    var ele = $("#state");
    $.get('/accounts/country/states/?country_id='+val,function(response,status){
