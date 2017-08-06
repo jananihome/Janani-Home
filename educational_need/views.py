@@ -3,7 +3,7 @@
 # @Email:  tamyworld@gmail.com
 # @Filename: views.py
 # @Last modified by:   tushar
-# @Last modified time: 2017-08-06T16:29:07+05:30
+# @Last modified time: 2017-08-06T16:37:21+05:30
 
 
 
@@ -87,13 +87,14 @@ class EducationalNeedListView(ListView):
 
         # Country list
         data['countries'] = Country.objects.values('name','code','pk')
-        data['states'] = State.objects.values('name','code','country__pk','pk')
         if self.country_:
             data['country_'] = self.country_.pk
+            data['states'] = State.objects.filter(country=self.country_).values('name','code','pk')
         if self.state_:
             data['state_'] = self.state_.pk
         if self.query_:
             data['query_'] = self.query_
+
         return data
 
 

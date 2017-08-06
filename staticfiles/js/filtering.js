@@ -4,7 +4,7 @@
  * @Email:  tamyworld@gmail.com
  * @Filename: filtering.js
  * @Last modified by:   tushar
- * @Last modified time: 2017-08-06T16:16:46+05:30
+ * @Last modified time: 2017-08-06T16:38:58+05:30
  */
 
 
@@ -29,7 +29,7 @@ $(document).ready(function() {
 if ($("#country").val()!='') {
   val = $("#country").find(":selected").val();
   //trigger select state event for already selected country
-  triggerCountrySelectEvent();
+  // triggerCountrySelectEvent();
 }
 $('#country').on('change',function(event) {
   event.preventDefault();
