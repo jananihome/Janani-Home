@@ -3,10 +3,24 @@
     src: url('../font/chalkmars_bold_sample.otf');
 }
 
+@font-face {
+        font-family: "Global Indifference";
+        src: url('../font/GlobalIndifference.otf');
+}
+@font-face {
+    font-family: "Trocchi";
+    src: url('../font/Trocchi.otf');
+}
+
 html, body {margin:0; padding:0; height:100%;}
 
 .text-title{
-    font-family: chalkmars_bold_sample;
+    font-family: Trocchi;
+}
+
+.tagline {
+    font-family: Global Indifference;
+    text-transform: uppercase;
 }
 
 .text-white{
