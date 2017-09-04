@@ -22,7 +22,7 @@ except NameError:
             to generate your secret key!' % SECRET_FILE)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 SERVER_EMAIL = 'jananicaredev@gmail.com'
 INTERNAL_IPS = '127.0.0.1'
 
@@ -135,7 +135,7 @@ AVATAR_PROVIDERS = (
     'avatar.providers.PrimaryAvatarProvider',
     'avatar.providers.DefaultAvatarProvider',
 )
-AVATAR_DEFAULT_URL = STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/img/logo-big.png')
+AVATAR_DEFAULT_URL = STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/img/') + 'logo-big.png'
 
 # Session timeout
 SESSION_COOKIE_AGE = 60 * 30
