@@ -6,7 +6,7 @@ function triggerCountrySelectEvent(){
      var string_ = '<option value="">(All)</option>';
      for (var val in response) {
        val=response[val];
-       string_=string_+'<option value="'+val.id+'">'+val.name+'('+val.code+')'+'</option>';
+       string_=string_+'<option value="'+val.id+'">'+val.name+'</option>';
      }
      ele.append(string_)
        });

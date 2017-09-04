@@ -1,0 +1,82 @@
+{% extends 'shared/base.html' %}
+{% load avatar_tags %}
+{% load static %}
+
+{% block sidebar %}
+    {% include 'educational_need/filter.html' %}
+{% endblock sidebar %}
+
+{% block heading %}
+    <h4 class="margin-padding-0">Educational Need</h4>
+    &nbsp; - &nbsp;
+    <h5 class="padding-3">Find and help people in educational need</h5>
+{% endblock heading %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+    {% else %}
+        <p class="alert alert-info">Want to submit your application or help others in their need? <a href="{% url 'signup' %}">Sign-up</a> or
+            <a href="{% url 'login' %}">log in</a> to your account.</p>
+    {% endif %}
+
+    {% for result in object_list %}
+        <div class="result-{{ result.pk }} card w-100">
+            <div class="card-header">
+                <h5 class="card-title">{{ result.user.first_name }} {{ result.user.last_name }}</h5>
+            </div>
+            <div class="card-block row">
+                <div class="col-md-3 text-center">
+                    {% avatar result.user 150 class="img-responsive" %}
+                </div>
+                <div class="col-md-7 text-14 align-middle">
+                    <table>
+                        <tr>
+                            <td><span class="text-bold"></span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><span class="text-bold">City:</span></td>
+                            <td>{{ result.user.profile.city }}</td>
+                        </tr>
+                        <tr>
+                            <td><span class="text-bold">State:</span></td>
+                            <td>{{ result.user.profile.state }}</td>
+                        </tr>
+                        <tr>
+                            <td><span class="text-bold">Country:</span></td>
+                            <td>{{ result.user.profile.country }}</td>
+                        </tr>
+                        <tr>
+                            <td><span class="text-bold">Amount required:&nbsp;</span></td>
+                            <td>{{ result.amount_required }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-2 text-center align-middle">
+                    <br><br>
+                    <a href="{% url 'detail_view' pk=result.pk %}" role="button" class="btn btn-secondary">View details</a>
+                    <p class="text-13">View count: <span>{{ result.view_count }}</span>&nbsp;</p>
+                </div>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+    {% if is_paginated %}
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li>
+                <span><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>&nbsp;</span>
+            </li>
+        {% endif %}
+            <li class="">
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            </li>
+        {% if page_obj.has_next %}
+            <li>
+                <span>&nbsp;<a href="?page={{ page_obj.next_page_number }}">&raquo;</a></span>
+            </li>
+        {% endif %}
+        </ul>
+    {% endif %}
+{% endblock content %}

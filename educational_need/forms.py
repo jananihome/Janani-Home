@@ -8,6 +8,7 @@ class EducationalNeedForm(forms.ModelForm):
     class Meta:
         model = EducationalNeed
         fields = (
+            'title',
             'permanent_address',
             'current_address',
             'additional_mobile_number',

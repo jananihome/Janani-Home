@@ -1,0 +1,49 @@
+                <div class="row">
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h4>Find</h4>
+                </div>
+                <br>
+                <form class="col-10 offset-1" action="/" method="get">
+                    <div class="form-group row">
+                        <div class="form-group row text-14">
+                            <h6 class="col-12 margin-padding-0">Search:</h6>
+                            <input type="text" class="form-control col-10" id="search" aria-describedby="search" placeholder="Keyword..." value="{{query_}}">
+                            <span  class="col-1 button-idea">
+                                <i class="material-icons color-gray">search</i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="filter_div">
+                        <div class="form-group row text-14">
+                            <h6 class="col-12 margin-padding-0">Filters:</h6>
+                            <label for="country">Country</label>
+                            <select class="form-control" id="country">
+                                <option value="">(All)</option>
+                                {%for country in countries%}
+                                  {%if country.pk == country_%}
+                                  <option value="{{country.pk}}" selected>{{country.name}}({{country.code}})</option>
+                                  {%else%}
+                                  <option value="{{country.pk}}">{{country.name}}({{country.code}})</option>
+                                  {%endif%}
+
+                                {%endfor%}
+                            </select>
+
+                            <label for="state">State</label>
+
+                            <select class="form-control" id="state">
+                                <option value="">(All)</option>
+                                {%for state in states%}
+                                {%if state.pk == state_%}
+                                <option value="{{state.pk}}" selected>{{state.name}}({{state.code}})</option>
+                                {%else%}
+                                <option value="{{state.pk}}">{{state.name}}({{state.code}})</option>
+                                {%endif%}
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary" id="filter_button">Apply filters</button>
+                    </div>
+                </form>

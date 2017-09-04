@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.list import ListView
 
 from accounts.models import Profile, Country, State
-
+from comment.models import Comment
 from .models import EducationalNeed
 from .forms import EducationalNeedForm, UserContactForm
 
@@ -18,7 +18,7 @@ class EducationalNeedListView(ListView):
 
     model = EducationalNeed
     template_name = 'educational_need/list_view.html'
-    paginate_by = 10
+    paginate_by = 6
     state_=None
     country_=None
     query_=None
@@ -78,6 +78,7 @@ class EducationalNeedListView(ListView):
 
         # Country list
         data['countries'] = Country.objects.values('name','code','pk')
+        data['comments'] = Comment.objects.filter(published=True)[:8]
         if self.country_:
             data['country_'] = self.country_.pk
             data['states'] = State.objects.filter(country=self.country_).values('name','code','pk')

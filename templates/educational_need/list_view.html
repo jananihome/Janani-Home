@@ -2,81 +2,83 @@
 {% load avatar_tags %}
 {% load static %}
 
-{% block sidebar %}
-    {% include 'educational_need/filter.html' %}
-{% endblock sidebar %}
-
 {% block heading %}
-    <h4 class="margin-padding-0">Educational Need</h4>
-    &nbsp; - &nbsp;
-    <h5 class="padding-3">Find and help people in educational need</h5>
+    {% include 'educational_need/filter.html' %}
 {% endblock heading %}
 
 {% block content %}
 
+    <!-- Alert for unauthenticated users -->
     {% if user.is_authenticated %}
     {% else %}
-        <p class="alert alert-info">Want to submit your application or help others in their need? <a href="{% url 'signup' %}">Sign-up</a> or
+        <p class="alert alert-info text-center">Want to submit your application or help others in their need? <a href="{% url 'signup' %}"><br>Sign-up</a> or
             <a href="{% url 'login' %}">log in</a> to your account.</p>
-    {% endif %}
+    {% endif %}<!-- Alert for unauthenticated users -->
 
-    {% for result in object_list %}
-        <div class="result-{{ result.pk }} card w-100">
-            <div class="card-header">
-                <h5 class="card-title">{{ result.user.first_name }} {{ result.user.last_name }}</h5>
-            </div>
-            <div class="card-block row">
-                <div class="col-md-3 text-center">
-                    {% avatar result.user 150 class="img-responsive" %}
-                </div>
-                <div class="col-md-7 text-14 align-middle">
-                    <table>
-                        <tr>
-                            <td><span class="text-bold"></span></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-bold">City:</span></td>
-                            <td>{{ result.user.profile.city }}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-bold">State:</span></td>
-                            <td>{{ result.user.profile.state }}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-bold">Country:</span></td>
-                            <td>{{ result.user.profile.country }}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="text-bold">Amount required:&nbsp;</span></td>
-                            <td>{{ result.amount_required }}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-2 text-center align-middle">
-                    <br><br>
-                    <a href="{% url 'detail_view' pk=result.pk %}" role="button" class="btn btn-secondary">View details</a>
-                    <p class="text-13">View count: <span>{{ result.view_count }}</span>&nbsp;</p>
+    <h2 class="small-heading">Educational Needs</h2>
+    <!-- Result list -->
+    <div class="row result-list">
+        {% for result in object_list %}
+        <!-- Result card -->
+        <div class="result-container col-md-6">
+              <div class="result-card card">
+              <div class="row">
+                  <div class="col-3 text-center result-sidebar">
+                    {% avatar result.user 60 class="img-responsive" %}<br><br><i class="fa fa-eye" aria-hidden="true"></i><br>{{ result.view_count }}
+                  </div>
+                  <div class="col-8">
+                    <div class="row">
+                      <div class="col-12">
+                        <a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a>
+                        <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
+                        <p class="result-description"><small>{{ result.requirement_description|truncatechars:100 }}</small></p>
+                      </div>
+                      <div class="col-8 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amout %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
+                        <div class="col-4 read-more"><a href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
+                    </div>
+                  </div>
                 </div>
             </div>
-        </div>
-        <br>
-    {% endfor %}
-    {% if is_paginated %}
-        <ul class="pagination">
-        {% if page_obj.has_previous %}
-            <li>
-                <span><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>&nbsp;</span>
-            </li>
+        </div><!-- Result card -->
+        {% endfor %}
+
+        {% if is_paginated %}
+            <!-- Pagination -->
+                <div class="col-md-12">
+                    <nav aria-label="Pagination">
+                        <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&laquo; Previous</a></li>
+                        {% else %}
+                            <li class="page-item disabled" tabindex="-1"><a class="page-link" href="#">&laquo; Previous</a></li>
+                        {% endif %}
+                            <li class="page-item disabled" tabindex="-1"><a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">Next &raquo;</a></li>
+                        {% endif %}
+                        </ul>
+                    </nav>
+                </div><!-- Pagination -->
         {% endif %}
-            <li class="">
-                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-            </li>
-        {% if page_obj.has_next %}
-            <li>
-                <span>&nbsp;<a href="?page={{ page_obj.next_page_number }}">&raquo;</a></span>
-            </li>
-        {% endif %}
-        </ul>
-    {% endif %}
+    </div> <!-- Result list -->
 {% endblock content %}
+
+{% block sidebar %}
+    <div class="">
+      <div class="text-center">
+        <h2 class="small-heading">User Comments</h2>
+      </div>
+      <br>
+      <div class="card-block">
+          {% for comment in comments %}
+          <div class="row">
+              <div class="col-3 text-center">{% avatar comment.author 50 class="img-responsive" %}</div>
+              <div class="col-9"><p>{{ comment.comment }}</p></div>
+              <div class="col-12 text-right"><p><span class="text-muted">{{ comment.pub_date }}</span></p></div>
+          </div>
+          <hr>
+          {% endfor %}
+          <p class="text-right"><a class="btn btn-outline-dark" href="{% url 'comment_list' %}">See all comments ...</a></p>
+      </div>
+    </div>
+{% endblock sidebar %}

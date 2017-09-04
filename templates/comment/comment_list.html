@@ -3,16 +3,14 @@
 {% load avatar_tags %}
 
 {% block heading %}
-    <h4 class="margin-padding-0">Comments</h4>
-    &nbsp; - &nbsp;
-    <h5 class="padding-3">Comments and reviews from our users</h5>
+	<h1>Comments <small class="text-muted">and reviews from users who received help through Janani Home.</small></h1>
 {% endblock heading %}
 
 {% block content %}
 	{% for comment in comments %}
-			<div class="result-{{ result.pk }} card w-100">
+			<div class="result-{{ result.pk }} card">
 				<div class="card-header">
-                	<h5 class="card-title">{{ comment.pub_date }}</h5>
+                	<h5 class="card-title">{{ comment.pub_date }} by {{ comment.author }}</h5>
             	</div>
 				<div class="card-block row">
 					<div class="col-md-3 text-center">
@@ -29,9 +27,9 @@
 								<td>
 								{% for x in 'xxxxx' %}
 									{% if forloop.counter0 < comment.rating %}
-										<span><i class="material-icons text-14">favorite</i></span>
+										<i class="fa fa-heart" aria-hidden="true"></i>
 									{% else %}
-										<span><i class="material-icons text-14">favorite_border</i></span>
+										<i class="fa fa-heart-o" aria-hidden="true"></i>
 									{% endif %}
 								{% endfor %}
 								</td>

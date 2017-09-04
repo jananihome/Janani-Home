@@ -131,6 +131,11 @@ EMAIL_PORT = 587
 
 # Avatars
 AVATAR_CACHE_ENABLED = False
+AVATAR_PROVIDERS = (
+    'avatar.providers.PrimaryAvatarProvider',
+    'avatar.providers.DefaultAvatarProvider',
+)
+AVATAR_DEFAULT_URL = STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/img/logo-big.png')
 
 # Session timeout
-SESSION_COOKIE_AGE = 60 * 15
+SESSION_COOKIE_AGE = 60 * 30

@@ -1,6 +1,6 @@
 {% extends 'shared/base.html' %}
 {% block heading %}
-<h4 class="margin-padding-0">Sign up</h4>
+<h1>Sign up</h1>
 {% endblock heading %}
 {% block content %}
 
@@ -10,8 +10,8 @@
 <p>
 {{ field.label_tag }}<br>
 {{ field }}
-{% if field.help_text %}
-  <small style="display: none">{{ field.help_text }}</small>
+{% if field.help_text %}<br>
+  <small>{{ field.help_text|safe }}</small>
 {% endif %}
 {% for error in field.errors %}
   <p style="color: red">{{ error }}</p>
@@ -19,7 +19,10 @@
 </p>
 {% endfor %}
 
-<button type="submit">Sign up</button>
+<button class="btn btn-secondary" type="submit">Sign up</button>
 </form>
+{% endblock %}
+
+{% block sidebar %}
 <p>Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
 {% endblock %}

@@ -4,7 +4,7 @@
     <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
 {% endblock sidebar %}
 {% block heading %}
-    <h4 class="margin-padding-0">Change profile image</h4>
+    <h1>Change profile image</h1>
 {% endblock heading %}
 {% block content %}
 <p>Your current avatar :</p>
@@ -21,6 +21,6 @@
 {% endif %}
 <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
     {{ upload_avatar_form.as_p }}
-    <p>{% csrf_token %}<input type="submit" value="Upload New Image" /></p>
+    <p>{% csrf_token %}<input class="btn btn-secondary" type="submit" value="Upload Image" /></p>
 </form>
 {% endblock %}

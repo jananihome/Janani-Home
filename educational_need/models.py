@@ -8,6 +8,7 @@ from djmoney.models.fields import MoneyField
 class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
     pub_date = models.DateField(default=timezone.now)
+    title = models.CharField(max_length=200)
     permanent_address = models.TextField()
     additional_mobile_number = models.CharField(
         max_length=20,

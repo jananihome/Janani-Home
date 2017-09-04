@@ -3,12 +3,10 @@
 {% load widget_tweaks %}
 {% load avatar_tags %}
 {% block sidebar %}
-    <a href="" onclick="goBack()">&laquo; Back to list</a>
+    <a href="" onclick="goBack()">&laquo; Back to results</a>
 {% endblock sidebar %}
 {% block heading %}
-<h4 class="margin-padding-0">{{ educational_need }} by {{ educational_need.user }}</h4>
 {% endblock heading %}
-
 {% block content %}
     {% if messages %}
     {% for message in messages %}
@@ -18,42 +16,26 @@
         </div>
     {% endfor %}
     {% endif %}
-    <div class="card w-100">
-      <div class="card-header">Educational need description</div>
-      <div class="card-block row">
-        <div class="col-md-7 text-14 align-middle">
-            <p>Amount required: <strong>{{ educational_need.amount_required }}</strong></p>
-            <p><strong>Description: </strong>{{ educational_need.requirement_description }}</p>
-            <small>View count: {{ educational_need.view_count }}</small>
-        </div>
+    <div class="text-center need-content">
+      <div class="need-header">
+          <h3>{{ educational_need.title }}</h3>
+          <hr>
+          {% avatar educational_need.user 250 class="profile-image float-left" %}
+          <p class="blockquote need-description">{{ educational_need.requirement_description }}</p>
       </div>
-    </div>
-    <br/>
-    <div class="card w-100">
-      <div class="card-header">User details</div>
-      <div class="card-block row">
-        <div class="col-md-3 text-center">
-            {% avatar educational_need.user 150 class="profile-image" %}
-        </div>
-        <div class="col-md-7 text-14 align-middle">
-            <p><strong>Name: </strong>{{ educational_need.user.first_name }}</p>
-            <p><strong>Surname: </strong>{{ educational_need.user.last_name }}</p>
-            <p><strong>Birth date: </strong>{{ educational_need.user.profile.birth_date }}</p>
-            <p><strong>Location: </strong>{{ educational_need.user.profile.zip_code }} {{ educational_need.user.profile.city }}, {{ educational_need.user.profile.district }}, {{ educational_need.user.profile.state }}, <strong>{{ educational_need.user.profile.country.name }}</strong></p>
-            <p><strong>Description: </strong>{{ educational_need.user.profile.about }}</p>
-        </div>
-    </div>
-    </div>
-    <br/>
-    {% if educational_need.closed %}
-    <div class="alert alert-warning">
-        This educational need has been closed by the user and is not active anymore!
-    </div>
-    {% else %}
-    <div class="card w-100">
-      <div class="card-header">Contact details</div>
-      <div class="card-block row">
-          <div class="col-md-7 text-14 align-middle">
+      <hr>
+      <h4 class="inverted-heading">Amount required: {{ educational_need.amount_required }}</h4>
+      <hr>
+      <h3 >About the user</h3>
+      <p class="blockquote">{{ educational_need.user.profile.about }}</p>
+      <hr>
+      {% if educational_need.closed %}
+      <div class="alert alert-warning">
+          This educational need has been closed by the user and is not active anymore!
+      </div>
+      {% else %}
+      <h3>Contact details</h3>
+      <p>This educational need was submitted by <strong>{{ educational_need.user.first_name }} {{ educational_need.user.last_name }}</strong>.  {{ educational_need.user.first_name }} was born in year {{ educational_need.user.profile.birth_date.year }} and comes from {{ educational_need.user.profile.zip_code }} {{ educational_need.user.profile.city }}, {{ educational_need.user.profile.district }}, {{ educational_need.user.profile.state }}, <strong>{{ educational_need.user.profile.country.name }}</strong>. You can find {{ educational_need.user.first_name }}'s contact information below.</p>
             <p>
                 <strong>Mobile number: </strong>
                 {% if user.is_authenticated %}
@@ -101,16 +83,13 @@
                     {{ form.non_field_errors }}
                     <div class="form-group">
 						{{ form.permanent_address.errors }}
-						<label for="{{ form.message.id_for_label }}">{{ form.message.label }}:</label>
                         {% render_field form.message class+="form-control" rows=3 %}
                     </div>
-                    <button type="submit" class="btn btn-secondary">Submit</button>
+                    <button type="submit" class="btn btn-secondary">SEND MESSAGE</button>
                 </form>
             {% else %}
                 <p class="alert alert-danger">You are not logged in! Please register or log in to contact this user.</p>
             {% endif %}
-          </div>
-      </div>
-    </div>
     {% endif %}
+    </div>
 {% endblock content %}

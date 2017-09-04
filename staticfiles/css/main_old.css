@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'chalkmars_bold_sample';
+    src: url('../font/chalkmars_bold_sample.otf');
+}
+
+@font-face {
+        font-family: "Global Indifference";
+        src: url('../font/GlobalIndifference.otf');
+}
+@font-face {
+    font-family: "Trocchi";
+    src: url('../font/Trocchi.otf');
+}
+
+html, body {margin:0; padding:0; height:100%;}
+
+.text-title{
+    font-family: Trocchi;
+}
+
+.tagline {
+    font-family: Global Indifference;
+    text-transform: uppercase;
+}
+
+.text-white{
+    color: white;
+}
+
+.text-black{
+    color: black;
+}
+
+.text-15{
+    font-size: 15px;
+}
+
+.text-14{
+    font-size: 14px;
+}
+
+.text-13{
+    font-size: 13px;
+}
+
+.text-12{
+    font-size: 12px;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.text-underlined{
+    text-decoration: underline;
+}
+
+.background-black{
+    background-color: #292B2C;
+}
+
+.color-gray{
+    color: #A5AAAD;
+}
+
+.button-idea{
+    padding: 5px;
+    padding-left: 15px;
+    font-size: 3px;
+}
+
+.padding-3{
+    padding-top: 3px;
+}
+
+.padding-left-20{
+    padding-left: 30px;
+}
+
+.margin-padding-0{
+    margin: 0px;
+    padding: 0px;
+}
+
+.container-block-left{
+    margin: 0px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: justify;
+}
+
+.border-bottom-black{
+    border-bottom: black 1px solid;
+}
+
+.active{
+    background-color: rgba(36, 37, 38, 0.9);
+    border-radius: 10px;
+}
+
+.hover-gray:hover{
+    background-color: rgba(36, 37, 38, 0.9);
+    border-radius: 10px;
+}
+
+.scroll-y{
+    overflow-y: scroll;
+}
+
+/* BEGIN hide increment/decrement arrows on number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+/* END hide increment/decrement arrows on number input */
+
+input[type=checkbox] {
+    width: auto;
+    height: auto;
+    padding:0;
+    margin: 0.5em ;
+}

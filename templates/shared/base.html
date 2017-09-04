@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% if page_title %}{{ page_title }}{% else %}Janani Care [DEMO]{% endif %}</title>
     {% include 'shared/styles.html' %}
     <meta name="robots" content="noindex">
 </head>
 <body>
-    {% include 'shared/navigation.html' %}
-    <div class="container-fluid" style="height: 89.8%;">
-        <div class="row" style="height: 100%;">
-            <div class="block-left col-md-3 background-black text-white" style="overflow: hidden;">
-                <div class="container container-block-left">
-                <br>
-                {% block sidebar %}
-                {% endblock sidebar %}
-                </div>
-            </div>
-            <div class="block-right col-md-9 scroll-y">
-                <br>
-                <br>
-                <div class="row padding-left-20">
-                    {% block heading %}
-                    {% endblock heading %}
-                </div>
-                <br>
-                <hr>
-                <div class="container">
-                    <br>
-                    {% block content %}
-                    {% endblock content %}
-                    <br>
-                </div>
-                <br>
+    <!-- Site Container -->
+    <div class="container">
+
+        <!-- Navigation -->
+        {% include 'shared/navigation.html' %}
+        <!-- Heading Row -->
+        <div class="heading row justify-content-md-center">
+            <div class="col-md-9">
+                {% block heading %}
+                {% endblock heading %}
             </div>
         </div>
-    </div>
-{% include 'shared/javascripts.html' %}
+        <hr>
+
+        <!-- Content -->
+        <div class="row">
+
+            <!-- Main Content -->
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock content %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-md-4">
+                {% block sidebar %}
+                {% endblock sidebar %}
+            </div>
+        </div> <!-- Content -->
+        <hr>
+        <footer id="site-footer">
+            Janani Home - Mother's Love And Care
+        </footer>
+    </div><!-- Site Container -->
+    {% include 'shared/javascripts.html' %}
 </body>
 </html>

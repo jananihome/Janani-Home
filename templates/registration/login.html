@@ -1,13 +1,15 @@
 {% extends 'shared/base.html' %}
 {% block heading %}
-<h4 class="margin-padding-0">Login</h4>
+<h1>Login</h1>
 {% endblock heading %}
 {% block content %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-<button type="submit">Login</button>
+<button class="btn btn-secondary" type="submit">Login</button>
 </form>
+{% endblock %}
+{% block sidebar %}
 <p>Don't have an account? <a href="{% url 'signup' %}">Sign up now</a>.</p>
 <p>Forgot your password? <a href="{% url 'password_reset' %}">Reset it here</a>.</p>
 {% endblock %}

@@ -2,11 +2,11 @@
 {% load widget_tweaks %}
 
 {% block heading %}
-<h4 class="margin-padding-0">Close {{ educational_need }}</h4>
+<h1>Close {{ educational_need }}</h1>
 {% endblock heading %}
 
 {% block content %}
-<div class="col-md-6">
+<div class="col-md-12">
     <form method="post">{% csrf_token %}
         {{ form.non_field_errors }}
         <div class="form-group row">

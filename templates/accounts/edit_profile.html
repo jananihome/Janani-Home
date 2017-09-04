@@ -1,11 +1,11 @@
 {% extends 'shared/base.html' %}
 {% load widget_tweaks %}
 {% block sidebar %}
-    <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
+    <p><a href="{% url 'view_profile' %}">&laquo; Back to profile view</a></p>
 {% endblock sidebar %}
 
 {% block heading %}
-    <h4 class="margin-padding-0">Edit profile</h4>
+    <h1>Edit profile</h1>
 {% endblock heading %}
 
 {% block content %}
@@ -36,7 +36,7 @@
         {% endfor %}
         <br>
         <div class="col-12 text-center">
-            <button type="submit" class="btn btn-secondary">Submit</button>
+            <button type="submit" class="btn btn-secondary btn-lg">Save changes</button>
         </div>
     </form>
 {% endblock %}

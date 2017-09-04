@@ -1,49 +1,39 @@
-                <div class="row">
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><h4>Find</h4>
-                </div>
-                <br>
-                <form class="col-10 offset-1" action="/" method="get">
-                    <div class="form-group row">
-                        <div class="form-group row text-14">
-                            <h6 class="col-12 margin-padding-0">Search:</h6>
-                            <input type="text" class="form-control col-10" id="search" aria-describedby="search" placeholder="Keyword..." value="{{query_}}">
-                            <span  class="col-1 button-idea">
-                                <i class="material-icons color-gray">search</i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group row" id="filter_div">
-                        <div class="form-group row text-14">
-                            <h6 class="col-12 margin-padding-0">Filters:</h6>
-                            <label for="country">Country</label>
-                            <select class="form-control" id="country">
-                                <option value="">(All)</option>
-                                {%for country in countries%}
-                                  {%if country.pk == country_%}
-                                  <option value="{{country.pk}}" selected>{{country.name}}({{country.code}})</option>
-                                  {%else%}
-                                  <option value="{{country.pk}}">{{country.name}}({{country.code}})</option>
-                                  {%endif%}
-
-                                {%endfor%}
-                            </select>
-
-                            <label for="state">State</label>
-
-                            <select class="form-control" id="state">
-                                <option value="">(All)</option>
-                                {%for state in states%}
-                                {%if state.pk == state_%}
-                                <option value="{{state.pk}}" selected>{{state.name}}({{state.code}})</option>
-                                {%else%}
-                                <option value="{{state.pk}}">{{state.name}}({{state.code}})</option>
-                                {%endif%}
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" id="filter_button">Apply filters</button>
-                    </div>
-                </form>
+<form action="/" metion="get" id="search-filter">
+    <span class="input-group form-group">
+        <input class="form-control form-control-lg" type="text" id="search" aria-describedby="search" placeholder="Find people in educational need...">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-secondary btn-lg" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse"><i class="fa fa-sliders" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-secondary btn-lg" id="filter_button"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </span>
+    </span>
+    <div id="filterCollapse" class="collapse form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="country">Country</label>
+                <select class="custom-select" id="country">
+                    <option value="">(All)</option>
+                    {% for country in countries %}
+                      {% if country.pk == country_ %}
+                        <option value="{{country.pk}}" selected>{{country.name}}</option>
+                      {% else %}
+                        <option value="{{country.pk}}">{{country.name}}</option>
+                      {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="state">State</label>
+                <select class="custom-select" id="state">
+                    <option value="">(All)</option>
+                    {% for state in states %}
+                        {% if state.pk == state_ %}
+                            <option value="{{state.pk}}" selected>{{state.name}}</option>
+                        {% else %}
+                            <option value="{{state.pk}}">{{state.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
