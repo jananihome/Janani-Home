@@ -11,6 +11,16 @@
 <h1>My profile</h1>
 {% endblock heading %}
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        {% if 'error' not in message.tags %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% endif %}
     <div class="card">
         <div class="card-header">My details</div>
         <div class="card-block row">
