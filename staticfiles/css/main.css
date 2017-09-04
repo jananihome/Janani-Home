@@ -83,6 +83,7 @@ input[type=checkbox] {
 .result-location {
     font-size: 0.8em;
     color: #888;
+    height: 2em;
 }
 
 .result-description {
