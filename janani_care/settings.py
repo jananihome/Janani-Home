@@ -22,7 +22,7 @@ except NameError:
             to generate your secret key!' % SECRET_FILE)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 SERVER_EMAIL = 'jananicaredev@gmail.com'
 INTERNAL_IPS = '127.0.0.1'
 
@@ -130,12 +130,12 @@ EMAIL_HOST_PASSWORD = 'jananipassword'
 EMAIL_PORT = 587
 
 # Avatars
-AVATAR_CACHE_ENABLED = False
 AVATAR_PROVIDERS = (
     'avatar.providers.PrimaryAvatarProvider',
     'avatar.providers.DefaultAvatarProvider',
 )
 AVATAR_DEFAULT_URL = 'http://i.imgur.com/pBLcZgm.png'
+AVATAR_CACHE_ENABLED = False
 
 # Session timeout
 SESSION_COOKIE_AGE = 60 * 30
