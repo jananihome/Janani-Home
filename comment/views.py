@@ -62,7 +62,7 @@ def comment_submitted(request):
 @user_passes_test(lambda u: u.is_superuser)
 def comment_approval(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, 'comment/comment_approval.html' , {'comment': comment,})
+    return render(request, 'comment/comment_approval.html', {'comment': comment})
 
 
 @user_passes_test(lambda u: u.is_superuser)
