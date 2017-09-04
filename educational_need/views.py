@@ -74,18 +74,19 @@ class EducationalNeedListView(ListView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['page_title'] = 'JananiCare - find and help people in educational need'
-
         # Country list
         data['countries'] = Country.objects.values('name','code','pk')
         data['comments'] = Comment.objects.filter(published=True)[:8]
         if self.country_:
             data['country_'] = self.country_.pk
+            data['active_country'] = self.country_.name
             data['states'] = State.objects.filter(country=self.country_).values('name','code','pk')
         if self.state_:
             data['state_'] = self.state_.pk
+            data['active_state'] = self.state_.name
         if self.query_:
             data['query_'] = self.query_
+            data['active_query'] = self.query_
 
         return data
 

@@ -14,10 +14,13 @@
         <p class="alert alert-info text-center">Want to submit your application or help others in their need? <a href="{% url 'signup' %}"><br>Sign-up</a> or
             <a href="{% url 'login' %}">log in</a> to your account.</p>
     {% endif %}<!-- Alert for unauthenticated users -->
+    <h2 class="small-heading">Educational Needs {% if active_country %}in {% if active_state and active_state != active_country %}{{ active_state }}, {% endif %}{{ active_country }}{% else %} around the world{% endif %}</h2>
 
-    <h2 class="small-heading">Educational Needs</h2>
     <!-- Result list -->
     <div class="row result-list">
+        <div class="col-md-12">{% if active_search or active_country %}<p>{% if active_query %}<span class="badge badge-light">Keyword: "{{ active_query }}"</span>{% endif %}{% if active_country %}<span class="badge badge-light">Country: {{ active_country }}</span>{% endif %}{% if active_state %}
+            <span class="badge badge-light">State: {{ active_state }}</span>{% endif %} <a
+        href="{% url 'list_view' %}"> <i class="fa fa-refresh" aria-hidden="true"></i></a></p>{% endif %}</div>
         {% for result in object_list %}
         <!-- Result card -->
         <div class="result-container col-md-6">
