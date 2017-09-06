@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +10,23 @@
 </head>
 <body>
     <!-- Site Container -->
-    <div class="container">
-
-        <!-- Navigation -->
-        {% include 'shared/navigation.html' %}
-        <!-- Heading Row -->
-        <div class="heading row justify-content-md-center">
-            <div class="col-md-9">
-                {% block heading %}
-                {% endblock heading %}
+    <div class="container-flex mb-3 ml-2 mr-2">
+        <div class="row navbar-row">
+            <div class="col-md-1">
+                <img src="{% static 'img/logo-big.png' %}" height="130" class="img-responsive" alt="">
             </div>
+            <div class="col">
+                    <!-- Navigation -->
+                    {% include 'shared/navigation.html' %}
+
+                    <div class="col-md-12 heading">
+                        {% block heading %}
+                        {% endblock heading %}
+                    </div>
+            </div>
+        </div>
+        <!-- Heading Row -->
+        <div class="heading row">
         </div>
         <hr>
 
@@ -32,7 +40,7 @@
             </div>
 
             <!-- Sidebar -->
-            <div class="col-md-4">
+            <div class="col-md-4 sidebar">
                 {% block sidebar %}
                 {% endblock sidebar %}
             </div>

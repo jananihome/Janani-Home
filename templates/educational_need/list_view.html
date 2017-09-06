@@ -1,5 +1,5 @@
 {% extends 'shared/base.html' %}
-{% load avatar_tags %}
+{% load thumbnail %}
 {% load static %}
 
 {% block heading %}
@@ -11,8 +11,9 @@
     <!-- Alert for unauthenticated users -->
     {% if user.is_authenticated %}
     {% else %}
-        <p class="alert alert-info text-center">Want to submit your application or help others in their need? <a href="{% url 'signup' %}"><br>Sign-up</a> or
-            <a href="{% url 'login' %}">log in</a> to your account.</p>
+        <div class="alert alert-secondary text-center" role="alert">
+            Want to submit your application or help others in their need? <a class="alert-link" href="{% url 'signup' %}"><br>Sign-up</a> or <a class="alert-link" href="{% url 'login' %}">log in</a> to your account.
+        </div>
     {% endif %}<!-- Alert for unauthenticated users -->
     <h2 class="small-heading">Educational Needs {% if active_country %}in {% if active_state and active_state != active_country %}{{ active_state }}, {% endif %}{{ active_country }}{% else %} around the world{% endif %}</h2>
 
@@ -27,7 +28,12 @@
               <div class="result-card card">
               <div class="row">
                   <div class="col-3 text-center result-sidebar">
-                    {% avatar result.user 60 class="img-responsive" %}<br><br><i class="fa fa-eye" aria-hidden="true"></i><br>{{ result.view_count }}
+                    {% if not result.user.profile.image %}
+                    <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-responsive" />
+                    {% else %}
+                    <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-responsive">
+                    {% endif %}
+                    <br>Views:<br><i class="fa fa-eye" aria-hidden="true"></i> {{ result.view_count }}
                   </div>
                   <div class="col-8">
                     <div class="row">
@@ -36,28 +42,30 @@
                         <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
                         <p class="result-description"><small>{{ result.requirement_description|truncatechars:100 }}</small></p>
                       </div>
-                      <div class="col-8 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amount_required %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
-                        <div class="col-4 read-more"><a href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
                     </div>
                   </div>
                 </div>
+                    <div class="row result-meta">
+                      <div class="col-6 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amount_required %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
+                      <div class="col-6 read-more"><a class="btn btn-outline-dark" href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
+                    </div>
             </div>
         </div><!-- Result card -->
         {% endfor %}
 
         {% if is_paginated %}
             <!-- Pagination -->
-                <div class="col-md-12">
+                <div class="pagination-container">
                     <nav aria-label="Pagination">
                         <ul class="pagination">
                         {% if page_obj.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&laquo; Previous</a></li>
+                            <li class="page-item"><a class="btn btn-dark" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&laquo; Previous</a></li>
                         {% else %}
                             <li class="page-item disabled" tabindex="-1"><a class="page-link" href="#">&laquo; Previous</a></li>
                         {% endif %}
                             <li class="page-item disabled" tabindex="-1"><a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
                         {% if page_obj.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">Next &raquo;</a></li>
+                            <li class="page-item"><a class="btn btn-dark" href="?page={{ page_obj.next_page_number }}" aria-label="Next">Next &raquo;</a></li>
                         {% endif %}
                         </ul>
                     </nav>
@@ -75,7 +83,13 @@
       <div class="card-block">
           {% for comment in comments %}
           <div class="row">
-              <div class="col-3 text-center">{% avatar comment.author 50 class="img-responsive" %}</div>
+              <div class="col-3 text-center">
+                  {% if not comment.author.profile.image %}
+                  <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-responsive" />
+                  {% else %}
+                  <img src="{{ comment.author.profile.image|thumbnail_url:'avatar70' }}" alt="{{ comment.author }}" class="img-responsive" />
+                  {% endif %}
+              </div>
               <div class="col-9"><p>{{ comment.comment }}</p></div>
               <div class="col-12 text-right"><p><span class="text-muted">{{ comment.pub_date }}</span></p></div>
           </div>

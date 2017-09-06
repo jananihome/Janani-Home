@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from educational_need.models import EducationalNeed
+from easy_thumbnails.fields import ThumbnailerImageField
 from smart_selects.db_fields import ChainedForeignKey
 
 
@@ -77,6 +78,8 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
+    image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
+                                   null=True)
 
     def __str__(self):
         return self.user.username

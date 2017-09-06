@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'smart_selects',
     'educational_need',
     'widget_tweaks',
-    'avatar',
     'comment',
     'django_extensions',
     'debug_toolbar',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -130,12 +130,14 @@ EMAIL_HOST_PASSWORD = 'jananipassword'
 EMAIL_PORT = 587
 
 # Avatars
-AVATAR_PROVIDERS = (
-    'avatar.providers.PrimaryAvatarProvider',
-    'avatar.providers.DefaultAvatarProvider',
-)
-AVATAR_DEFAULT_URL = 'http://i.imgur.com/pBLcZgm.png'
-AVATAR_CACHE_ENABLED = False
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar50': {'size': (50, 50), 'crop': True},
+        'avatar70': {'size': (70, 70), 'crop': True},
+        'avatar150': {'size': (150, 150), 'crop': True},
+        'avatar250': {'size': (250, 250), 'crop': True},
+    },
+}
 
 # Session timeout
 SESSION_COOKIE_AGE = 60 * 30

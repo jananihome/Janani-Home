@@ -92,7 +92,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('birth_date', 'mobile_number', 'hide_mobile_number', 'phone_number',
                   'hide_phone_number', 'country', 'state', 'zip_code', 'city', 'district',
-                  'about')
+                  'about', 'image', )
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
         }

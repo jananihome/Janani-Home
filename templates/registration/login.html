@@ -1,12 +1,24 @@
 {% extends 'shared/base.html' %}
+{% load widget_tweaks %}
 {% block heading %}
 <h1>Login</h1>
 {% endblock heading %}
 {% block content %}
-<form method="post">
+<form method="post" class="form-inline">
     {% csrf_token %}
-    {{ form.as_p }}
-<button class="btn btn-secondary" type="submit">Login</button>
+    {{ form.non_field_errors }}
+    <div class="form-group">
+    {% for field in form %}
+        <label for="{{ field.id_for_label }}" class="inline">{% if field.label == 'Username' %}Username or email{% else %}{{ field.label }}{% endif %}:</label>
+        {% for error in field.errors %}
+            <div class="container alert alert-danger">
+                    {{ error }}
+            </div>
+        {% endfor %}
+        {% render_field field class+="form-control mx-sm-3" %}
+    {% endfor %}
+            <button class="btn btn-secondary" type="submit">Login</button>
+    </div>
 </form>
 {% endblock %}
 {% block sidebar %}

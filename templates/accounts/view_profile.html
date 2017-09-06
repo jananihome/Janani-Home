@@ -1,10 +1,10 @@
 {% extends 'shared/base.html' %}
-{% load avatar_tags %}
+{% load thumbnail %}
+
 {% block sidebar %}
     <h2 class="small-heading">Profile menu</h2>
     <hr>
     <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
-    <p><a href="{% url 'avatar_change' %}">Change profile image</a></p>
     <p><a href="{% url 'change_password' %}">Change password</a></p>
 {% endblock sidebar %}
 {% block heading %}
@@ -26,7 +26,7 @@
         <div class="card-block row">
             <div class="col-md-3 text-center">
                 <div class="profile-image">
-                    {% avatar user 150 %}
+                    <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-responsive">
                 </div>
             </div>
             <div class="col-md-7">

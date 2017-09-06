@@ -1,6 +1,10 @@
 {% extends 'shared/base.html' %}
 {% load widget_tweaks %}
+{% load thumbnail %}
+
 {% block sidebar %}
+    <h2 class="small-heading">Navigation</h2>
+    <hr>
     <p><a href="{% url 'view_profile' %}">&laquo; Back to profile view</a></p>
 {% endblock sidebar %}
 
@@ -9,31 +13,186 @@
 {% endblock heading %}
 
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif%} alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         {{ user_form.non_field_errors }}
         {{ profile_form.non_field_errors }}
-        {% for field in user_form %}
-            <div class="form-group row">
-                <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
-                {% for error in field.errors %}
+
+        <h2 class="inverted-heading small-heading">User details</h2>
+        <div class="form-row">
+            <div class="col">
+            <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}:</label>
+                {% for error in user_form.username.errors %}
                     <div class="container alert alert-danger">
                         {{ error }}
                     </div>
                 {% endfor %}
-                {% render_field field class+="form-control" %}
+                {% render_field user_form.username class+="form-control" %}
             </div>
-        {% endfor %}
-        {% for field in profile_form %}
-            <div class="form-group row">
-                <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
-                {% for error in field.errors %}
+            <div class="col">
+                <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}:</label>
+                {% for error in user_form.first_name.errors %}
                     <div class="container alert alert-danger">
                         {{ error }}
                     </div>
                 {% endfor %}
-                {% render_field field class+="form-control" %}
+                {% render_field user_form.first_name class+="form-control" %}
             </div>
-        {% endfor %}
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}:</label>
+                {% for error in user_form.last_name.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field user_form.last_name class+="form-control" %}
+            </div>
+            <div class="col">
+                <label for="{{ profile_form.birth_date.id_for_label }}">{{ profile_form.birth_date.label }}:</label>
+                {% for error in profile_form.birth_date.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.birth_date class+="form-control" %}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="{{ profile_form.about.id_for_label }}">{{ profile_form.about.label }}:</label>
+                {% for error in profile_form.about.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.about class+="form-control" %}
+            </div>
+        </div>
+        <h2 class="inverted-heading small-heading">Profile image</h2>
+        <div class="form-row">
+            <div class="col">
+                {% if request.user.profile.image %}
+                    <img src="{{ request.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ request.user }}" class="img-responsive profile-image">
+                {% endif %}
+                {% for error in profile_form.image.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.image class+="form-control" %}
+            </div>
+        </div>
+        <h2 class="inverted-heading small-heading">Contact information</h2>
+        <div class="form-row">
+            <div class="col">
+                <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}:</label>
+                {% for error in user_form.email.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field user_form.email class+="form-control" %}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="{{ profile_form.mobile_number.id_for_label }}">{{ profile_form.mobile_number.label }}:</label>
+                {% for error in profile_form.mobile_number.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.mobile_number class+="form-control" %}
+            </div>
+            <div class="col">
+                <label for="{{ profile_form.phone_number.id_for_label }}">{{ profile_form.phone_number.label }}:</label>
+                {% for error in profile_form.phone_number.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.phone_number class+="form-control" %}
+            </div>
+        </div>
+        <div class="form-row">
+                <div class="col">
+                    <label for="{{ profile_form.hide_mobile_number.id_for_label }}">{{ profile_form.hide_mobile_number.label }}:</label>
+                    {% for error in profile_form.hide_mobile_number.errors %}
+                        <div class="container alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field profile_form.hide_mobile_number class+="form-control" %}
+                </div>
+                <div class="col">
+                    <label for="{{ profile_form.hide_phone_number.id_for_label }}">{{ profile_form.hide_phone_number.label }}:</label>
+                    {% for error in profile_form.hide_phone_number.errors %}
+                        <div class="container alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% render_field profile_form.hide_phone_number class+="form-control" %}
+                </div>
+        </div>
+        <h2 class="inverted-heading small-heading">Home address</h2>
+        <div class="form-row">
+            <div class="col">
+                <label for="{{ profile_form.country.id_for_label }}">{{ profile_form.country.label }}:</label>
+                {% for error in profile_form.country.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.country class+="form-control" %}
+            </div>
+            <div class="col">
+                <label for="{{ profile_form.state.id_for_label }}">{{ profile_form.state.label }}:</label>
+                {% for error in profile_form.state.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.state class+="form-control" %}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="{{ profile_form.city.id_for_label }}">{{ profile_form.city.label }}:</label>
+                {% for error in profile_form.city.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.city class+="form-control" %}
+            </div>
+            <div class="col">
+                <label for="{{ profile_form.district.id_for_label }}">{{ profile_form.district.label }}:</label>
+                {% for error in profile_form.district.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.district class+="form-control" %}
+            </div>
+            <div class="col">
+                <label for="{{ profile_form.zip_code.id_for_label }}">{{ profile_form.zip_code.label }}:</label>
+                {% for error in profile_form.zip_code.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.zip_code class+="form-control" %}
+            </div>
+        </div>
         <br>
         <div class="col-12 text-center">
             <button type="submit" class="btn btn-secondary btn-lg">Save changes</button>

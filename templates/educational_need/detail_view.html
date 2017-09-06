@@ -1,7 +1,8 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% load widget_tweaks %}
-{% load avatar_tags %}
+{% load thumbnail %}
+
 {% block sidebar %}
     <a href="" onclick="goBack()">&laquo; Back to results</a>
 {% endblock sidebar %}
@@ -20,7 +21,11 @@
       <div class="need-header">
           <h3>{{ educational_need.title }}</h3>
           <hr>
-          {% avatar educational_need.user 250 class="profile-image float-left" %}
+            {% if not educational_need.user.profile.image %}
+            <img src="{% static 'img/logo-big.png' %}" height="250" alt="{{ educational_need.user }}" class="img-responsive profile-image float-left" />
+            {% else %}
+            <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-responsive profile-image float-left">
+            {% endif %}
           <p class="blockquote need-description">{{ educational_need.requirement_description }}</p>
       </div>
       <hr>

@@ -11,6 +11,7 @@ django-extensions==1.8.1
 django-money==0.11.4
 django-smart-selects==1.5.2
 django-widget-tweaks==1.4.1
+easy-thumbnails==2.4.1
 ipdb==0.10.3
 ipython==6.1.0
 ipython-genutils==0.2.0

@@ -1,9 +1,9 @@
 {% extends 'shared/base.html' %}
 {% load static %}
-{% load avatar_tags %}
+{% load thumbnail %}
 
 {% block heading %}
-	<h1>Comments <small class="text-muted">and reviews from users who received help through Janani Home.</small></h1>
+	<h1>Comments <small class="text-muted">and reviews from users who received help through Janani Home</small></h1>
 {% endblock heading %}
 
 {% block content %}
@@ -14,7 +14,7 @@
             	</div>
 				<div class="card-block row">
 					<div class="col-md-3 text-center">
-						{% avatar comment.author 150 class="img-responsive" %}
+						<img src="{{ comment.author.profile.image|thumbnail_url:'avatar150' }}" alt="{{ comment.author }}">
 					</div>
 					<div class="col-md-7 text-14 align-middle">
 						<table>

@@ -1,26 +1,28 @@
-{% load static %}
 <nav class="navbar navbar-expand-md navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="{% url 'list_view' %}">
-    <img src="{% static 'img/logo.png' %}" height="30" class="d-inline-block align-top" alt="">
-    Janani Home (demo)
+              Janani Home
+    <br><span class="navbar-brand-tagline">Mother's Love &amp; Care</span>
   </a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <span class="navbar-text demo-label">
+    DEMO
+    </span>
     <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link active" href="{% url 'list_view' %}"><i class="fa fa-university" aria-hidden="true"></i> Educational Needs</a>
-      <a class="nav-item nav-link disabled" href="#" tabindex="-1"><i class="fa fa-heartbeat" aria-hidden="true"></i> Blood Donor Contacts</a>
+      <!--<a class="nav-item nav-link disabled" href="#" tabindex="-1"><i class="fa fa-heartbeat" aria-hidden="true"></i> Blood Donor Contacts</a>-->
     </div>
-    <div class="navbar-nav ">
+    <div class="navbar-nav">
         {% if user.is_authenticated %}
             {% if user.is_superuser %}
-                <a class="nav-item nav-link" href="{% url 'admin:index' %}"><i class="fa fa-lock" aria-hidden="true"></i> Admin</a>
+                <a class="nav-item nav-link" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-lock" aria-hidden="true"></i> Admin</a>
             {% endif %}
             <a class="nav-item nav-link" href="{% url 'view_profile' %}"><i class="fa fa-user-o" aria-hidden="true"></i> Profile</a>
             <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
             {% else %}
-            <a class="nav-item nav-link" href="{% url 'signup' %}"><i class="fa fa-user-o" aria-hidden="true"></i> Signup</a>
+            <a class="nav-item nav-link" href="{% url 'signup' %}"><i class="fa fa-user-o" aria-hidden="true"></i> Sign up</a>
             <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fa fa-lock" aria-hidden="true"></i> Login</a>
         {% endif %}
     </div>

@@ -5,14 +5,7 @@ from django.utils import timezone
 
 class Comment(models.Model):
     author = models.ForeignKey('auth.User', related_name='author')
-    helper = models.ForeignKey(
-        User,
-        limit_choices_to={'is_staff': False},
-        related_name='helper',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
+    helper = models.CharField(max_length=200, blank=True, null=True)
     app_name = models.CharField(max_length=200, blank=True)
     comment= models.TextField()
     published = models.BooleanField(default=False)

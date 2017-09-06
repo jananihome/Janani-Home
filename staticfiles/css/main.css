@@ -10,12 +10,27 @@
 }
 
 body {
-    padding-bottom: 2.5em;
+    max-width: 1200px;
+    margin: 0 auto;
     font-family: 'Glacial Indifference';
 }
 
-a:hover {
+body a {
+    color: #333;
+    font-weight: 600;
+}
+
+body a:hover {
+    color: #444;
     text-decoration: none;
+}
+
+.sidebar a {
+    font-weight: 500;
+}
+
+.sidebar a:hover {
+    font-weight: 600;
 }
 
 h1, h2 {
@@ -38,10 +53,6 @@ input[type=checkbox] {
     font-family: 'Glacial Indifference';
 }
 
-.heading {
-    padding-top: 1em;
-}
-
 .small-heading {
     font-size: 1.2em;
 }
@@ -53,15 +64,42 @@ input[type=checkbox] {
 }
 
 /* Navbar */
-.navbar-brand {
-    font-family: 'Trocchi';
+.navbar-row {
+    margin-top: 1em;
 }
 
 .navbar {
     font-size: 1.2em;
 }
 
+.navbar .demo-label {
+    font-weight: 600;
+    margin-right: 1em;
+}
+
+.navbar a {
+    font-weight: 500;
+}
+
+.navbar-brand {
+    font-family: 'Trocchi';
+    line-height: 1em;
+}
+
+.navbar-brand-tagline {
+    font-size: 0.7em;
+    font-family: 'Glacial Indifference';
+    padding-left: 0.1em;
+}
+
+
+
 /* Result List */
+
+.card {
+    box-shadow: 5px 5px #ccc;
+}
+
 .result-list a {
     color: #444;
 }
@@ -76,8 +114,8 @@ input[type=checkbox] {
 }
 
 .result-sidebar {
-    padding-top: 1em;
-    padding-left: 1.5em;
+    margin-top: 1em;
+    margin-left: 1em;
 }
 
 .result-location {
@@ -93,17 +131,29 @@ input[type=checkbox] {
     min-height: 6em;
 }
 
-.result-card .amount {
+.result-meta {
+    border-top: 1px solid #ddd;
+    margin: 0 1em;
+    padding: 1em 0;
+}
+.result-meta .amount {
     text-align: center;
+    margin-top: 0.3em;
 }
 
-.result-card .read-more {
+.result-meta .read-more a {
     text-align: center;
+    width: 100%;
 }
 
-.pagination {
-    max-width:330px;
+.pagination a, a:hover, .pagination a:active, .pagination a:visited {
+    color: #fff;
+    font-weight: 500;
+}
+
+.pagination-container {
     margin: 0 auto;
+    margin-bottom: 1em;
 }
 
 #search-filter label {
@@ -116,6 +166,11 @@ input[type=checkbox] {
 
 #search-filter button {
     border: 1px solid #ddd;
+    background-color: #000;
+}
+
+#search-filter button:hover {
+    background-color: #222;
 }
 
 /* Profile View */
@@ -130,13 +185,16 @@ input[type=checkbox] {
 }
 
 /* Educational Need Detail View */
+
 .need-content .profile-image {
     margin: 20px;
 }
+
 .need-description {
     padding: 20px;
     text-align: left;
 }
+
 .need-header {
     min-height: 370px;
 }
@@ -146,3 +204,10 @@ input[type=checkbox] {
     text-align: center;
     color: #999;
 }
+
+/* Forms */
+.form-row {
+    padding: 1em;
+    margin-bottom: 1em;
+}
+

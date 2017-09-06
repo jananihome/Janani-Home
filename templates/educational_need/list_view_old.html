@@ -1,5 +1,5 @@
 {% extends 'shared/base.html' %}
-{% load avatar_tags %}
+{% load thumbnail %}
 {% load static %}
 
 {% block sidebar %}
@@ -27,7 +27,7 @@
             </div>
             <div class="card-block row">
                 <div class="col-md-3 text-center">
-                    {% avatar result.user 150 class="img-responsive" %}
+                    <img src="{{ result.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ result.user }}" class="img-responsive">
                 </div>
                 <div class="col-md-7 text-14 align-middle">
                     <table>
