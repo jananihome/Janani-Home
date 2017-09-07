@@ -90,12 +90,23 @@
                   <img src="{{ comment.author.profile.image|thumbnail_url:'avatar70' }}" alt="{{ comment.author }}" class="img-responsive" />
                   {% endif %}
               </div>
-              <div class="col-9"><p>{{ comment.comment }}</p></div>
-              <div class="col-12 text-right"><p><span class="text-muted">{{ comment.pub_date }}</span></p></div>
+              <div class="col-9">
+                <p>
+                {% for x in 'xxxxx' %}
+                    {% if forloop.counter0 < comment.rating %}
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    {% else %}
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    {% endif %}
+                {% endfor %}
+                </p>
+                <p>{{ comment.comment }}</p>
+              </div>
+              <div class="col-12 text-right"><p><span class="text-muted">{{ comment.author }} on {{ comment.pub_date }}</span></p></div>
           </div>
           <hr>
           {% endfor %}
-          <p class="text-right"><a class="btn btn-outline-dark" href="{% url 'comment_list' %}">See all comments ...</a></p>
+          <p class="text-right"><a class="btn btn-outline-dark" href="{% url 'comment_list' %}">See all comments</a></p>
       </div>
     </div>
 {% endblock sidebar %}
