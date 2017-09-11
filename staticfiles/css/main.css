@@ -151,15 +151,19 @@ input[type=checkbox] {
     width: 100%;
 }
 
-.pagination a, a:hover, .pagination a:active, .pagination a:visited {
-    color: #fff;
-    font-weight: 500;
-}
-
 .pagination-container {
     margin: 0 auto;
     margin-bottom: 1em;
 }
+
+.pagination a, a:hover, .pagination a:active, .pagination a:visited {
+    font-weight: 500;
+}
+
+.pagination li {
+    padding: 0.5em;
+}
+
 
 #search-filter label {
     font-weight: 600;
