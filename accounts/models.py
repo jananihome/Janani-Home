@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from educational_need.models import EducationalNeed
 from easy_thumbnails.fields import ThumbnailerImageField
 from smart_selects.db_fields import ChainedForeignKey
-
+from ckeditor.fields import RichTextField
 
 class Country(models.Model):
     name = models.CharField(max_length=200)
@@ -72,7 +72,7 @@ class Profile(models.Model):
     zip_code = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length=50, blank=True)
     district = models.CharField(max_length=50, blank=True)
-    about = models.TextField(max_length=500, blank=True)
+    about = RichTextField()
     active_educational_need = models.ForeignKey(
         EducationalNeed,
         on_delete=models.SET_NULL,

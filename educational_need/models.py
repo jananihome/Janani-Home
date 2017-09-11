@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 from djmoney.models.fields import MoneyField
-
+from ckeditor.fields import RichTextField
 
 class EducationalNeed(models.Model):
     user = models.ForeignKey('auth.User')
@@ -40,7 +40,7 @@ class EducationalNeed(models.Model):
         blank=True,
         null=True
     )
-    requirement_description = models.TextField()
+    requirement_description = RichTextField()
     closed = models.BooleanField(default=False)
 
     # Define choices for communication_mode field
