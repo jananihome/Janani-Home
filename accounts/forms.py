@@ -90,7 +90,7 @@ class ProfileForm(forms.ModelForm):
         
     class Meta:
         model = Profile
-        fields = ('birth_date', 'mobile_number', 'hide_mobile_number', 'phone_number',
+        fields = ('middle_name', 'birth_date', 'mobile_number', 'hide_mobile_number', 'phone_number',
                   'hide_phone_number', 'country', 'state', 'zip_code', 'city', 'district',
                   'about', 'image', )
         widgets = {

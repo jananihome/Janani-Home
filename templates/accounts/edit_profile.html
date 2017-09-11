@@ -25,7 +25,7 @@
         {{ profile_form.non_field_errors }}
 
         <h2 class="inverted-heading small-heading">User details</h2>
-        <div class="form-row">
+        <div class="form-row d-none">
             <div class="col">
             <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}:</label>
                 {% for error in user_form.username.errors %}
@@ -35,6 +35,8 @@
                 {% endfor %}
                 {% render_field user_form.username class+="form-control" %}
             </div>
+        </div>
+        <div class="form-row">
             <div class="col">
                 <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}:</label>
                 {% for error in user_form.first_name.errors %}
@@ -43,6 +45,15 @@
                     </div>
                 {% endfor %}
                 {% render_field user_form.first_name class+="form-control" %}
+            </div>
+            <div class="col">
+            <label for="{{ profile_form.middle_name.id_for_label }}">{{ profile_form.middle_name.label }}:</label>
+                {% for error in profile_form.middle_name.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.middle_name class+="form-control" %}
             </div>
         </div>
         <div class="form-row">

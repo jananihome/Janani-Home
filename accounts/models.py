@@ -30,6 +30,7 @@ class Profile(models.Model):
     Define model for user profile with one-to-one relationship with User table.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     mobile_number = models.CharField(
         max_length=20,
@@ -80,6 +81,12 @@ class Profile(models.Model):
     )
     image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
+
+    def get_full_name(self):
+        if self.middle_name:
+            return '{} {} {}'.format(self.user.first_name, self.middle_name, self.user.last_name)
+        else:
+            return '{} {}'.format(self.user.first_name, self.user.last_name)
 
     def __str__(self):
         return self.user.username
