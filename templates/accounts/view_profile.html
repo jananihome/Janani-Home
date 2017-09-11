@@ -3,14 +3,13 @@
 
 {% block sidebar %}
     <h2 class="small-heading">Profile menu</h2>
-    <hr>
     <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
     <p><a href="{% url 'change_password' %}">Change password</a></p>
 {% endblock sidebar %}
 {% block heading %}
-<h1>My profile</h1>
 {% endblock heading %}
 {% block content %}
+<h1>My profile</h1>
     {% if messages %}
     {% for message in messages %}
         {% if 'error' not in message.tags %}

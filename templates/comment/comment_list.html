@@ -3,10 +3,10 @@
 {% load thumbnail %}
 
 {% block heading %}
-	<h1>Comments <small class="text-muted">and reviews from users who received help through Janani Home</small></h1>
 {% endblock heading %}
 
 {% block content %}
+	<h1>Comments <small class="text-muted">and reviews from users who received help through Janani Home</small></h1>
 	{% for comment in comments %}
 			<div class="result-{{ result.pk }} card">
 				<div class="card-header">

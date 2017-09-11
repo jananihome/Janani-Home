@@ -1,9 +1,9 @@
 {% extends 'shared/base.html' %}
 {% block heading %}
-<h1>Sign up</h1>
 {% endblock heading %}
 {% block content %}
-
+<h1>Sign up</h1>
+<div class="col-md-10">
 <form method="post">
 {% csrf_token %}
 {% for field in form %}
@@ -21,8 +21,10 @@
 
 <button class="btn btn-secondary" type="submit">Sign up</button>
 </form>
+</div>
 {% endblock %}
 
 {% block sidebar %}
+<h2>Help</h2>
 <p>Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
 {% endblock %}
