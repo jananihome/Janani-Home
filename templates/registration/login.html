@@ -1,10 +1,11 @@
 {% extends 'shared/base.html' %}
 {% load widget_tweaks %}
 {% block heading %}
-<h1>Login</h1>
 {% endblock heading %}
 {% block content %}
-<form method="post" class="form-inline">
+<h1>Login</h1>
+<div class="col-md-8">
+<form method="post">
     {% csrf_token %}
     {{ form.non_field_errors }}
     <div class="form-group">
@@ -15,13 +16,15 @@
                     {{ error }}
             </div>
         {% endfor %}
-        {% render_field field class+="form-control mx-sm-3" %}
+        {% render_field field class+="form-control" %}
     {% endfor %}
-            <button class="btn btn-secondary" type="submit">Login</button>
     </div>
+    <button class="btn btn-secondary" type="submit">Login</button>
 </form>
+</div>
 {% endblock %}
 {% block sidebar %}
+<h2>Help</h2>
 <p>Don't have an account? <a href="{% url 'signup' %}">Sign up now</a>.</p>
 <p>Forgot your password? <a href="{% url 'password_reset' %}">Reset it here</a>.</p>
 {% endblock %}

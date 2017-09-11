@@ -1,9 +1,9 @@
 {% extends 'shared/base.html' %}
 {% load widget_tweaks %}
 {% block heading %}
-    <h1  class="text-center">Complete your registration</h1>
 {% endblock heading %}
 {% block content %}
+    <h1  class="text-center">Complete your registration</h1>
     <p><strong>Please fill out the form below to finish registration and activate your account.</strong></p>
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         {{ user_form.non_field_errors }}

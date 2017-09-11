@@ -4,6 +4,7 @@
 {% load thumbnail %}
 
 {% block sidebar %}
+    <h2>Navigation</h2>
     <a href="" onclick="goBack()">&laquo; Back to results</a>
 {% endblock sidebar %}
 {% block heading %}
@@ -19,8 +20,7 @@
     {% endif %}
     <div class="text-center need-content">
       <div class="need-header">
-          <h3>{{ educational_need.title }}</h3>
-          <hr>
+          <h1>{{ educational_need.title }}</h1>
             {% if not educational_need.user.profile.image %}
             <img src="{% static 'img/logo-big.png' %}" height="250" alt="{{ educational_need.user }}" class="img-responsive profile-image float-left" />
             {% else %}

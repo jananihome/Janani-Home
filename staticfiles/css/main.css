@@ -33,12 +33,23 @@ body a:hover {
     font-weight: 600;
 }
 
+.sidebar h2 {
+    margin-top: 0.5em;
+    padding-bottom: 0.5em;
+    font-size: 1.5em;
+    border-bottom: 1px solid #eee;
+}
+
 h1, h2 {
     font-family: 'Trocchi';
 }
 
 input {
     width: 100%;
+}
+
+.form-control input {
+    width: 50%;
 }
 
 input:focus, .form-control:focus {
@@ -151,15 +162,19 @@ input[type=checkbox] {
     width: 100%;
 }
 
-.pagination a, a:hover, .pagination a:active, .pagination a:visited {
-    color: #fff;
-    font-weight: 500;
-}
-
 .pagination-container {
     margin: 0 auto;
     margin-bottom: 1em;
 }
+
+.pagination a, a:hover, .pagination a:active, .pagination a:visited {
+    font-weight: 500;
+}
+
+.pagination li {
+    padding: 0.5em;
+}
+
 
 #search-filter label {
     font-weight: 600;
@@ -216,3 +231,16 @@ input[type=checkbox] {
     margin-bottom: 1em;
 }
 
+.content h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+}
+
+.content h2 {
+    font-size: 1.5em;
+    margin: 1em 0;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+}

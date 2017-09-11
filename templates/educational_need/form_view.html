@@ -3,14 +3,15 @@
 {% load widget_tweaks %}
 
 {% block sidebar %}
+<h2>Navigation</h2>
     <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
 {% endblock sidebar %}
 
 {% block heading %}
-<h1>Educational Need <small class="text-muted">Application Form</small></h1>
 {% endblock heading %}
 
 {% block content %}
+<h1>Educational Need <small class="text-muted">Application Form</small></h1>
 	{% if user.is_authenticated %}
 
 		{% if profile_complete %}
