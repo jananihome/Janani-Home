@@ -5,9 +5,11 @@ decorator==4.1.1
 Django==1.11.1
 django-appconf==1.0.2
 django-avatar==4.0.0
+django-ckeditor==5.3.0
 django-countries==4.6.1
 django-debug-toolbar==1.8
 django-extensions==1.8.1
+django-js-asset==0.1.1
 django-money==0.11.4
 django-smart-selects==1.5.2
 django-widget-tweaks==1.4.1
