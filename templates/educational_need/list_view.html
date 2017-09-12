@@ -29,9 +29,9 @@
               <div class="row">
                   <div class="col-3 text-center result-sidebar">
                     {% if not result.user.profile.image %}
-                    <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-responsive" />
+                    <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-fluid" />
                     {% else %}
-                    <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-responsive">
+                    <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-fluid">
                     {% endif %}
                     <br>Views:<br><i class="fa fa-eye" aria-hidden="true"></i> {{ result.view_count }}
                   </div>
@@ -85,9 +85,9 @@
           <div class="row">
               <div class="col-3 text-center">
                   {% if not comment.author.profile.image %}
-                  <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-responsive" />
+                  <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-fluid" />
                   {% else %}
-                  <img src="{{ comment.author.profile.image|thumbnail_url:'avatar70' }}" alt="{{ comment.author }}" class="img-responsive" />
+                  <img src="{{ comment.author.profile.image|thumbnail_url:'avatar70' }}" alt="{{ comment.author }}" class="img-fluid" />
                   {% endif %}
               </div>
               <div class="col-9">

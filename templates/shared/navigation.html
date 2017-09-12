@@ -1,8 +1,10 @@
+{% load static %}
 <nav class="navbar navbar-expand-md navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="{% url 'list_view' %}">
+      <div class="navbar-logo"><img src="{% static 'img/logo-big.png' %}" height="40" class="d-inline-block align-top float-left mr-1" alt=""></div>
               Janani Home
     <br><span class="navbar-brand-tagline">Mother's Love &amp; Care</span>
   </a>
@@ -13,6 +15,7 @@
     <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link active" href="{% url 'list_view' %}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Educational Needs</a>
       <!--<a class="nav-item nav-link disabled" href="#" tabindex="-1"><i class="fa fa-heartbeat" aria-hidden="true"></i> Blood Donor Contacts</a>-->
+      <a class="nav-item nav-link" href="{% url 'about_page' %}"><i class="fa fa-info" aria-hidden="true"></i> About</a>
     </div>
     <div class="navbar-nav">
         {% if user.is_authenticated %}

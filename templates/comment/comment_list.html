@@ -38,7 +38,7 @@
 						<blockquote class="blockquote">
 							<p>{{ comment.comment }}</p>
 							<footer class="blockquote-footer">
-								{{ comment.author.first_name }} {{ comment.author.last_name }} {% if comment.educational_need %}about <a href="{% url 'detail_view' comment.educational_need.pk %}"><cite title="{{ comment.educational_need }}">{{ comment.educational_need }}</cite></a>{% endif %}
+								{{ comment.author.get_full_name }} {% if comment.educational_need %}about <a href="{% url 'detail_view' comment.educational_need.pk %}"><cite title="{{ comment.educational_need }}">{{ comment.educational_need }}</cite></a>{% endif %}
 							</footer>
 						</blockquote>
 					</div>

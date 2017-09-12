@@ -1,11 +1,16 @@
+import uuid
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
 
 from djmoney.models.fields import MoneyField
+from ckeditor.fields import RichTextField
 
 
 class EducationalNeed(models.Model):
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    date_uuid = models.CharField(max_length=18, blank=True, null=True)
     user = models.ForeignKey('auth.User')
     pub_date = models.DateField(default=timezone.now)
     title = models.CharField(max_length=200)
@@ -40,7 +45,7 @@ class EducationalNeed(models.Model):
         blank=True,
         null=True
     )
-    requirement_description = models.TextField()
+    requirement_description = RichTextField()
     closed = models.BooleanField(default=False)
 
     # Define choices for communication_mode field
@@ -61,3 +66,8 @@ class EducationalNeed(models.Model):
 
     def __str__(self):
         return 'Educational Need {}'.format(str(self.pk))
+
+    def save(self, *args, **kwargs):
+        if not self.date_uuid:
+            self.date_uuid = self.pub_date.strftime('%Y/%m/%d/') + str(self.uuid)[:7]
+        super().save(*args, **kwargs)

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from educational_need.models import EducationalNeed
 from easy_thumbnails.fields import ThumbnailerImageField
 from smart_selects.db_fields import ChainedForeignKey
-
+from ckeditor.fields import RichTextField
 
 class Country(models.Model):
     name = models.CharField(max_length=200)
@@ -30,6 +30,7 @@ class Profile(models.Model):
     Define model for user profile with one-to-one relationship with User table.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     mobile_number = models.CharField(
         max_length=20,
@@ -71,7 +72,7 @@ class Profile(models.Model):
     zip_code = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length=50, blank=True)
     district = models.CharField(max_length=50, blank=True)
-    about = models.TextField(max_length=500, blank=True)
+    about = RichTextField()
     active_educational_need = models.ForeignKey(
         EducationalNeed,
         on_delete=models.SET_NULL,
@@ -80,6 +81,12 @@ class Profile(models.Model):
     )
     image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
+
+    def get_full_name(self):
+        if self.middle_name:
+            return '{} {} {}'.format(self.user.first_name, self.middle_name, self.user.last_name)
+        else:
+            return '{} {}'.format(self.user.first_name, self.user.last_name)
 
     def __str__(self):
         return self.user.username

@@ -240,7 +240,33 @@ input[type=checkbox] {
 
 .content h2 {
     font-size: 1.5em;
-    margin: 1em 0;
+    margin: 0.5em 0;
     padding-bottom: 0.5em;
     border-bottom: 1px solid #eee;
+}
+
+.logo {
+    margin: 0;
+    padding: 0;
+    margin-left: 1em;
+    height: 130px;
+    width: auto;
+}
+
+.logo img {
+    float:left;
+    max-width:100%;
+    max-height:100%;
+}
+
+@media (max-width: 480px) {
+    .logo {
+        display:none;
+    }
+}
+
+@media (min-width: 480px) {
+    .navbar-logo {
+        display:none;
+    }
 }

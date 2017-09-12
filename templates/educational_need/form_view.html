@@ -16,6 +16,7 @@
 
 		{% if profile_complete %}
 			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+				{{ form.media }}
 				{{ form.non_field_errors }}
 
 				<div class="form-group row">

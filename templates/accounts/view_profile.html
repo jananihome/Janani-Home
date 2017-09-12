@@ -25,11 +25,11 @@
         <div class="card-block row">
             <div class="col-md-3 text-center">
                 <div class="profile-image">
-                    <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-responsive">
+                    <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
                 </div>
             </div>
             <div class="col-md-7">
-                <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                <h3>{{ request.user.profile.get_full_name }}</h3>
                 <p><i>{{ request.user.profile.about }}</i></p>
                 <p>Birth date: {{ request.user.profile.birth_date }}</p>
                 <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, {{ request.user.profile.country.name }}</p>
