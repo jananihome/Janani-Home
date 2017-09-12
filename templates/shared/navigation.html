@@ -1,8 +1,10 @@
+{% load static %}
 <nav class="navbar navbar-expand-md navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="{% url 'list_view' %}">
+      <div class="navbar-logo"><img src="{% static 'img/logo-big.png' %}" height="40" class="d-inline-block align-top float-left mr-1" alt=""></div>
               Janani Home
     <br><span class="navbar-brand-tagline">Mother's Love &amp; Care</span>
   </a>

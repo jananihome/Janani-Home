@@ -260,9 +260,13 @@ input[type=checkbox] {
 }
 
 @media (max-width: 480px) {
-
     .logo {
         display:none;
     }
+}
 
+@media (min-width: 480px) {
+    .navbar-logo {
+        display:none;
+    }
 }
