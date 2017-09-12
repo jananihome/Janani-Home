@@ -10,7 +10,7 @@ from ckeditor.fields import RichTextField
 class EducationalNeed(models.Model):
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    date_uuid = models.CharField(max_length=18, blank=True, null=True)
+    date_uuid = models.CharField(max_length=100, blank=True, null=True)
     user = models.ForeignKey('auth.User')
     pub_date = models.DateField(default=timezone.now)
     title = models.CharField(max_length=200)
@@ -69,5 +69,5 @@ class EducationalNeed(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.date_uuid:
-            self.date_uuid = self.pub_date.strftime('%Y/%m/%d/') + str(self.uuid)[:7]
+            self.date_uuid = self.pub_date.strftime('%Y/%m/%d/') + str(self.uuid)
         super().save(*args, **kwargs)
