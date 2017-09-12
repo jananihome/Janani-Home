@@ -22,9 +22,9 @@
       <div class="need-header">
           <h1>{{ educational_need.title }}</h1>
             {% if not educational_need.user.profile.image %}
-            <img src="{% static 'img/logo-big.png' %}" height="250" alt="{{ educational_need.user }}" class="img-responsive profile-image float-left" />
+            <img src="{% static 'img/logo-big.png' %}" height="250" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left" />
             {% else %}
-            <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-responsive profile-image float-left">
+            <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left">
             {% endif %}
           <p class="blockquote need-description">{{ educational_need.requirement_description }}</p>
       </div>
