@@ -148,7 +148,22 @@ SESSION_COOKIE_AGE = 60 * 30
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Custom',
+        'toolbar': 'full',
+        'height': 200,
+        'width': '100%',
+        'language': 'en',
+        'extraPlugins': ','.join(
+            [
+                'image2',
+                'embed',
+                'table',
+            ]),
+    },
+
+}
+
+"""
+Backup of ckeditor basic settings
         'toolbar_Custom': [
             ['Format', 'Bold', 'Italic', 'Underline', '-'],
             ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
@@ -156,6 +171,4 @@ CKEDITOR_CONFIGS = {
         'height': 200,
         'width': '100%',
         'language': 'en',
-    },
-
-}
+"""
