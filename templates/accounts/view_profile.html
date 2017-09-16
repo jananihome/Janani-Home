@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-7">
                 <h3>{{ request.user.profile.get_full_name }}</h3>
-                <p><i>{{ request.user.profile.about }}</i></p>
+                <p><i>{{ request.user.profile.about|safe }}</i></p>
                 <p>Birth date: {{ request.user.profile.birth_date }}</p>
                 <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, {{ request.user.profile.country.name }}</p>
                 <p>Mobile number: {{ request.user.profile.mobile_number }} {% if request.user.profile.hide_mobile_number %}(Hidden from public){% endif %}</p>

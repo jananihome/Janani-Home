@@ -26,13 +26,13 @@
             {% else %}
             <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left">
             {% endif %}
-          <p class="blockquote need-description">{{ educational_need.requirement_description }}</p>
+          <div class="blockquote need-description">{{ educational_need.requirement_description|safe }}</div>
       </div>
       <hr>
       <h4 class="inverted-heading">Amount required: {{ educational_need.amount_required }}</h4>
       <hr>
       <h3 >About the user</h3>
-      <p class="blockquote">{{ educational_need.user.profile.about }}</p>
+      <p class="blockquote">{{ educational_need.user.profile.about|safe }}</p>
       <hr>
       {% if educational_need.closed %}
       <div class="alert alert-warning">
