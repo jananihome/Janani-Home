@@ -238,7 +238,7 @@ input[type=checkbox] {
 }
 
 .need-header {
-    min-height: 370px;
+    width: 100%;
 }
 
 /* Footer */
@@ -255,7 +255,7 @@ input[type=checkbox] {
 
 .content h1 {
     font-size: 2em;
-    margin-bottom: 1em;
+    margin-bottom: 0;
     padding-bottom: 0.5em;
     border-bottom: 1px solid #eee;
 }
@@ -291,4 +291,9 @@ input[type=checkbox] {
     .navbar-logo {
         display:none;
     }
+}
+
+.amount-required {
+    font-size: 1em;
+    margin-top: 2em;
 }
