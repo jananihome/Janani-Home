@@ -44,6 +44,10 @@ h1, h2 {
     font-family: 'Trocchi';
 }
 
+form label {
+    font-weight: 600;
+}
+
 input {
     width: 100%;
 }
