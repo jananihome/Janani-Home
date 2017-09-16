@@ -38,7 +38,7 @@
                   <div class="col-8">
                     <div class="row">
                       <div class="col-12">
-                        <a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a>
+                        <div class="title-container"><a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a></div>
                         <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
                         <p class="result-description"><small>{{ result.requirement_description|striptags|truncatechars:100 }}</small></p>
                       </div>

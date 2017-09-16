@@ -130,8 +130,15 @@ input[type=checkbox] {
     background-color: #fff;
 }
 
+.title-container {
+    height: 4em;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: left;
+}
+
 .result-card h5 {
-    height: 3em;
 }
 
 .result-container {
