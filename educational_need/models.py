@@ -15,6 +15,7 @@ class EducationalNeed(models.Model):
     pub_date = models.DateField(default=timezone.now)
     title = models.CharField(max_length=200)
     permanent_address = models.TextField()
+    hide_permanent_address = models.BooleanField(default=False)
     additional_mobile_number = models.CharField(
         max_length=20,
         blank=True,
@@ -35,6 +36,7 @@ class EducationalNeed(models.Model):
                                                    )])
     hide_phone_number = models.BooleanField(default=False)
     current_address = models.TextField()
+    hide_current_address = models.BooleanField(default=False)
     college_school_address = models.TextField()
     college_school_contact_details = models.CharField(max_length=200)
     view_count = models.IntegerField(default=0)

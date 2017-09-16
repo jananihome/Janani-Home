@@ -40,6 +40,16 @@
 				</div>
 
 				<div class="form-group row">
+					<label for="{{ form.hide_permanent_address.id_for_label }}">{{ form.hide_permanent_address.label }}</label>
+					{% for error in form.hide_permanent_address.errors %}
+						<div class="container alert alert-danger">
+							{{ error }}
+						</div>
+					{% endfor %}
+					{% render_field form.hide_permanent_address class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
 					<label for="{{ form.current_address.id_for_label }}">{{ form.current_address.label }}</label>
 					{% for error in form.current_address.errors %}
 						<div class="container alert alert-danger">
@@ -47,6 +57,16 @@
 						</div>
 					{% endfor %}
 					{% render_field form.current_address class+="form-control" rows=2 %}
+				</div>
+
+				<div class="form-group row">
+					<label for="{{ form.hide_current_address.id_for_label }}">{{ form.hide_current_address.label }}</label>
+					{% for error in form.hide_current_address.errors %}
+						<div class="container alert alert-danger">
+							{{ error }}
+						</div>
+					{% endfor %}
+					{% render_field form.hide_current_address class+="form-control" rows=2 %}
 				</div>
 
 				<div class="form-group row">
@@ -60,7 +80,7 @@
 				</div>
 
 				<div class="form-group row">
-					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.hide_mobile_number.label }}</label>
+					<label for="{{ form.hide_mobile_number.id_for_label }}">{{ form.hide_mobile_number.label }}</label>
 					{% for error in form.hide_mobile_number.errors %}
 						<div class="container alert alert-danger">
 							{{ error }}

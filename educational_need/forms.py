@@ -10,7 +10,9 @@ class EducationalNeedForm(forms.ModelForm):
         fields = (
             'title',
             'permanent_address',
+            'hide_permanent_address',
             'current_address',
+            'hide_current_address',
             'additional_mobile_number',
             'hide_mobile_number',
             'additional_phone_number',
