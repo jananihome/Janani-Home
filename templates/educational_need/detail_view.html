@@ -27,6 +27,8 @@
             <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left">
             {% endif %}
           <div class="blockquote need-description">{{ educational_need.requirement_description|safe }}</div>
+          <hr>
+            <p class="need-id text-muted text-right"><small>Unique ID: {{ educational_need.date_uuid }}</small></p>
       </div>
       <hr>
       <h4 class="inverted-heading">Amount required: {{ educational_need.amount_required }}</h4>

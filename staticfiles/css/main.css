@@ -125,6 +125,11 @@ input[type=checkbox] {
     height: 100%;
     background-color: #fff;
 }
+
+.result-card h5 {
+    height: 3em;
+}
+
 .result-container {
     margin-bottom: 3em;
 }
@@ -160,6 +165,12 @@ input[type=checkbox] {
 .result-meta .read-more a {
     text-align: center;
     width: 100%;
+}
+
+.result-meta .need-id {
+    font-size: 0.8em;
+    padding-top: 1em;
+    margin-left: 1.5em;
 }
 
 .pagination-container {
