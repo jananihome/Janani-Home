@@ -10,9 +10,13 @@
 }
 
 body {
+    font-family: 'Glacial Indifference';
+}
+
+body .site-container {
     max-width: 1200px;
     margin: 0 auto;
-    font-family: 'Glacial Indifference';
+    margin-top: 1em;
 }
 
 body a {
@@ -68,6 +72,10 @@ input[type=checkbox] {
     margin: 0.5em ;
 }
 
+.heading {
+    margin-top: 1em;
+}
+
 .heading h1 {
     font-size: 2em;
     font-family: 'Glacial Indifference';
@@ -84,17 +92,9 @@ input[type=checkbox] {
 }
 
 /* Navbar */
-.navbar-row {
-    margin-top: 1em;
-}
 
 .navbar {
-    font-size: 1.2em;
-}
-
-.navbar .demo-label {
-    font-weight: 600;
-    margin-right: 1em;
+    font-size: 1em;
 }
 
 .navbar a {
@@ -104,12 +104,6 @@ input[type=checkbox] {
 .navbar-brand {
     font-family: 'Trocchi';
     line-height: 1em;
-}
-
-.navbar-brand-tagline {
-    font-size: 0.7em;
-    font-family: 'Glacial Indifference';
-    padding-left: 0.1em;
 }
 
 
