@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.db import transaction
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -123,6 +124,7 @@ def detail_view(request, pk):
 
 
 @login_required
+@transaction.atomic
 def add_need(request):
     """Returns a view for adding EducationalNeed objects and handles POST
     requests submitted through the form."""
@@ -140,6 +142,10 @@ def add_need(request):
             eductional_need.user = request.user
             # Save model data in db.
             eductional_need.save()
+            # Activate the need if no other need is active
+            if not eductional_need.user.profile.active_educational_need:
+                eductional_need.user.profile.active_educational_need = eductional_need
+                eductional_need.user.profile.save()
             # Redirect after submitting the form
             return redirect('view_profile')
     # If request is not POST, create empty form.
