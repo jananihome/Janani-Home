@@ -10,16 +10,18 @@
 </head>
 <body>
     <!-- Site Container -->
-    <div class="container-flex mb-3 ml-2 mr-2">
-        <div class="row navbar-row">
-            <div class="logo">
-                <img src="{% static 'img/logo-big.png' %}" height="130" class="img-fluid" alt="">
+    <div class="container-flex mb-3 ml-2 mr-2 mt-3">
+        <div class="row">
+            <div class="col text-center">
+                <img src="{% static 'img/poster.png' %}" alt="Janani Home" class="img-fluid">
             </div>
+        </div>
+        <div class="row navbar-row">
             <div class="col">
                     <!-- Navigation -->
                     {% include 'shared/navigation.html' %}
 
-                    <div class="col-md-12 heading">
+                    <div class="col-md-12">
                         {% block heading %}
                         {% endblock heading %}
                     </div>
