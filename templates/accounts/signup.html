@@ -1,25 +1,33 @@
 {% extends 'shared/base.html' %}
+{% load widget_tweaks %}
+
 {% block heading %}
 {% endblock heading %}
+
 {% block content %}
 <h1>Sign up</h1>
 <div class="col-md-10">
 <form method="post">
 {% csrf_token %}
 {% for field in form %}
-<p>
-{{ field.label_tag }}<br>
-{{ field }}
-{% if field.help_text %}<br>
-  <small>{{ field.help_text|safe }}</small>
-{% endif %}
-{% for error in field.errors %}
-  <p style="color: red">{{ error }}</p>
-{% endfor %}
-</p>
-{% endfor %}
-
-<button class="btn btn-secondary" type="submit">Sign up</button>
+  <div class="form-row">
+    <div class="col-md-4">
+    {{ field.label_tag }}
+    </div>
+    <div class="col-md-8">
+    {{ field }}
+    {% if field.help_text %}
+    <br>
+    <small>{{ field.help_text|safe }}</small>
+    {% endif %}
+    </div>
+    {% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+    </p>
+  </div>
+    {% endfor %}
+  <div class="text-center"><button class="btn btn-secondary btn-lg" type="submit">Sign up</button></div>
 </form>
 </div>
 {% endblock %}
