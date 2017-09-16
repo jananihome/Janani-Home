@@ -27,7 +27,6 @@
 
         <h2 class="inverted-heading small-heading">User details</h2>
         <div class="form-row d-none">
-            <div class="col">
             <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}:</label>
                 {% for error in user_form.username.errors %}
                     <div class="container alert alert-danger">
@@ -35,10 +34,9 @@
                     </div>
                 {% endfor %}
                 {% render_field user_form.username class+="form-control" %}
-            </div>
         </div>
         <div class="form-row">
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}:</label>
                 {% for error in user_form.first_name.errors %}
                     <div class="container alert alert-danger">
@@ -47,7 +45,7 @@
                 {% endfor %}
                 {% render_field user_form.first_name class+="form-control" %}
             </div>
-            <div class="col">
+            <div class="col-md-6">
             <label for="{{ profile_form.middle_name.id_for_label }}">{{ profile_form.middle_name.label }}:</label>
                 {% for error in profile_form.middle_name.errors %}
                     <div class="container alert alert-danger">
@@ -58,7 +56,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}:</label>
                 {% for error in user_form.last_name.errors %}
                     <div class="container alert alert-danger">
@@ -67,7 +65,7 @@
                 {% endfor %}
                 {% render_field user_form.last_name class+="form-control" %}
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.birth_date.id_for_label }}">{{ profile_form.birth_date.label }}:</label>
                 {% for error in profile_form.birth_date.errors %}
                     <div class="container alert alert-danger">
@@ -105,7 +103,7 @@
         </div>
         <h2 class="inverted-heading small-heading">Contact information</h2>
         <div class="form-row">
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}:</label>
                 {% for error in user_form.email.errors %}
                     <div class="container alert alert-danger">
@@ -116,7 +114,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.mobile_number.id_for_label }}">{{ profile_form.mobile_number.label }}:</label>
                 {% for error in profile_form.mobile_number.errors %}
                     <div class="container alert alert-danger">
@@ -124,8 +122,19 @@
                     </div>
                 {% endfor %}
                 {% render_field profile_form.mobile_number class+="form-control" %}
+                <div class="form-check">
+                    <label for="{{ profile_form.hide_mobile_number.id_for_label }}" class="form-check-label pl-0">
+                    {% render_field profile_form.hide_mobile_number class+="form-check-input" %}
+                    Hide from public
+                    {% for error in profile_form.hide_mobile_number.errors %}
+                        <div class="container alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    </label>
+                </div>
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.phone_number.id_for_label }}">{{ profile_form.phone_number.label }}:</label>
                 {% for error in profile_form.phone_number.errors %}
                     <div class="container alert alert-danger">
@@ -133,31 +142,22 @@
                     </div>
                 {% endfor %}
                 {% render_field profile_form.phone_number class+="form-control" %}
+                <div class="form-check">
+                    <label for="{{ profile_form.hide_phone_number.id_for_label }}" class="form-check-label pl-0">
+                        {% render_field profile_form.hide_phone_number class+="form-check-input" %}
+                        Hide from public
+                        {% for error in profile_form.hide_phone_number.errors %}
+                            <div class="container alert alert-danger">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="form-row">
-                <div class="col">
-                    <label for="{{ profile_form.hide_mobile_number.id_for_label }}">{{ profile_form.hide_mobile_number.label }}:</label>
-                    {% for error in profile_form.hide_mobile_number.errors %}
-                        <div class="container alert alert-danger">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
-                    {% render_field profile_form.hide_mobile_number class+="form-control" %}
-                </div>
-                <div class="col">
-                    <label for="{{ profile_form.hide_phone_number.id_for_label }}">{{ profile_form.hide_phone_number.label }}:</label>
-                    {% for error in profile_form.hide_phone_number.errors %}
-                        <div class="container alert alert-danger">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
-                    {% render_field profile_form.hide_phone_number class+="form-control" %}
-                </div>
         </div>
         <h2 class="inverted-heading small-heading">Your location</h2>
         <div class="form-row">
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.country.id_for_label }}">{{ profile_form.country.label }}:</label>
                 {% for error in profile_form.country.errors %}
                     <div class="container alert alert-danger">
@@ -166,7 +166,7 @@
                 {% endfor %}
                 {% render_field profile_form.country class+="form-control" %}
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.state.id_for_label }}">{{ profile_form.state.label }}:</label>
                 {% for error in profile_form.state.errors %}
                     <div class="container alert alert-danger">
@@ -177,7 +177,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.city.id_for_label }}">{{ profile_form.city.label }}:</label>
                 {% for error in profile_form.city.errors %}
                     <div class="container alert alert-danger">
@@ -186,7 +186,7 @@
                 {% endfor %}
                 {% render_field profile_form.city class+="form-control" %}
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.district.id_for_label }}">{{ profile_form.district.label }}:</label>
                 {% for error in profile_form.district.errors %}
                     <div class="container alert alert-danger">
@@ -195,7 +195,7 @@
                 {% endfor %}
                 {% render_field profile_form.district class+="form-control" %}
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <label for="{{ profile_form.zip_code.id_for_label }}">{{ profile_form.zip_code.label }}:</label>
                 {% for error in profile_form.zip_code.errors %}
                     <div class="container alert alert-danger">
