@@ -48,7 +48,7 @@
                     <div class="row result-meta">
                       <div class="col-6 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amount_required %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
                       <div class="col-6 read-more"><a class="btn btn-outline-dark" href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
-                      <span class="need-id text-muted"><small>ID: {{ result.date_uuid }}</small></span>
+                      <span class="need-id"><small>ID: {{ result.date_uuid }}</small></span>
                     </div>
             </div>
         </div><!-- Result card -->
