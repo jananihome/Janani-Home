@@ -38,9 +38,9 @@
                   <div class="col-8">
                     <div class="row">
                       <div class="col-12">
-                        <a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a>
+                        <div class="title-container"><a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a></div>
                         <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
-                        <p class="result-description"><small>{{ result.requirement_description|truncatechars:100 }}</small></p>
+                        <p class="result-description"><small>{{ result.requirement_description|striptags|truncatechars:100|safe }}</small></p>
                       </div>
                     </div>
                   </div>
@@ -48,6 +48,7 @@
                     <div class="row result-meta">
                       <div class="col-6 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amount_required %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
                       <div class="col-6 read-more"><a class="btn btn-outline-dark" href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
+                      <span class="need-id"><small>ID: {{ result.date_uuid }}</small></span>
                     </div>
             </div>
         </div><!-- Result card -->

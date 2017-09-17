@@ -18,9 +18,9 @@
 			<form method="post" enctype="multipart/form-data">{% csrf_token %}
 				{{ form.media }}
 				{{ form.non_field_errors }}
-
-				<div class="form-group row">
-					<label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+				<h2 class="inverted-heading small-heading">1. Describe your educational need</h2>
+				<div class="form-row">
+					<label for="{{ form.title.id_for_label }}">Subject</label>
 					{% for error in form.title.errors %}
 						<div class="container alert alert-danger">
 							{{ error }}
@@ -29,97 +29,16 @@
 					{% render_field form.title class+="form-control" rows=2 %}
 				</div>
 
-				<div class="form-group row">
-					<label for="{{ form.permanent_address.id_for_label }}">{{ form.permanent_address.label }}</label>
-					{% for error in form.permanent_address.errors %}
+				<div class="form-row">
+					<label for="{{ form.college_school_address.id_for_label }}">Description</label>
+					{% for error in form.requirement_description.errors %}
 						<div class="container alert alert-danger">
 							{{ error }}
 						</div>
 					{% endfor %}
-					{% render_field form.permanent_address class+="form-control" rows=2 %}
+					{% render_field form.requirement_description class+="form-control" rows=3 %}
 				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.current_address.id_for_label }}">{{ form.current_address.label }}</label>
-					{% for error in form.current_address.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.current_address class+="form-control" rows=2 %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.additional_mobile_number.label }} <span class="text-muted">(optional)</span></label>
-					{% for error in form.additional_mobile_number.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.additional_mobile_number class+="form-control" rows=2 value=request.user.profile.mobile_number %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.hide_mobile_number.label }}</label>
-					{% for error in form.hide_mobile_number.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.hide_mobile_number class+="form-control" rows=2 %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.additional_phone_number.id_for_label }}">{{ form.additional_phone_number.label }} <span class="text-muted">(optional)</span></label>
-					{% for error in form.additional_phone_number.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.additional_phone_number class+="form-control" rows=2 value=request.user.profile.phone_number %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.hide_phone_number.label }}</label>
-					{% for error in form.hide_phone_number.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.hide_phone_number class+="form-control" rows=2 %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.college_school_address.id_for_label }}">{{ form.college_school_address.label }}</label>
-					{% for error in form.college_school_address.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.college_school_address class+="form-control" rows=2 %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.college_school_contact_details.id_for_label }}">{{ form.college_school_contact_details.label }}</label>
-					{% for error in form.college_school_contact_details.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.college_school_contact_details class+="form-control" %}
-				</div>
-
-				<div class="form-group row">
-					<label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
-					{% for error in form.status.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
-						</div>
-					{% endfor %}
-					{% render_field form.status class+="form-control" %}
-				</div>
-
-				<div class="form-group row">
+				<div class="form-row">
 					<label for="{{ form.status.id_for_label }}">{{ form.amount_required.label }}</label>
 					{% for error in form.amount_required.errors %}
 						<div class="container alert alert-danger">
@@ -128,19 +47,116 @@
 					{% endfor %}
 					{% render_field form.amount_required class+="form-control" %}
 				</div>
+				<h2 class="inverted-heading small-heading">2. Provide your details for verification</h2>
 
-				<div class="form-group row">
-					<label for="{{ form.college_school_address.id_for_label }}">{{ form.requirement_description.label }}</label>
-					{% for error in form.requirement_description.errors %}
-						<div class="container alert alert-danger">
-							{{ error }}
+				<div class="form-row">
+					<div class="col-md-6">
+						<label for="{{ form.permanent_address.id_for_label }}">{{ form.permanent_address.label }}</label>
+						{% for error in form.permanent_address.errors %}
+							<div class="container alert alert-danger">
+								{{ error }}
+							</div>
+						{% endfor %}
+						{% render_field form.permanent_address class+="form-control" rows=2 %}
+						<div class="form-check">
+							<label for="{{ form.hide_permanent_address.id_for_label }}" class="form-check-label pl-0">
+								{% for error in form.hide_permanent_address.errors %}
+									<div class="container alert alert-danger">
+										{{ error }}
+									</div>
+								{% endfor %}
+								{% render_field form.hide_permanent_address class+="form-check-input" rows=2 %}
+								Hide from public
+							</label>
 						</div>
-					{% endfor %}
-					{% render_field form.requirement_description class+="form-control" rows=3 %}
+					</div>
+					<div class="col-md-6">
+						<label for="{{ form.current_address.id_for_label }}">{{ form.current_address.label }}</label>
+						{% for error in form.current_address.errors %}
+							<div class="container alert alert-danger">
+								{{ error }}
+							</div>
+						{% endfor %}
+						{% render_field form.current_address class+="form-control" rows=2 %}
+						<div class="form-check">
+							<label for="{{ form.hide_current_address.id_for_label }}" class="form-check-label pl-0">
+								{% for error in form.hide_current_address.errors %}
+									<div class="container alert alert-danger">
+										{{ error }}
+									</div>
+								{% endfor %}
+								{% render_field form.hide_current_address class+="form-check-input" rows=2 %}
+								Hide from public
+							</label>
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group row">
-					<label for="{{ form.status.id_for_label }}">{{ form.communication_mode.label }}</label>
+				<div class="form-row">
+					<div class="col-md-6">
+						<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.additional_mobile_number.label }} <span class="text-muted">(optional)</span></label>
+						{% for error in form.additional_mobile_number.errors %}
+							<div class="container alert alert-danger">
+								{{ error }}
+							</div>
+						{% endfor %}
+						{% render_field form.additional_mobile_number class+="form-control" rows=2 value=request.user.profile.mobile_number %}
+						<div class="form-check">
+								<label for="{{ form.hide_mobile_number.id_for_label }}" class="form-check-label pl-0">
+								{% render_field form.hide_mobile_number class+="form-check-input" rows=2 %}
+								Hide from public
+								{% for error in form.hide_mobile_number.errors %}
+									<div class="container alert alert-danger">
+										{{ error }}
+									</div>
+								{% endfor %}
+							</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="{{ form.additional_phone_number.id_for_label }}">{{ form.additional_phone_number.label }} <span class="text-muted">(optional)</span></label>
+						{% for error in form.additional_phone_number.errors %}
+							<div class="container alert alert-danger">
+								{{ error }}
+							</div>
+						{% endfor %}
+						{% render_field form.additional_phone_number class+="form-control" rows=2 value=request.user.profile.phone_number %}
+						<div class="form-check">
+							<label for="{{ form.additional_mobile_number.id_for_label }}" class="form-check-label pl-0">
+								{% render_field form.hide_phone_number class+="form-check-input" rows=2 %}
+								Hide from public
+								{% for error in form.hide_phone_number.errors %}
+									<div class="container alert alert-danger">
+										{{ error }}
+									</div>
+								{% endfor %}
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="col-md-6">
+					<label for="{{ form.college_school_address.id_for_label }}">{{ form.college_school_address.label }}</label>
+						{% for error in form.college_school_address.errors %}
+							<div class="container alert alert-danger">
+								{{ error }}
+							</div>
+						{% endfor %}
+						{% render_field form.college_school_address class+="form-control" rows=2 %}
+					</div>
+					<div class="col-md-6">
+						<label for="{{ form.college_school_contact_details.id_for_label }}">{{ form.college_school_contact_details.label }}</label>
+						{% for error in form.college_school_contact_details.errors %}
+							<div class="container alert alert-danger">
+								{{ error }}
+							</div>
+						{% endfor %}
+						{% render_field form.college_school_contact_details class+="form-control" %}
+					</div>
+				</div>
+				<div class="form-row">
+					<label for="{{ form.status.id_for_label }}">Preferred communication mode</label>
 					{% for error in form.communication_mode.errors %}
 						<div class="container alert alert-danger">
 							{{ error }}

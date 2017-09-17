@@ -1,5 +1,5 @@
 <form action="/" metion="get" id="search-filter">
-    <span class="input-group form-group">
+    <span class="input-group">
         <input class="form-control form-control-lg" type="text" id="search" aria-describedby="search" placeholder="Find people in educational need...">
         <span class="input-group-btn">
             <button type="button" class="btn btn-secondary btn-lg" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse"><i class="fa fa-sliders" aria-hidden="true"></i></button>
@@ -8,7 +8,7 @@
     </span>
     <div id="filterCollapse" class="collapse form-group">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4 mt-3 ml-3">
                 <label for="country">Country</label>
                 <select class="custom-select" id="country">
                     <option value="">(All)</option>
@@ -21,7 +21,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4 mt-3 ml-3">
                 <label for="state">State</label>
                 <select class="custom-select" id="state">
                     <option value="">(All)</option>

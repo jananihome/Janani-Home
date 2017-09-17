@@ -10,9 +10,13 @@
 }
 
 body {
-    max-width: 1200px;
-    margin: 0 auto;
     font-family: 'Glacial Indifference';
+}
+
+body .site-container {
+    max-width: 1200px;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 body a {
@@ -44,6 +48,10 @@ h1, h2 {
     font-family: 'Trocchi';
 }
 
+form label {
+    font-weight: 600;
+}
+
 input {
     width: 100%;
 }
@@ -64,10 +72,15 @@ input[type=checkbox] {
     margin: 0.5em ;
 }
 
+.heading {
+    margin-top: 1em;
+}
+
 .heading h1 {
     font-size: 2em;
     font-family: 'Glacial Indifference';
 }
+
 
 .small-heading {
     font-size: 1.2em;
@@ -80,17 +93,21 @@ input[type=checkbox] {
 }
 
 /* Navbar */
-.navbar-row {
-    margin-top: 1em;
+
+.bg-dark {
+    font-size: 1em;
+    background-color: #000!important;
 }
 
-.navbar {
-    font-size: 1.2em;
+.navbar-dark .navbar-toggler {
+    border-color: #777;
 }
 
-.navbar .demo-label {
-    font-weight: 600;
-    margin-right: 1em;
+.navbar-dark .navbar-nav .nav-link {
+    color:#fff;
+}
+.navbar .container {
+    max-width: 1200px;
 }
 
 .navbar a {
@@ -100,12 +117,6 @@ input[type=checkbox] {
 .navbar-brand {
     font-family: 'Trocchi';
     line-height: 1em;
-}
-
-.navbar-brand-tagline {
-    font-size: 0.7em;
-    font-family: 'Glacial Indifference';
-    padding-left: 0.1em;
 }
 
 
@@ -125,6 +136,18 @@ input[type=checkbox] {
     height: 100%;
     background-color: #fff;
 }
+
+.title-container {
+    height: 4em;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.result-card h5 {
+}
+
 .result-container {
     margin-bottom: 3em;
 }
@@ -144,7 +167,7 @@ input[type=checkbox] {
     font-size: 0.7em;
     font-style: italic;
     font-size: 1.2em;
-    min-height: 6em;
+    min-height: 80px;
 }
 
 .result-meta {
@@ -160,6 +183,19 @@ input[type=checkbox] {
 .result-meta .read-more a {
     text-align: center;
     width: 100%;
+}
+
+.result-meta .need-id {
+    font-size: 0.9em;
+    padding-top: 1em;
+    margin-left: 1.0em;
+}
+
+
+.need-id {
+    font-size: 1.2em;
+    padding-top: 1em;
+    margin-left: 1.0em;
 }
 
 .pagination-container {
@@ -216,7 +252,7 @@ input[type=checkbox] {
 }
 
 .need-header {
-    min-height: 370px;
+    width: 100%;
 }
 
 /* Footer */
@@ -233,7 +269,7 @@ input[type=checkbox] {
 
 .content h1 {
     font-size: 2em;
-    margin-bottom: 1em;
+    margin-bottom: 0;
     padding-bottom: 0.5em;
     border-bottom: 1px solid #eee;
 }
@@ -263,10 +299,23 @@ input[type=checkbox] {
     .logo {
         display:none;
     }
+
+    .heading form input {
+        font-size: 0.9em;
+    }
 }
 
 @media (min-width: 480px) {
     .navbar-logo {
         display:none;
     }
+}
+
+.amount-required {
+    font-size: 1em;
+    margin-top: 2em;
+}
+
+.profile-card .btn {
+    margin-bottom: 0.5em;
 }
