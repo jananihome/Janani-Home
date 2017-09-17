@@ -7,20 +7,43 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav mr-auto">
       <!--a class="nav-item nav-link" href="{% url 'list_view' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a-->
-      <a class="nav-item nav-link" href="{% url 'list_view' %}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Educational Needs</a>
+      <a class="nav-item nav-link {% if request.resolver_match.view_name == 'list_view' %}active{% endif%}" href="{% url 'list_view' %}">
+          <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          Educational Needs
+          {% if request.resolver_match.view_name == 'list_view' %}<span class="sr-only">(current)</span>{% endif %}
+      </a>
       <!--<a class="nav-item nav-link disabled" href="#" tabindex="-1"><i class="fa fa-heartbeat" aria-hidden="true"></i> Blood Donor Contacts</a>-->
-      <a class="nav-item nav-link" href="{% url 'about_page' %}"><i class="fa fa-info" aria-hidden="true"></i> About Janani Home</a>
+      <a class="nav-item nav-link {% if request.resolver_match.view_name == 'about_page' %}active{% endif%}" href="{% url 'about_page' %}">
+          <i class="fa fa-info" aria-hidden="true"></i>
+          About the project
+          {% if request.resolver_match.view_name == 'about_page' %}<span class="sr-only">(current)</span>{% endif %}
+      </a>
     </div>
     <div class="navbar-nav">
         {% if user.is_authenticated %}
             {% if user.is_superuser %}
-                <a class="nav-item nav-link" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-lock" aria-hidden="true"></i> Admin</a>
+                <a class="nav-item nav-link" href="{% url 'admin:index' %}" target="_blank">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    Admin
+                </a>
             {% endif %}
-            <a class="nav-item nav-link" href="{% url 'view_profile' %}"><i class="fa fa-user-o" aria-hidden="true"></i> Profile</a>
+            <a class="nav-item nav-link {% if request.resolver_match.view_name == 'view_profile' %}active{% endif%}" href="{% url 'view_profile' %}">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                Profile
+                {% if request.resolver_match.view_name == 'view_profile' %}<span class="sr-only">(current)</span>{% endif %}
+            </a>
             <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
             {% else %}
-            <a class="nav-item nav-link" href="{% url 'signup' %}"><i class="fa fa-user-o" aria-hidden="true"></i> Sign up</a>
-            <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fa fa-lock" aria-hidden="true"></i> Login</a>
+            <a class="nav-item nav-link {% if request.resolver_match.view_name == 'signup' %}active{% endif%}" href="{% url 'signup' %}">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                Sign up
+                {% if request.resolver_match.view_name == 'signup' %}<span class="sr-only">(current)</span>{% endif %}
+            </a>
+            <a class="nav-item nav-link {% if request.resolver_match.view_name == 'login' %}active{% endif%}" href="{% url 'login' %}">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                Login
+                {% if request.resolver_match.view_name == 'login' %}<span class="sr-only">(current)</span>{% endif %}
+            </a>
         {% endif %}
     </div>
   </div>
