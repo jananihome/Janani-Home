@@ -86,11 +86,38 @@ def view_profile(request):
 @transaction.atomic
 def update_profile(request):
     if request.method == 'POST':
+        current_email = request.user.email
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
+            user = user_form.save(commit=False)
+            profile = profile_form.save(commit=False)
+            if current_email != user.email:
+                profile.unconfirmed_email = user.email
+                user.email = current_email
+
+                # Send activation email
+                current_site = get_current_site(request)
+                subject = 'Confirm your new email address on Janani Care.'
+                message = render_to_string('accounts/email_confirmation_email.html', {
+                    'user': user, 'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                })
+                toemail = profile.unconfirmed_email
+                email = EmailMessage(subject, message, to=[toemail])
+                email.send()
+
+                messages.warning(request, _(
+                    ''' Your have requested an email change to %s! We have just sent
+                    you a message to %s with a confirmation link inside. You have to
+                    click the link in the message to confirm your new email address.
+                    If you don't click the link, %s will continue to be your only 
+                    active email address. If for some reason the message doesn't
+                    arrive, try to change the email again or contact administration.'''
+                    % (profile.unconfirmed_email, profile.unconfirmed_email, current_email)
+                ))
+            user.save()
+            profile.save()
             messages.success(request, _('Your profile was successfully updated!'))
             return redirect('update_profile')
         else:
@@ -103,6 +130,25 @@ def update_profile(request):
         'profile_form': profile_form
     })
 
+
+@transaction.atomic
+def confirm_new_email(request, uidb64):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None:
+        user.email = user.profile.unconfirmed_email
+        user.profile.unconfirmed_email = None
+        user.save()
+        user.profile.save()
+        messages.success(request, _('Your new email was successfully confirmed!'))
+    else:
+        return HttpResponse('Email activation link is invalid!')
+
+    return redirect('view_profile')
 
 @login_required
 @transaction.atomic

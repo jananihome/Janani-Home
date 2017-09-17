@@ -1,0 +1,6 @@
+{% autoescape off %}
+Hi {{ user.username }},
+Please click on the link to confirm your new email with Janani Care,
+
+http://{{ domain }}{% url 'confirm_new_email' uidb64=uid %}
+{% endautoescape %}

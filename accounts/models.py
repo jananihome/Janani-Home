@@ -81,6 +81,7 @@ class Profile(models.Model):
     )
     image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
+    unconfirmed_email = models.EmailField(blank=True, null=True)
 
     def get_full_name(self):
         if self.middle_name:

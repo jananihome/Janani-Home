@@ -15,7 +15,7 @@ class EducationalNeed(models.Model):
     pub_date = models.DateField(default=timezone.now)
     title = models.CharField(max_length=200)
     permanent_address = models.TextField()
-    hide_permanent_address = models.BooleanField(default=False)
+    hide_permanent_address = models.BooleanField(default=True)
     additional_mobile_number = models.CharField(
         max_length=20,
         blank=True,
@@ -25,7 +25,7 @@ class EducationalNeed(models.Model):
                 regex='^[0-9]*$',
                 message='Please use only numeric characters.'
             )])
-    hide_mobile_number = models.BooleanField(default=False)
+    hide_mobile_number = models.BooleanField(default=True)
     additional_phone_number = models.CharField(max_length=20,
                                                blank=True,
                                                null=True,
@@ -34,7 +34,7 @@ class EducationalNeed(models.Model):
                                                        regex='^[0-9]*$',
                                                        message='Please use only numeric characters.'
                                                    )])
-    hide_phone_number = models.BooleanField(default=False)
+    hide_phone_number = models.BooleanField(default=True)
     current_address = models.TextField()
     hide_current_address = models.BooleanField(default=False)
     college_school_address = models.TextField()
