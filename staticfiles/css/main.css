@@ -98,6 +98,10 @@ input[type=checkbox] {
     font-size: 1em;
 }
 
+.navbar .container {
+    max-width: 1200px;
+}
+
 .navbar a {
     font-weight: 500;
 }
