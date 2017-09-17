@@ -167,7 +167,7 @@ input[type=checkbox] {
     font-size: 0.7em;
     font-style: italic;
     font-size: 1.2em;
-    min-height: 6em;
+    min-height: 80px;
 }
 
 .result-meta {
