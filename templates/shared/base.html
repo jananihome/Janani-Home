@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Janani Home - Mother's Love And Care</title>
     {% include 'shared/styles.html' %}
-    <meta name="robots" content="noindex, nofollow">
+    <!-- Remove in production! --><meta name="robots" content="noindex, nofollow"><!-- Remove in production! -->
+    {% block meta %}
+    {% endblock %}
 </head>
 <body>
     <!-- Navigation -->

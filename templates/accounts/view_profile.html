@@ -1,6 +1,12 @@
 {% extends 'shared/base.html' %}
 {% load thumbnail %}
 
+{% block meta %}
+    <title>Your profile - Janani Home</title>
+    <meta name="description" content="" />
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
 {% block sidebar %}
     <h2 class="small-heading">Profile menu</h2>
     <p><a href="{% url 'update_profile' %}">Edit profile</a></p>

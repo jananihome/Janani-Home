@@ -23,7 +23,7 @@ except NameError:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-SERVER_EMAIL = 'jananicaredev@gmail.com'
+SERVER_EMAIL = 'jananihomemail@gmail.com'
 INTERNAL_IPS = '127.0.0.1'
 
 # Change to site domain in production.
@@ -124,11 +124,14 @@ STATICFILES_DIRS = (
 )
 
 # Email server configuration
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'  # E.g. smtp.gmail.com
-EMAIL_HOST_USER = 'jananicaredev@gmail.com'  # E.g. user@gmail.com
-EMAIL_HOST_PASSWORD = 'jananipassword'
-EMAIL_PORT = 587
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = ''  # E.g. smtp.gmail.com
+    EMAIL_HOST_USER = ''  # E.g. user@gmail.com
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_PORT = 587
 
 # Avatars
 THUMBNAIL_ALIASES = {
@@ -142,7 +145,6 @@ THUMBNAIL_ALIASES = {
 
 # Session timeout
 SESSION_COOKIE_AGE = 60 * 30
-
 
 # Ckeditor
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -192,14 +194,3 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
-
-"""
-Backup of ckeditor basic settings
-        'toolbar_Custom': [
-            ['Format', 'Bold', 'Italic', 'Underline', '-'],
-            ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-        ],
-        'height': 200,
-        'width': '100%',
-        'language': 'en',
-"""

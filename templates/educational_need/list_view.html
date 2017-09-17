@@ -2,6 +2,11 @@
 {% load thumbnail %}
 {% load static %}
 
+{% block meta %}
+    <title>Educational needs - Janani Home</title>
+    <meta name="description" content="Search people in educational need around the world or submit your own request for help." />
+{% endblock %}
+
 {% block heading %}
     {% include 'educational_need/filter.html' %}
 {% endblock heading %}
