@@ -23,7 +23,7 @@ except NameError:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-SERVER_EMAIL = 'jananicaredev@gmail.com'
+SERVER_EMAIL = 'jananihomemail@gmail.com'
 INTERNAL_IPS = '127.0.0.1'
 
 # Change to site domain in production.
