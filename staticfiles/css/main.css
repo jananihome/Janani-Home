@@ -94,10 +94,18 @@ input[type=checkbox] {
 
 /* Navbar */
 
-.navbar {
+.bg-dark {
     font-size: 1em;
+    background-color: #000!important;
 }
 
+.navbar-dark .navbar-toggler {
+    border-color: #777;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color:#fff;
+}
 .navbar .container {
     max-width: 1200px;
 }
