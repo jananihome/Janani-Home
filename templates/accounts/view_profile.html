@@ -43,7 +43,7 @@
     <br/>
     <div class="card">
     <div class="card-header">My educational needs</div>
-        <div class="card-block">
+        <div class="card-block profile-card">
             {% if educational_needs %}
                 {% for need in educational_needs %}
                     {% if not need.closed %}
@@ -51,7 +51,6 @@
                         <h5>{% if need.pk != request.user.profile.active_educational_need.pk %}<span class="badge badge-secondary">Inactive</span>{% endif %}
                         {% if need.pk == request.user.profile.active_educational_need.pk %}<span class="badge badge-success">Active</span>{% endif %}
                         <a href="{% url 'detail_view' pk=need.pk %}">{{ need.title }}</a></h5>
-                        &nbsp;&nbsp;
                         {% if need.pk != request.user.profile.active_educational_need.pk %}<a class="btn btn-outline-success btn-sm" role="button" href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% else %}<a class="btn btn-outline-warning btn-sm" role="button" href="{% url 'deactivate_need' pk=need.pk %}">Deactivate</a>{% endif %}
                         <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'edit_need' pk=need.pk %}">Edit</a>
                         <a class="btn btn-outline-danger btn-sm" href="{% url 'delete_need' pk=need.pk %}">Delete</a>
