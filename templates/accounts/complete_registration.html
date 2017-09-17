@@ -3,28 +3,28 @@
 {% block heading %}
 {% endblock heading %}
 {% block content %}
-    <h1  class="text-center">Complete your registration</h1>
-    <p><strong>Please fill out the form below to finish registration and activate your account.</strong></p>
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ user_form.non_field_errors }}
-        {{ profile_form.non_field_errors }}
-        {% for field in user_form %}
-            <div class="form-group row">
-                {{ field.errors }}
-                <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
-                {% render_field field class+="form-control" %}
+        <h1  class="text-center">Complete your registration</h1>
+        <p><strong>Please fill out the form below to finish registration and activate your account.</strong></p>
+        <form method="post" enctype="multipart/form-data" class="mx-3">{% csrf_token %}
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
+            {% for field in user_form %}
+                <div class="form-group row">
+                    {{ field.errors }}
+                    <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                    {% render_field field class+="form-control" %}
+                </div>
+            {% endfor %}
+            {% for field in profile_form %}
+                <div class="form-group row">
+                    {{ field.errors }}
+                    <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                    {% render_field field class+="form-control" %}
+                </div>
+            {% endfor %}
+            <br>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-secondary btn-lg">Complete registration</button>
             </div>
-        {% endfor %}
-        {% for field in profile_form %}
-            <div class="form-group row">
-                {{ field.errors }}
-                <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
-                {% render_field field class+="form-control" %}
-            </div>
-        {% endfor %}
-        <br>
-        <div class="col-12 text-center">
-            <button type="submit" class="btn btn-secondary btn-lg">Complete registration</button>
-        </div>
-    </form>
+        </form>
 {% endblock %}
