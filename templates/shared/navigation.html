@@ -9,7 +9,7 @@
       <!--a class="nav-item nav-link" href="{% url 'list_view' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a-->
       <a class="nav-item nav-link {% if request.resolver_match.view_name == 'list_view' %}active{% endif%}" href="{% url 'list_view' %}">
           <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-          Educational Needs
+          Educational needs
           {% if request.resolver_match.view_name == 'list_view' %}<span class="sr-only">(current)</span>{% endif %}
       </a>
       <!--<a class="nav-item nav-link disabled" href="#" tabindex="-1"><i class="fa fa-heartbeat" aria-hidden="true"></i> Blood Donor Contacts</a>-->

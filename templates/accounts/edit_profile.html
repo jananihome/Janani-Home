@@ -2,6 +2,12 @@
 {% load widget_tweaks %}
 {% load thumbnail %}
 
+{% block meta %}
+    <title>Edit profile - Janani Home</title>
+    <meta name="description" content="" />
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
 {% block sidebar %}
     <h2 class="small-heading">Navigation</h2>
     <p><a href="{% url 'view_profile' %}">&laquo; Back to profile view</a></p>

@@ -3,12 +3,19 @@
 {% load widget_tweaks %}
 {% load thumbnail %}
 
+{% block meta %}
+    <title>{{ educational_need.title }} - Janani Home</title>
+    <meta name="description" content="" />
+{% endblock %}
+
 {% block sidebar %}
     <h2>Navigation</h2>
     <a href="#" onclick="goBack()">&laquo; Back to results</a>
 {% endblock sidebar %}
+
 {% block heading %}
 {% endblock heading %}
+
 {% block content %}
     {% if messages %}
     {% for message in messages %}
