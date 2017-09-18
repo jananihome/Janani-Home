@@ -58,7 +58,7 @@
                     <h5 class="card-title text-left">User details</h5>
                     <p class="card-text">
                         <strong>{{ educational_need.user.profile.get_full_name }}</strong><br>
-                        Age: {{ educational_need.user.profile.birth_date.year }}<br>
+                        Age: {{ educational_need.user.profile.get_age }}<br>
                         Country: {{ educational_need.user.profile.country.name }}<br>
                         City: {{ educational_need.user.profile.city }}<br>
                         Mobile number:
