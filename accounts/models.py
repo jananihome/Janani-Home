@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.utils import timezone
 from educational_need.models import EducationalNeed
 from easy_thumbnails.fields import ThumbnailerImageField
 from smart_selects.db_fields import ChainedForeignKey
@@ -82,6 +83,9 @@ class Profile(models.Model):
     image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
     unconfirmed_email = models.EmailField(blank=True, null=True)
+
+    def get_age(self):
+        return timezone.now().year - self.birth_date.year
 
     def get_full_name(self):
         if self.middle_name:
