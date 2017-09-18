@@ -14,9 +14,6 @@ urlpatterns = [
     url(r'', include('educational_need.urls')),
 ]
 
-# Static helper function only for development!
-
-
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
