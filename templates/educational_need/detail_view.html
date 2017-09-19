@@ -25,8 +25,6 @@
         </div>
     {% endfor %}
     {% endif %}
-	{% if educational_need.youtube_url %}
-	{% endif %}
     <div class="row need-content mb-3 mr-3">
         <div class="need-header">
             <h1 class="text-center">{{ educational_need.title }}</h1>
@@ -50,9 +48,12 @@
                         {{ educational_need.requirement_description|safe }}
                         <h4 class="inverted-heading amount-required">Amount required: {{ educational_need.amount_required }}</h4>
                     </div>
+
+	                {% if educational_need.youtube_url %}
 					<div class="col-md-12 video-wrapper">
 						<iframe width="560" height="315" src="{{ educational_need.create_youtube_embed_link }}" frameborder="0" allowfullscreen></iframe>
 					</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
