@@ -48,6 +48,7 @@ class EducationalNeed(models.Model):
         null=True
     )
     requirement_description = RichTextField()
+    youtube_url = models.URLField(blank=True, null=True)
     closed = models.BooleanField(default=False)
 
     # Define choices for communication_mode field
@@ -73,3 +74,6 @@ class EducationalNeed(models.Model):
         if not self.date_uuid:
             self.date_uuid = self.pub_date.strftime('%Y/%m/%d/') + str(self.uuid)
         super().save(*args, **kwargs)
+
+    def create_youtube_embed_link(self):
+        return str(self.youtube_url).replace('watch?v=', 'embed/')

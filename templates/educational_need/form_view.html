@@ -17,7 +17,15 @@
 {% endblock heading %}
 
 {% block content %}
-<h1>Educational Need <small class="text-muted">Application Form</small></h1>
+    {% if messages %}
+    {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable"{% endif %}>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
+	<h1>Educational Need <small class="text-muted">Application Form</small></h1>
 	{% if user.is_authenticated %}
 
 		{% if profile_complete %}
@@ -36,7 +44,7 @@
 				</div>
 
 				<div class="form-row">
-					<label for="{{ form.college_school_address.id_for_label }}">Description</label>
+					<label for="{{ form.requirement_description.id_for_label }}">Description</label>
 					{% for error in form.requirement_description.errors %}
 						<div class="container alert alert-danger">
 							{{ error }}
@@ -44,6 +52,17 @@
 					{% endfor %}
 					{% render_field form.requirement_description class+="form-control" rows=3 %}
 				</div>
+
+				<div class="form-row">
+					<label for="{{ form.youtube_url.id_for_label }}">Youtube URL</label>
+					{% for error in form.youtube_url.errors %}
+						<div class="container alert alert-danger">
+							{{ error }}
+						</div>
+					{% endfor %}
+					{% render_field form.youtube_url class+="form-control" rows=3 %}
+				</div>
+				
 				<div class="form-row">
 					<label for="{{ form.status.id_for_label }}">{{ form.amount_required.label }}</label>
 					{% for error in form.amount_required.errors %}
