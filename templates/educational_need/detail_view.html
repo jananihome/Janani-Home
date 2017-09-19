@@ -33,12 +33,16 @@
         <div class="col-md-12 card ml-3 mt-3">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-center">
                         {% if not educational_need.user.profile.image %}
                         <img src="{% static 'img/logo-big.png' %}" width="180" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left" />
                         {% else %}
                         <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left">
                         {% endif %}
+						<hr>
+						Published on {{ educational_need.pub_date }}
+						<hr>
+						View count: {{ educational_need.view_count }}
                     </div>
                     <div class="blockquote need-description col">
                         {{ educational_need.requirement_description|safe }}
@@ -57,6 +61,7 @@
                   <div class="col">
                     <h5 class="card-title text-left">User details</h5>
                     <p class="card-text">
+					{% if user.is_authenticated %}
                         <strong>{{ educational_need.user.profile.get_full_name }}</strong><br>
                         Age: {{ educational_need.user.profile.get_age }}<br>
                         Country: {{ educational_need.user.profile.country.name }}<br>
@@ -75,20 +80,30 @@
                                 {{ educational_need.user.profile.mobile_number }}
                             {% endif %}
                         {% endif %}<br>
-                        Phone number:
-                        {% if educational_need.additional_phone_number %}
-                            {% if educational_need.hide_phone_number %}
-                                Hidden from public
-                            {% else %}
-                                {{ educational_need.additional_phone_number }}
-                            {% endif %}
-                        {% else %}
-                            {% if educational_need.user.profile.hide_phone_number %}
-                                Hidden from public
-                            {% else %}
-                                {{ educational_need.user.profile.phone_number }}
-                            {% endif %}
-                        {% endif %}<br>
+						{% if educational_need.additional_phone_number or educational_need.profile.phone_number %}
+							Phone number:
+							{% if educational_need.additional_phone_number %}
+								{% if educational_need.hide_phone_number %}
+									Hidden from public
+								{% else %}
+									{{ educational_need.additional_phone_number }}
+								{% endif %}
+							{% else %}
+								{% if educational_need.user.profile.hide_phone_number %}
+									Hidden from public
+								{% else %}
+									{{ educational_need.user.profile.phone_number }}
+								{% endif %}
+							{% endif %}
+						{% endif %}
+						<p><strong>Permanent address:</strong><br>{% if educational_need.hide_permanent_address %}Hidden from public{% else %}{{ educational_need.permanent_address }}{% endif %}</p>
+						<p><strong>Current address:</strong><br>{% if educational_need.hide_current_address %}Hidden from public{% else %}{{ educational_need.current_address }}{% endif %}</p>
+						<p><strong>School address:</strong><br>{{ educational_need.college_school_address }}</p>
+						<p><strong>School contact details:</strong><br>{{ educational_need.college_school_contact_details }}</p>
+						<p><strong>Preferred communication mode:</strong><br>{{ educational_need.get_communication_mode_display }}</p>
+					{% else %}
+						<p class="alert alert-secondary">You are not logged in! Please register or log in to see details about this user.</p>
+					{% endif %}
                     </p>
                   </div>
               </div>
