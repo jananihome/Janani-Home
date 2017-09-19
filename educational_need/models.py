@@ -36,7 +36,7 @@ class EducationalNeed(models.Model):
                                                    )])
     hide_phone_number = models.BooleanField(default=True)
     current_address = models.TextField()
-    hide_current_address = models.BooleanField(default=False)
+    hide_current_address = models.BooleanField(default=True)
     college_school_address = models.TextField()
     college_school_contact_details = models.CharField(max_length=200)
     view_count = models.IntegerField(default=0)
