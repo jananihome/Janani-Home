@@ -33,7 +33,7 @@
               <div class="row">
                   <div class="col-3 text-center result-sidebar">
                     {% if not result.user.profile.image %}
-                    <img src="{% static 'img/logo-avatar.png' %}" height="70" alt="comment.author" class="img-fluid" />
+                    <img src="{% static 'img/logo-avatar.png' %}" height="70" alt="{{ comment.author }}" class="img-fluid" />
                     {% else %}
                     <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-fluid">
                     {% endif %}
