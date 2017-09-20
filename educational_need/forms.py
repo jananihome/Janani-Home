@@ -21,6 +21,7 @@ class EducationalNeedForm(forms.ModelForm):
             'college_school_contact_details',
             'amount_required',
             'requirement_description',
+			'youtube_url',
             'communication_mode',)
 
 
