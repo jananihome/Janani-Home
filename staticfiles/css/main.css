@@ -243,7 +243,7 @@ input[type=checkbox] {
 /* Educational Need Detail View */
 
 .need-content .profile-image {
-    margin: 20px;
+    margin: 20px 0;
 }
 
 .need-description {

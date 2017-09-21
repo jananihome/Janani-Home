@@ -41,15 +41,22 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        {% if not educational_need.user.profile.image %}
-                        <img src="{% static 'img/logo-big.png' %}" width="180" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left" />
+                        <div class="row">
+                        <div class="col text-center">
+                                {% if not educational_need.user.profile.image %}
+                        <img src="{% static 'img/logo-big.png' %}" width="180" alt="{{ educational_need.user }}" class="img-fluid profile-image" />
                         {% else %}
-                        <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image float-left">
+                        <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image">
                         {% endif %}
-						<hr>
+                        </div>
+						</div>
+                        <div class="row">
+                        <div class="col">
 						Published on {{ educational_need.pub_date }}
 						<hr>
 						View count: {{ educational_need.view_count }}
+                        </div>
+                        </div>
                     </div>
                     <div class="blockquote need-description col">
                         {{ educational_need.requirement_description|safe }}
