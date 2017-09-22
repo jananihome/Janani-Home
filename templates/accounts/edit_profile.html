@@ -72,6 +72,15 @@
                 {% render_field user_form.last_name class+="form-control" %}
             </div>
             <div class="col-md-6">
+                <label for="{{ profile_form.gender.id_for_label }}">{{ profile_form.gender.label }}:</label>
+                {% for error in profile_form.gender.errors %}
+                    <div class="container alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% render_field profile_form.gender class+="form-control" %}
+            </div>
+            <div class="col-md-6">
                 <label for="{{ profile_form.birth_date.id_for_label }}">{{ profile_form.birth_date.label }}:</label>
                 {% for error in profile_form.birth_date.errors %}
                     <div class="container alert alert-danger">
