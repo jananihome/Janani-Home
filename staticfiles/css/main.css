@@ -201,6 +201,8 @@ input[type=checkbox] {
 .pagination-container {
     margin: 0 auto;
     margin-bottom: 1em;
+    padding-right: 0.5em;
+    width: 300px;
 }
 
 .pagination a, a:hover, .pagination a:active, .pagination a:visited {
@@ -208,7 +210,11 @@ input[type=checkbox] {
 }
 
 .pagination li {
-    padding: 0.5em;
+    padding: 0.2em;
+}
+
+.pagination .disabled a {
+    font-size: 0.9em;
 }
 
 
