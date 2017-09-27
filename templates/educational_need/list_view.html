@@ -25,6 +25,7 @@
     <!-- Result list -->
     <div class="row result-list">
         <div class="col-md-12">{% if active_search or active_country %}<p>{% if active_query %}<span class="badge badge-light">Keyword: "{{ active_query }}"</span>{% endif %}{% if active_country %}<span class="badge badge-light">Country: {{ active_country }}</span>{% endif %}{% if active_state %}
+
             <span class="badge badge-light">State: {{ active_state }}</span>{% endif %} <a href="{% url 'list_view' %}"> <i class="fa fa-refresh" aria-hidden="true"></i></a></p>{% endif %}</div>
         {% for result in object_list %}
         <!-- Result card -->
@@ -43,8 +44,9 @@
                     <div class="row">
                       <div class="col-12">
                         <div class="title-container"><a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a></div>
+                          <span class=""><small>By <strong>{{ result.user }}</strong></small>
                         <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
-                        <p class="result-description"><small>{{ result.requirement_description|striptags|truncatechars:100|safe }}</small></p>
+                        <p class="result-description"><small>{{ result.requirement_description|striptags|truncatechars:80|safe }}</small></p>
                       </div>
                     </div>
                   </div>
