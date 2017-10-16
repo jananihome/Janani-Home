@@ -77,7 +77,7 @@ class EducationalNeedListView(ListView):
         data = super().get_context_data(**kwargs)
         # Country list
         data['countries'] = Country.objects.values('name','code','pk')
-        data['comments'] = Comment.objects.filter(published=True).order_by('-pk')[:8]
+        data['comments'] = Comment.objects.filter(published=True).order_by('-pk')[:3]
         if self.country_:
             data['country_'] = self.country_.pk
             data['active_country'] = self.country_.name
