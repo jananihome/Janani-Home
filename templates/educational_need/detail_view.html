@@ -43,8 +43,12 @@
                     <div class="col-md-4 text-center">
                         <div class="row">
                         <div class="col text-center">
-                                {% if not educational_need.user.profile.image %}
-                        <img src="{% static 'img/logo-big.png' %}" width="180" alt="{{ educational_need.user }}" class="img-fluid profile-image" />
+                        {% if not educational_need.user.profile.image %}
+                          {% if educational_need.user.profile.gender == 'M' %}
+                            <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ result.user }}" class="img-fluid" />
+                          {% else %}
+                            <img src="{% static 'img/avatar-female.jpg' %}" height="120" alt="{{ result.user }}" class="img-fluid" />
+                          {% endif %}
                         {% else %}
                         <img src="{{ educational_need.user.profile.image|thumbnail_url:'avatar250' }}" alt="{{ educational_need.user }}" class="img-fluid profile-image">
                         {% endif %}

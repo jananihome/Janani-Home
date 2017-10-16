@@ -1,4 +1,5 @@
 {% extends 'shared/base.html' %}
+{% load static %}
 {% load thumbnail %}
 
 {% block meta %}
@@ -31,7 +32,15 @@
         <div class="card-block row">
             <div class="col-md-3 text-center">
                 <div class="profile-image">
-                    <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
+                    {% if not request.user.profile.image %}
+                      {% if request.user.profile.gender == 'M' %}
+                        <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+                      {% else %}
+                        <img src="{% static 'img/avatar-female.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+                      {% endif %}
+                    {% else %}
+                     <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-7">

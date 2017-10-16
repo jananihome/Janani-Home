@@ -19,7 +19,15 @@
             	</div>
 				<div class="card-block row">
 					<div class="col-md-3 text-center">
-						<img src="{{ comment.author.profile.image|thumbnail_url:'avatar150' }}" alt="{{ comment.author }}">
+					  {% if not comment.author.profile.image %}
+						  {% if comment.author.profile.gender == 'M' %}
+							<img src="{% static 'img/avatar-male.jpg' %}" height="150" alt="{{ comment.author }}" class="img-fluid" />
+						  {% else %}
+							<img src="{% static 'img/avatar-female.jpg' %}" height="150" alt="{{ comment.author }}" class="img-fluid" />
+						  {% endif %}
+					  {% else %}
+					  <img src="{{ comment.author.profile.image|thumbnail_url:'avatar150' }}" alt="{{ comment.author }}" class="img-fluid" />
+					  {% endif %}
 					</div>
 					<div class="col-md-7 text-14 align-middle">
 						<table>
@@ -43,7 +51,7 @@
 						<blockquote class="blockquote">
 							<p>{{ comment.comment }}</p>
 							<footer class="blockquote-footer">
-								{{ comment.author.get_full_name }} {% if comment.educational_need %}about his/her <a href="{% url 'detail_view' comment.educational_need.pk %}">post</a>{% endif %}
+								{{ comment.author.get_full_name }} {% if comment.educational_need %}about {% if comment.author.profile.gender == 'M' %}his{% else %}her{% endif %} <a href="{% url 'detail_view' comment.educational_need.pk %}">post</a>{% endif %}
 							</footer>
 						</blockquote>
 					</div>
