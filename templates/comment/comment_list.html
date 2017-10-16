@@ -11,7 +11,7 @@
 {% endblock heading %}
 
 {% block content %}
-	<h1>Comments <small class="text-muted">and reviews from users who received help through Janani Home</small></h1>
+	<h1>Comments <span class="text-muted"><small>from Janani Home users</small></span></h1>
 	{% for comment in comments %}
 			<div class="result-{{ result.pk }} card">
 				<div class="card-header">
@@ -25,7 +25,7 @@
 						<table>
 							{% if comment.helper %}
 							<tr>
-								<td>Helper: {{ comment.helper.username }}</td>
+								<td>Helper: {{ comment.helper }}</td>
 							</tr>
 							{% endif %}
 							<tr>
@@ -43,7 +43,7 @@
 						<blockquote class="blockquote">
 							<p>{{ comment.comment }}</p>
 							<footer class="blockquote-footer">
-								{{ comment.author.get_full_name }} {% if comment.educational_need %}about <a href="{% url 'detail_view' comment.educational_need.pk %}"><cite title="{{ comment.educational_need }}">{{ comment.educational_need }}</cite></a>{% endif %}
+								{{ comment.author.get_full_name }} {% if comment.educational_need %}about his/her <a href="{% url 'detail_view' comment.educational_need.pk %}">post</a>{% endif %}
 							</footer>
 						</blockquote>
 					</div>

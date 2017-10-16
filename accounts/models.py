@@ -32,6 +32,20 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
+
+    # Define choices for gender field
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDER_CHOICES = (
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    )
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER_CHOICES,
+        default=MALE,
+    )
+
     birth_date = models.DateField(null=True, blank=True)
     mobile_number = models.CharField(
         max_length=20,

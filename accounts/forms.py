@@ -40,13 +40,14 @@ class ProfileCompletionForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('birth_date', 'mobile_number', 'country', 'state', 'about')
+        fields = ('gender', 'birth_date', 'mobile_number', 'country', 'state', 'about')
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
         }
 
     def __init__(self, *args, **kwargs):
         super(ProfileCompletionForm, self).__init__(*args, **kwargs)
+        self.fields['gender'].required = True
         self.fields['birth_date'].required = True
         self.fields['mobile_number'].required = True
         self.fields['country'].required = True
@@ -90,7 +91,7 @@ class ProfileForm(forms.ModelForm):
         
     class Meta:
         model = Profile
-        fields = ('middle_name', 'birth_date', 'mobile_number', 'hide_mobile_number', 'phone_number',
+        fields = ('middle_name', 'gender', 'birth_date', 'mobile_number', 'hide_mobile_number', 'phone_number',
                   'hide_phone_number', 'country', 'state', 'zip_code', 'city', 'district',
                   'about', 'image', )
         widgets = {
@@ -99,6 +100,7 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['gender'].required = True
         self.fields['birth_date'].required = True
         self.fields['mobile_number'].required = True
         self.fields['country'].required = True

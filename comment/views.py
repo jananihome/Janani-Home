@@ -13,7 +13,7 @@ from .models import Comment
 
 
 def comment_list(request):
-    comments = Comment.objects.filter(published=True)
+    comments = Comment.objects.filter(published=True).order_by('-pk')
     return render(request, 'comment/comment_list.html' , {'comments': comments,})
 
 
