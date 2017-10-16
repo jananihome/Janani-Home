@@ -18,6 +18,10 @@
           About the project
           {% if request.resolver_match.view_name == 'about_page' %}<span class="sr-only">(current)</span>{% endif %}
       </a>
+      <a class="nav-item nav-link" data-toggle="modal" data-target="#guideline" href="#">
+          <i class="fa fa-question-circle" aria-hidden="true"></i>
+          Help
+      </a>
     </div>
     <div class="navbar-nav">
         {% if user.is_authenticated %}
@@ -47,5 +51,33 @@
         {% endif %}
     </div>
   </div>
+    <!-- Guideline Modal -->
+    <div class="modal fade" id="guideline" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Guideline</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">
+                &times;
+              </span>
+            </button>
+          </div>
+          <div class="modal-body">
+                  <ol>
+                      <li>User's are advised to interact with the requester and validate their requirement before helping.</li>
+                      <li>Basically first time user's can interact with the requester through mail. Then its between you two how proceed with your communication.</li>
+                      <li>If either side of the party feels there is something wrong you can write to us at jananihomemail@gmail.com with proper proof so that we can block them.</li>
+                      <li>We request to the people's who post educational need to close the record once you get what you want. Don't keep it open and block others way or Misuse it by getting benefits from more than one user.</li>
+                      <li>To the user's we request to write us at jananihomemail@gmail.com after you have done helping to some one with proper proof so that we can make sure no one can misuse the ad that they are posting.</li>
+                      <li>Requester's when ever your closing the ad write a few lines of comment about the user who helped you and about this site.</li>
+                  </ol>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 </nav>
