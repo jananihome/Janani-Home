@@ -34,7 +34,11 @@
               <div class="row">
                   <div class="col-3 text-center result-sidebar">
                     {% if not result.user.profile.image %}
-                    <img src="{% static 'img/logo-avatar.png' %}" height="70" alt="{{ comment.author }}" class="img-fluid" />
+                      {% if result.user.profile.gender == 'M' %}
+                        <img src="{% static 'img/avatar-male.jpg' %}" height="70" alt="{{ result.user }}" class="img-fluid" />
+                      {% else %}
+                        <img src="{% static 'img/avatar-female.jpg' %}" height="70" alt="{{ result.user }}" class="img-fluid" />
+                      {% endif %}
                     {% else %}
                     <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-fluid">
                     {% endif %}
@@ -94,7 +98,11 @@
           <div class="row">
               <div class="col-3 text-center">
                   {% if not comment.author.profile.image %}
-                  <img src="{% static 'img/logo-big.png' %}" height="70" alt="comment.author" class="img-fluid" />
+                      {% if comment.author.profile.gender == 'M' %}
+                        <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ comment.author }}" class="img-fluid" />
+                      {% else %}
+                        <img src="{% static 'img/avatar-female.jpg' %}" height="120" alt="{{ comment.author }}" class="img-fluid" />
+                      {% endif %}
                   {% else %}
                   <img src="{{ comment.author.profile.image|thumbnail_url:'avatar70' }}" alt="{{ comment.author }}" class="img-fluid" />
                   {% endif %}
