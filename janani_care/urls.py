@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^comment/', include('comment.urls')),
     url(r'^about/$', views.about_page, name='about_page'),
     url(r'', include('educational_need.urls')),
+    url(r'', include('cms.urls')),
 ]
 
 if settings.DEBUG:

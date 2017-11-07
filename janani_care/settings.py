@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'educational_need',
     'widget_tweaks',
     'comment',
+    'cms',
     'django_extensions',
     'debug_toolbar',
     'easy_thumbnails',
@@ -73,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cms.context_processors.menu_processor',
             ],
         },
     },
@@ -192,5 +194,26 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath'
         ]),
-    }
+    },
+    'admin': {
+        'toolbar': 'full',
+        'height': 200,
+        'width': '100%',
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            # 'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath'
+        ]),
+    },
 }
