@@ -97,6 +97,8 @@ class Profile(models.Model):
     image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
     unconfirmed_email = models.EmailField(blank=True, null=True)
+    is_organization = models.BooleanField(default=False)
+    is_volunteer = models.BooleanField(default=False)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year
