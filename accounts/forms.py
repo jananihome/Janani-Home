@@ -122,3 +122,50 @@ class PasswordChangeForm(PasswordChangeForm):
     class Meta:
         model = User
         fields = ('password',)
+
+
+class OrganizationSignupForm(UserCreationForm):
+
+    email = forms.EmailField(max_length=200)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean(self):
+        cleaned_data = super(OrganizationSignupForm, self).clean()
+        username = cleaned_data.get('username')
+        email = cleaned_data.get('email')
+        if username and User.objects.filter(username__iexact=username).exists():
+            self.add_error('username', 'Account with that username already exists.')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            self.add_error('email', 'Account with that email already exists.')
+        return cleaned_data
+
+
+class OrganizationCompletionForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = (
+            'organization_name',
+            'phone_number',
+            'mobile_number',
+            'fax_number',
+            'additional_contact_details',
+            'country',
+            'state',
+            'organization_area',
+            'organization_address',
+            'about',
+            )
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationCompletionForm, self).__init__(*args, **kwargs)
+        self.fields['organization_name'].required = True
+        self.fields['phone_number'].required = True
+        self.fields['country'].required = True
+        self.fields['state'].required = True
+        self.fields['organization_area'].required = True
+        self.fields['organization_address'].required = True
+        self.fields['about'].required = True
