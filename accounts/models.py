@@ -97,6 +97,21 @@ class Profile(models.Model):
     image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
     unconfirmed_email = models.EmailField(blank=True, null=True)
+    is_volunteer = models.BooleanField(default=False)
+    is_organization = models.BooleanField(default=False)
+    organization_name = models.CharField(max_length=200, blank=True, null=True)
+    fax_number =  models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )])
+    organization_address = models.TextField(blank=True, null=True)
+    organization_area = models.TextField(blank=True, null=True)
+    additional_contact_details = models.TextField(blank=True, null=True)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year

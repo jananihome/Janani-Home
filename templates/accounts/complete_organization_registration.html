@@ -1,0 +1,30 @@
+{% extends 'shared/base.html' %}
+{% load widget_tweaks %}
+
+{% block meta %}
+    <title>Complete NGO registration - Janani Home</title>
+    <meta name="description" content="" />
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block heading %}
+{% endblock heading %}
+
+{% block content %}
+        <h1  class="text-center">Complete NGO registration</h1>
+        <p><strong>Please fill out the form below to finish registration and activate your NGO account.</strong></p>
+        <form method="post" enctype="multipart/form-data" class="mx-3">{% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="form-group row">
+                    {{ field.errors }}
+                    <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                    {% render_field field class+="form-control" %}
+                </div>
+            {% endfor %}
+            <br>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-secondary btn-lg">Complete registration</button>
+            </div>
+        </form>
+{% endblock %}

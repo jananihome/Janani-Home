@@ -12,6 +12,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
 from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
+from .forms import OrganizationSignupForm, OrganizationCompletionForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
@@ -76,6 +77,8 @@ def activate(request, uidb64, token):
 
 @login_required
 def view_profile(request):
+    if request.user.profile.is_organization:
+        return HttpResponse('You are logged in as NGO. The profile page for NGO does not exist yet.')
     educational_needs = EducationalNeed.objects.filter(user=request.user)
     template = 'accounts/view_profile.html'
     context = {'educational_needs': educational_needs}
@@ -85,6 +88,8 @@ def view_profile(request):
 @login_required
 @transaction.atomic
 def update_profile(request):
+    if request.user.profile.is_organization:
+        return HttpResponse('You are logged in as NGO. The profile edit page for NGO does not exist yet.')
     if request.method == 'POST':
         current_email = request.user.email
         user_form = UserForm(request.POST, instance=request.user)
@@ -168,6 +173,7 @@ def change_password(request):
         'form': form
     })
 
+
 def StateAjaxView(request):
     """function to render the states accourding to the city passed"""
     try:
@@ -175,3 +181,56 @@ def StateAjaxView(request):
         return HttpResponse(json.dumps(tuple(i for i in State.objects.filter(country_id=country_id).values('name','id','code'))),content_type='application/json')
     except Exception as e:
         return HttpResponse(json.dumps([]),content_type='application/json')
+
+
+def organization_signup(request):
+    if request.user.is_authenticated():
+        return redirect('view_profile')
+    else:
+        if request.method == 'POST':
+            form = OrganizationSignupForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                subject = 'Activate your organization account on Janani Care.'
+                message = render_to_string('accounts/organization_activation_email.html', {
+                    'user':user, 'domain':current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                toemail = form.cleaned_data.get('email')
+                email = EmailMessage(subject, message, to=[toemail])
+                email.send()
+                return render(request, 'accounts/activation_pending.html')
+        else:
+            form = OrganizationSignupForm()
+        return render(request, 'accounts/organization_signup.html', {'form': form})
+
+
+def activate_organization(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if request.method == 'POST':
+        form = OrganizationCompletionForm(request.POST, instance=user.profile)
+        if form.is_valid():
+            user.is_active = True
+            user.profile.is_organization = True
+            form.save()
+            user.save()
+            login(request, user)
+            return render(request, 'accounts/activation_completed.html')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        form = OrganizationCompletionForm()
+        if user is not None and account_activation_token.check_token(user, token):
+            pass
+        else:
+            return HttpResponse('Activation link is invalid!')
+    return render(request, 'accounts/complete_organization_registration.html', {'form': form})
