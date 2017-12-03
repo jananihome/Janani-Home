@@ -67,6 +67,8 @@ class EducationalNeed(models.Model):
         default=PHONE,
     )
 
+    verified = models.BooleanField(default=False)
+
     def __str__(self):
         return 'Educational Need {}'.format(str(self.pk))
 

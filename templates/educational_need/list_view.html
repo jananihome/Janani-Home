@@ -43,7 +43,7 @@
                     <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-fluid">
                     {% endif %}
                     <br>Views:<br><i class="fa fa-eye" aria-hidden="true"></i> {{ result.view_count }}
-                      <br><small class="text-success">{% if result.user.profile.verified %}Verified by Janani Home{% endif %}</small>
+                      <br><small class="text-success">{% if result.verified %}Verified by Janani Home{% endif %}</small>
                   </div>
                   <div class="col-8">
                     <div class="row">

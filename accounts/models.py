@@ -98,8 +98,6 @@ class Profile(models.Model):
                                    null=True)
     unconfirmed_email = models.EmailField(blank=True, null=True)
 
-    verified = models.BooleanField(default=False)
-
     def get_age(self):
         return timezone.now().year - self.birth_date.year
 
