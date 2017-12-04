@@ -191,6 +191,11 @@ input[type=checkbox] {
     margin-left: 1.0em;
 }
 
+.result-verification {
+    font-size: 0.8em;
+    color: #888;
+    text-shadow: 2px 2px #ccc;
+}
 
 .need-id {
     font-size: 1.2em;
@@ -259,6 +264,11 @@ input[type=checkbox] {
 
 .need-header {
     width: 100%;
+}
+
+.need-verification {
+    color: #888;
+    text-shadow: 2px 2px #ccc;
 }
 
 /* Footer */
