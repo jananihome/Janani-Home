@@ -128,7 +128,6 @@ class Profile(models.Model):
                 message='Please use only numeric characters.'
             )])
     organization_address = models.TextField(blank=True, null=True)
-    organization_area = models.TextField(blank=True, null=True)
     additional_contact_details = models.TextField(blank=True, null=True)
 
     def get_age(self):
