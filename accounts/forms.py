@@ -150,7 +150,9 @@ class OrganizationCompletionForm(forms.ModelForm):
         fields = (
             'organization_name',
             'phone_number',
+            'phone_number_2',
             'mobile_number',
+            'mobile_number_2',
             'fax_number',
             'additional_contact_details',
             'country',

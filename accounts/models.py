@@ -56,8 +56,26 @@ class Profile(models.Model):
                 regex='^[0-9]*$',
                 message='Please use only numeric characters.'
             )])
+    mobile_number_2 = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )])
     hide_mobile_number = models.BooleanField(default=False)
     phone_number = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )])
+    phone_number_2 = models.CharField(
         max_length=20,
         null=True,
         blank=True,
