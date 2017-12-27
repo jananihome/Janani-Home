@@ -129,6 +129,7 @@ class Profile(models.Model):
             )])
     organization_address = models.TextField(blank=True, null=True)
     additional_contact_details = models.TextField(blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year
