@@ -194,7 +194,6 @@ input[type=checkbox] {
 .result-verification {
     font-size: 0.8em;
     color: #888;
-    text-shadow: 2px 2px #ccc;
 }
 
 .need-id {
@@ -268,7 +267,7 @@ input[type=checkbox] {
 
 .need-verification {
     color: #888;
-    text-shadow: 2px 2px #ccc;
+    font-size: 0.8em;
 }
 
 /* Footer */
