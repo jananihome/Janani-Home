@@ -157,6 +157,7 @@ class OrganizationCompletionForm(forms.ModelForm):
             'additional_contact_details',
             'country',
             'state',
+            'zip_code',
             'organization_area',
             'organization_address',
             'about',
@@ -168,6 +169,7 @@ class OrganizationCompletionForm(forms.ModelForm):
         self.fields['phone_number'].required = True
         self.fields['country'].required = True
         self.fields['state'].required = True
+        self.fields['zip_code'].required = True
         self.fields['organization_area'].required = True
         self.fields['organization_address'].required = True
         self.fields['about'].required = True
