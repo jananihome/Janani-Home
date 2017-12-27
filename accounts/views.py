@@ -217,10 +217,11 @@ def activate_organization(request, uidb64, token):
         user = None
 
     if request.method == 'POST':
-        form = OrganizationCompletionForm(request.POST, instance=user.profile)
+        form = OrganizationCompletionForm(request.POST, request.FILES, instance=user.profile)
         if form.is_valid():
             user.is_active = True
             user.profile.is_organization = True
+            user.profile.active = False  # NGOs need manual approval by admin
             form.save()
             user.save()
             login(request, user)

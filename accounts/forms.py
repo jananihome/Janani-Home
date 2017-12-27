@@ -149,13 +149,18 @@ class OrganizationCompletionForm(forms.ModelForm):
         model = Profile
         fields = (
             'organization_name',
+            'image',
             'phone_number',
+            'phone_number_2',
             'mobile_number',
+            'mobile_number_2',
             'fax_number',
             'additional_contact_details',
             'country',
             'state',
-            'organization_area',
+            'city',
+            'district',
+            'zip_code',
             'organization_address',
             'about',
             )
@@ -166,6 +171,6 @@ class OrganizationCompletionForm(forms.ModelForm):
         self.fields['phone_number'].required = True
         self.fields['country'].required = True
         self.fields['state'].required = True
-        self.fields['organization_area'].required = True
+        self.fields['zip_code'].required = True
         self.fields['organization_address'].required = True
         self.fields['about'].required = True

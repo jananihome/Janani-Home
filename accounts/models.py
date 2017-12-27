@@ -56,6 +56,16 @@ class Profile(models.Model):
                 regex='^[0-9]*$',
                 message='Please use only numeric characters.'
             )])
+    mobile_number_2 = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )],
+        verbose_name='Additional mobile number')
     hide_mobile_number = models.BooleanField(default=False)
     phone_number = models.CharField(
         max_length=20,
@@ -66,6 +76,16 @@ class Profile(models.Model):
                 regex='^[0-9]*$',
                 message='Please use only numeric characters.'
             )])
+    phone_number_2 = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex='^[0-9]*$',
+                message='Please use only numeric characters.'
+            )],
+        verbose_name='Additional phone number')
     hide_phone_number = models.BooleanField(default=False)
     country = models.ForeignKey(
         Country,
@@ -94,12 +114,19 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
-    image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
-                                   null=True)
+    image = ThumbnailerImageField(
+        upload_to='profile_images',
+        blank=True,
+        null=True,
+        verbose_name='Profile image')
     unconfirmed_email = models.EmailField(blank=True, null=True)
     is_volunteer = models.BooleanField(default=False)
     is_organization = models.BooleanField(default=False)
-    organization_name = models.CharField(max_length=200, blank=True, null=True)
+    organization_name = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name='NGO/Organization name')
     fax_number =  models.CharField(
         max_length=20,
         null=True,
@@ -109,9 +136,12 @@ class Profile(models.Model):
                 regex='^[0-9]*$',
                 message='Please use only numeric characters.'
             )])
-    organization_address = models.TextField(blank=True, null=True)
-    organization_area = models.TextField(blank=True, null=True)
+    organization_address = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='Address')
     additional_contact_details = models.TextField(blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year
