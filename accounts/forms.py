@@ -149,6 +149,7 @@ class OrganizationCompletionForm(forms.ModelForm):
         model = Profile
         fields = (
             'organization_name',
+            'image',
             'phone_number',
             'phone_number_2',
             'mobile_number',

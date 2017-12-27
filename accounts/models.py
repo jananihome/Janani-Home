@@ -112,7 +112,7 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
-    image =  ThumbnailerImageField(upload_to='profile_images', blank=True,
+    image = ThumbnailerImageField(upload_to='profile_images', blank=True,
                                    null=True)
     unconfirmed_email = models.EmailField(blank=True, null=True)
     is_volunteer = models.BooleanField(default=False)
