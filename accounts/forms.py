@@ -158,6 +158,8 @@ class OrganizationCompletionForm(forms.ModelForm):
             'additional_contact_details',
             'country',
             'state',
+            'city',
+            'district',
             'zip_code',
             'organization_address',
             'about',
