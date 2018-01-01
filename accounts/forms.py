@@ -87,6 +87,26 @@ class UserForm(forms.ModelForm):
         return cleaned_data
 
 
+class OrganizationUserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email',)
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].disabled = True
+        self.fields['email'].required = True
+
+    def clean(self):
+        cleaned_data = super(OrganizationUserForm, self).clean()
+        email = cleaned_data.get('email')
+        username = cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            self.add_error('email', 'A user with that email already exists.')
+        return cleaned_data
+
+
 class ProfileForm(forms.ModelForm):
         
     class Meta:
@@ -116,6 +136,35 @@ class ProfileForm(forms.ModelForm):
         if birth_year > max_year:
             self.add_error('birth_date', 'You must be at least 6 years old!')
         return cleaned_data
+
+
+class OrganizationProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (
+            'mobile_number',
+            'mobile_number_2',
+            'phone_number',
+            'phone_number_2',
+            'fax_number',
+            'additional_contact_details',
+            'country',
+            'state',
+            'zip_code',
+            'city',
+            'district',
+            'organization_address',
+            'about',
+            'image',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationProfileForm, self).__init__(*args, **kwargs)
+        self.fields['mobile_number'].required = True
+        self.fields['country'].required = True
+        self.fields['state'].required = True
+        self.fields['about'].required = True
+
 
 
 class PasswordChangeForm(PasswordChangeForm):

@@ -13,6 +13,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
 from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
 from .forms import OrganizationSignupForm, OrganizationCompletionForm
+from .forms import OrganizationUserForm, OrganizationProfileForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
@@ -91,7 +92,7 @@ def view_profile(request):
 @transaction.atomic
 def update_profile(request):
     if request.user.profile.is_organization:
-        return HttpResponse('You are logged in as NGO. The profile edit page for NGO does not exist yet.')
+        return redirect('update_ngo_profile')
     if request.method == 'POST':
         current_email = request.user.email
         user_form = UserForm(request.POST, instance=request.user)
@@ -133,6 +134,57 @@ def update_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'accounts/edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+
+@login_required
+@transaction.atomic
+def update_ngo_profile(request):
+    if not request.user.profile.is_organization:
+        return redirect('update_profile')
+    if request.method == 'POST':
+        current_email = request.user.email
+        user_form = OrganizationUserForm(request.POST, instance=request.user)
+        profile_form = OrganizationProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            profile = profile_form.save(commit=False)
+            if current_email != user.email:
+                profile.unconfirmed_email = user.email
+                user.email = current_email
+
+                # Send activation email
+                current_site = get_current_site(request)
+                subject = 'Confirm your new email address on Janani Care.'
+                message = render_to_string('accounts/email_confirmation_email.html', {
+                    'user': user, 'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                })
+                toemail = profile.unconfirmed_email
+                email = EmailMessage(subject, message, to=[toemail])
+                email.send()
+
+                messages.warning(request, _(
+                    ''' Your have requested an email change to %s! We have just sent
+                    you a message to %s with a confirmation link inside. You have to
+                    click the link in the message to confirm your new email address.
+                    If you don't click the link, %s will continue to be your only 
+                    active email address. If for some reason the message doesn't
+                    arrive, try to change the email again or contact administration.'''
+                    % (profile.unconfirmed_email, profile.unconfirmed_email, current_email)
+                ))
+            user.save()
+            profile.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('update_ngo_profile')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = OrganizationUserForm(instance=request.user)
+        profile_form = OrganizationProfileForm(instance=request.user.profile)
+    return render(request, 'accounts/edit_ngo_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })

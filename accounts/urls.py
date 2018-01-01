@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     url(r'^profile/$', views.view_profile, name='view_profile'),
     url(r'^edit_profile/$', views.update_profile, name='update_profile'),
+    url(r'^edit_ngo_profile/$', views.update_ngo_profile, name='update_ngo_profile'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^ngo_signup/$', views.organization_signup, name='organization_signup'),
     url(r'^login/$', auth_views.login, name='login',
