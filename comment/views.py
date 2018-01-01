@@ -45,8 +45,8 @@ def educational_need_comment(request, pk):
                 'educational_need': educational_need,
                 'comment': comment,
             })
-            toemail = User.objects.filter(is_staff=True)[0].email
-            email = EmailMessage(subject, message, to=[toemail])
+            toemails = [obj.email for obj in User.objects.filter(is_staff=True)]
+            email = EmailMessage(subject, message, to=toemails)
             email.send()
             return redirect('comment_submitted')
     else:

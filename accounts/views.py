@@ -77,11 +77,13 @@ def activate(request, uidb64, token):
 
 @login_required
 def view_profile(request):
+    context = {}
     if request.user.profile.is_organization:
-        return HttpResponse('You are logged in as NGO. The profile page for NGO does not exist yet.')
-    educational_needs = EducationalNeed.objects.filter(user=request.user)
-    template = 'accounts/view_profile.html'
-    context = {'educational_needs': educational_needs}
+        template = 'accounts/ngo_profile.html'
+    else:
+        educational_needs = EducationalNeed.objects.filter(user=request.user)
+        template = 'accounts/view_profile.html'
+        context = {'educational_needs': educational_needs}
     return render(request, template, context)
 
 
@@ -224,6 +226,17 @@ def activate_organization(request, uidb64, token):
             user.profile.active = False  # NGOs need manual approval by admin
             form.save()
             user.save()
+            # Send email to admin
+            current_site = get_current_site(request)
+            subject = 'New NGO registration on Janani Care.'
+            message = render_to_string('accounts/ngo_approval_email.html', {
+                'domain': current_site.domain,
+                'profile': user.profile,
+            })
+            toemails = [obj.email for obj in User.objects.filter(is_staff=True)]
+            email = EmailMessage(subject, message, to=toemails)
+            email.send()
+            # Login user
             login(request, user)
             return render(request, 'accounts/activation_completed.html')
         else:

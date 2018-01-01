@@ -1,0 +1,59 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block meta %}
+    <title>NGO Dashboard - Janani Home</title>
+    <meta name="description" content="" />
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block sidebar %}
+    <h2 class="small-heading">Settings</h2>
+    <p><a href="#">Edit profile</a></p>
+    <p><a href="#">Change password</a></p>
+{% endblock sidebar %}
+{% block heading %}
+{% endblock heading %}
+{% block content %}
+<h1>NGO Dashboard</h1>
+    {% if messages %}
+    {% for message in messages %}
+        {% if 'error' not in message.tags %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+    <div class="card">
+        <div class="card-header">Details</div>
+        <div class="card-block row">
+            <div class="col-md-3 text-center">
+                <div class="profile-image">
+                    {% if not request.user.profile.image %}
+                     <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+                    {% else %}
+                     <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-7">
+                <p>Status: {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (your account is awaiting moderation){% endif %}</p>
+                <p><i>{{ request.user.profile.about|safe }}</i></p>
+                <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, {{ request.user.profile.country.name }}</p>
+                <p>Mobile number: {{ request.user.profile.mobile_number }}</p>
+                <p>Phone number: {{ request.user.profile.phone_number }}</p>
+                <p>E-mail: {{ request.user.email }}</p>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="card">
+    <div class="card-header">My volunteers</div>
+        <div class="card-block profile-card">
+
+        </div>
+    </div>
+{% endblock %}
