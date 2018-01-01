@@ -10,8 +10,8 @@
 
 {% block sidebar %}
     <h2 class="small-heading">Settings</h2>
-    <p><a href="#">Edit profile</a></p>
-    <p><a href="#">Change password</a></p>
+    <p><a href="{% url 'update_profile' %}">Edit profile</a></p>
+    <p><a href="{% url 'change_password' %}">Change password</a></p>
 {% endblock sidebar %}
 {% block heading %}
 {% endblock heading %}
@@ -40,20 +40,54 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <p>Status: {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (your account is awaiting moderation){% endif %}</p>
-                <p><i>{{ request.user.profile.about|safe }}</i></p>
-                <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, {{ request.user.profile.country.name }}</p>
-                <p>Mobile number: {{ request.user.profile.mobile_number }}</p>
-                <p>Phone number: {{ request.user.profile.phone_number }}</p>
-                <p>E-mail: {{ request.user.email }}</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>{{ request.user.profile.organization_name }}</h2>
+                        <p><span class="profile-label">Username:</span>{{ request.user.username }}</p>
+                        <p><span class="profile-label">Account Status:</span> {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
+                        <p><span class="profile-label">Account Status:</span> {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Country:</span> {{ request.user.profile.country.name }}<br>
+                            <span class="profile-label">State:</span> {{ request.user.profile.state }}<br>
+                            <span class="profile-label">City:</span> {{ request.user.profile.city }}<br>
+                            <span class="profile-label">District:</span> {{ request.user.profile.district }}<br>
+                            <span class="profile-label">Zip:</span> {{ request.user.profile.zip_code }}<br>
+                            <span class="profile-label">Address:</span> {{ request.user.profile.organization_address }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Mobile number:</span> {{ request.user.profile.mobile_number }}<br>
+                            <span class="profile-label">Mobile number 2:</span> {{ request.user.profile.mobile_number_2 }}<br>
+                            <span class="profile-label">Phone number:</span> {{ request.user.profile.phone_number }}<br>
+                            <span class="profile-label">Phone number 2:</span> {{ request.user.profile.phone_number_2 }}<br>
+                            <span class="profile-label">Fax </span> {{ request.user.profile.fax_number }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Addtional contact details:</span> {{ request.user.profile.additional_contact_details }}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="profile-label">E-mail:</span> {{ request.user.email }}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p><span class="profile-label">About:</span><i>{{ request.user.profile.about|safe }}</i></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <br/>
     <div class="card">
-    <div class="card-header">My volunteers</div>
+    <div class="card-header">Volunteers</div>
         <div class="card-block profile-card">
-
+            {% if not request.user.profile.active %}
+                Your account is not active yet and you cannot add volunteers.<br>We will inform you via email once your account is activated.
+            {% endif %}
         </div>
     </div>
 {% endblock %}
