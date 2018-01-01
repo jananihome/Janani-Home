@@ -45,7 +45,6 @@
                         <h2>{{ request.user.profile.organization_name }}</h2>
                         <p><span class="profile-label">Username:</span>{{ request.user.username }}</p>
                         <p><span class="profile-label">Account Status:</span> {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
-                        <p><span class="profile-label">Account Status:</span> {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
                     </div>
                     <div class="col-md-6">
                         <p>
