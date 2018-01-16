@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -19,6 +19,7 @@ from .tokens import account_activation_token
 from educational_need.models import EducationalNeed
 import json
 from .models import State
+from .models import Profile
 
 
 def signup(request):
@@ -249,18 +250,22 @@ def organization_signup(request):
                 user.save()
                 current_site = get_current_site(request)
                 subject = 'Activate your organization account on Janani Care.'
-                message = render_to_string('accounts/organization_activation_email.html', {
-                    'user':user, 'domain':current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                })
+                message = render_to_string(
+                    'accounts/organization_activation_email.html', {
+                        'user': user, 'domain': current_site.domain,
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'token': account_activation_token.make_token(user),
+                    })
                 toemail = form.cleaned_data.get('email')
                 email = EmailMessage(subject, message, to=[toemail])
                 email.send()
                 return render(request, 'accounts/activation_pending.html')
         else:
             form = OrganizationSignupForm()
-        return render(request, 'accounts/organization_signup.html', {'form': form})
+        return render(
+            request,
+            'accounts/organization_signup.html',
+            {'form': form})
 
 
 def activate_organization(request, uidb64, token):
@@ -271,7 +276,8 @@ def activate_organization(request, uidb64, token):
         user = None
 
     if request.method == 'POST':
-        form = OrganizationCompletionForm(request.POST, request.FILES, instance=user.profile)
+        form = OrganizationCompletionForm(request.POST, request.FILES,
+                                          instance=user.profile)
         if form.is_valid():
             user.is_active = True
             user.profile.is_organization = True
@@ -285,7 +291,8 @@ def activate_organization(request, uidb64, token):
                 'domain': current_site.domain,
                 'profile': user.profile,
             })
-            toemails = [obj.email for obj in User.objects.filter(is_staff=True)]
+            toemails = [obj.email for obj in User.objects
+                        .filter(is_staff=True)]
             email = EmailMessage(subject, message, to=toemails)
             email.send()
             # Login user
@@ -299,4 +306,61 @@ def activate_organization(request, uidb64, token):
             pass
         else:
             return HttpResponse('Activation link is invalid!')
-    return render(request, 'accounts/complete_organization_registration.html', {'form': form})
+    return render(
+        request,
+        'accounts/complete_organization_registration.html',
+        {'form': form})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def ngo_approval(request, pk):
+    ngo = get_object_or_404(Profile, pk=pk)
+    user = get_object_or_404(User, pk=ngo.user.pk)
+    return render(
+        request,
+        'accounts/ngo_approval.html',
+        {'ngo': ngo, 'user': user})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def approve_ngo(request, pk):
+    ngo = get_object_or_404(Profile, pk=pk)
+    ngo.active = True
+    ngo.save()
+    # Send email to NGO
+    subject = 'Your NGO account was approved'
+    message = '''Dear Sir/Madam,
+we are happy to inform that we approved your NGO account on JananiHome.
+You can log in to your account and start adding volunteers.
+If you have additional questions, please reply to this email.
+
+Best regards,
+JananiHome
+http://jananihome.com'''
+    toemails = [ngo.user.email]
+    email = EmailMessage(subject, message, to=toemails)
+    email.send()
+    messages.info(request, _('Profile was approved. NGO will receive an email with this information.'))    
+    return redirect('ngo_approval', ngo.pk)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def reject_ngo(request, pk):
+    ngo = get_object_or_404(Profile, pk=pk)
+    ngo.active = False
+    ngo.save()
+    # Send email to NGO
+    subject = 'Your NGO account was rejected'
+    message = '''Dear Sir/Madam,
+we are sorry to inform that we didn\'t approve your NGO account on JananiHome.
+You can still log in to your account but you will not able to add volunteers.
+If you have additional questions, please reply to this email.
+
+Best regards,
+JananiHome
+http://jananihome.com'''
+    toemails = [ngo.user.email]
+    email = EmailMessage(subject, message, to=toemails)
+    email.send()
+    messages.info(request, _('Profile was rejected. NGO will receive an email with this information.'))
+    return redirect('ngo_approval', ngo.pk)
