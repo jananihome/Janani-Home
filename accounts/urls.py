@@ -25,4 +25,7 @@ urlpatterns = [
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^country/states/$', views.StateAjaxView, name='states_of_country'),
+    url(r'^ngo_approval/(?P<pk>\d+)/$', views.ngo_approval, name="ngo_approval"),
+    url(r'^(?P<pk>\d+)/ngo_approve/$', views.approve_ngo, name="approve_ngo"),
+    url(r'^(?P<pk>\d+)/ngo_reject/$', views.reject_ngo, name="reject_ngo"),
 ]

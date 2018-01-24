@@ -1,0 +1,101 @@
+{% extends 'shared/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load thumbnail %}
+
+{% block meta %}
+    <title>Approve NGO - Janani Home</title>
+    <meta name="description" content="" />
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block heading %}
+{% endblock heading %}
+
+{% block sidebar %}
+<div class="row">
+    <div class="col-12 text-center mt-5">
+        {% if messages %}
+        {% for message in messages %}
+            {% if 'error' not in message.tags %}
+            <div class="alert alert-{{ message.tags }} alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        <h4>Account Moderation</h4>
+        <form action="{% url 'approve_ngo' ngo.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Activate" class="btn btn-success">
+        </form>
+        <br>
+        <form action="{% url 'reject_ngo' ngo.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Deactivate" class="btn btn-danger">
+        </form>
+    </div>
+</div>
+{% endblock sidebar %}
+
+{% block content %}
+<h1>Approve NGO</h1>
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+        <div class="card-header">NGO Details</div>
+        <div class="card-block row">
+            <div class="col-md-3 text-center">
+                <div class="profile-image">
+                    {% if not ngo.image %}
+                     <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ user }}" class="img-fluid" />
+                    {% else %}
+                     <img src="{{ ngo.image|thumbnail_url:'avatar150' }}" alt="{{ user }}" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>{{ ngo.organization_name }}</h2>
+                        <p><span class="profile-label">Username:</span>{{ user.username }}</p>
+                        <p><span class="profile-label">Account Status:</span> {% if ngo.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Country:</span> {{ ngo.country.name }}<br>
+                            <span class="profile-label">State:</span> {{ ngo.state }}<br>
+                            <span class="profile-label">City:</span> {{ ngo.city }}<br>
+                            <span class="profile-label">District:</span> {{ ngo.district }}<br>
+                            <span class="profile-label">Zip:</span> {{ ngo.zip_code }}<br>
+                            <span class="profile-label">Address:</span> {{ ngo.organization_address }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Mobile number:</span> {{ ngo.mobile_number }}<br>
+                            <span class="profile-label">Mobile number 2:</span> {{ ngo.mobile_number_2 }}<br>
+                            <span class="profile-label">Phone number:</span> {{ ngo.phone_number }}<br>
+                            <span class="profile-label">Phone number 2:</span> {{ ngo.phone_number_2 }}<br>
+                            <span class="profile-label">Fax </span> {{ ngo.fax_number }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Addtional contact details:</span> {{ ngo.additional_contact_details }}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="profile-label">E-mail:</span> {{ user.email }}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p><span class="profile-label">About:</span><i>{{ ngo.about|safe }}</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock%}
