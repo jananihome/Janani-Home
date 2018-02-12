@@ -1,38 +1,40 @@
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+from decouple import config, Csv
+
+# General app config
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY')
+SERVER_EMAIL = config('SERVER_EMAIL', default='root@localhost')
+SESSION_COOKIE_AGE = 60 * 30
 
-# Generate Secret Key
-try:
-    SECRET_KEY
-except NameError:
-    SECRET_FILE = os.path.join(BASE_DIR, 'secret.txt')
-    try:
-        SECRET_KEY = open(SECRET_FILE).read().strip()
-    except IOError:
-        try:
-            import random
-            SECRET_KEY = ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
-            secret = open(SECRET_FILE, 'w')
-            secret.write(SECRET_KEY)
-            secret.close()
-        except IOError:
-            Exception('Please create a %s file with random characters \
-            to generate your secret key!' % SECRET_FILE)
+# Database
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=500,
+    )
+}
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-SERVER_EMAIL = 'jananihomemail@gmail.com'
-INTERNAL_IPS = '127.0.0.1'
-
-# Change to site domain in production.
-ALLOWED_HOSTS = ['*']
-
+# Email backend
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = 587
 
 # Application definition
 INSTALLED_APPS = [
-    'accounts',
+    'accounts.apps.AccountConfig',
+    'educational_need.apps.EducationalneedConfig',
+    'comment.apps.CommentConfig',
+    'cms.apps.CmsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,10 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'smart_selects',
-    'educational_need',
     'widget_tweaks',
-    'comment',
-    'cms',
     'easy_thumbnails',
     'ckeditor',
 ]
@@ -78,14 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'janani_care.wsgi.application'
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -122,16 +113,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
 
-# Email server configuration
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = ''  # E.g. smtp.gmail.com
-    EMAIL_HOST_USER = ''  # E.g. user@gmail.com
-    EMAIL_HOST_PASSWORD = ''
-    EMAIL_PORT = 587
-
 # Avatars
 THUMBNAIL_ALIASES = {
     '': {
@@ -141,9 +122,6 @@ THUMBNAIL_ALIASES = {
         'avatar250': {'size': (250, 250), 'crop': True},
     },
 }
-
-# Session timeout
-SESSION_COOKIE_AGE = 60 * 30
 
 # Ckeditor
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'

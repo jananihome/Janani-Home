@@ -10,3 +10,4 @@ geckodriver.log
 /media/*
 secret.txt
 *.sublime-*
+.env

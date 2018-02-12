@@ -1,3 +1,4 @@
+dj-database-url==0.4.2
 Django==1.11.1
 django-appconf==1.0.2
 django-avatar==4.0.0
@@ -12,5 +13,6 @@ olefile==0.44
 Pillow==4.1.1
 psycopg2==2.7.1
 py-moneyed==0.7.0
+python-decouple==3.1
 pytz==2017.2
 six==1.10.0
