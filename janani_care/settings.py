@@ -44,14 +44,11 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'comment',
     'cms',
-    'django_extensions',
-    'debug_toolbar',
     'easy_thumbnails',
     'ckeditor',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
