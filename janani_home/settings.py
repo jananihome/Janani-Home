@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'janani_care.urls'
+ROOT_URLCONF = 'janani_home.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'janani_care.wsgi.application'
+WSGI_APPLICATION = 'janani_home.wsgi.application'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

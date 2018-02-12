@@ -1,1 +1,1 @@
-web: gunicorn janani_care.wsgi --log-file -
+web: gunicorn janani_home.wsgi --log-file -
