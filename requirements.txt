@@ -9,6 +9,7 @@ django-money==0.11.4
 django-smart-selects==1.5.2
 django-widget-tweaks==1.4.1
 easy-thumbnails==2.4.1
+gunicorn==19.7.1
 olefile==0.44
 Pillow==4.1.1
 psycopg2==2.7.1
