@@ -8,7 +8,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.list import ListView
 
-from accounts.models import Profile, Country, State
+from accounts.models import Country, Profile, State
 from comment.models import Comment
 from .models import EducationalNeed
 from .forms import EducationalNeedForm, UserContactForm
@@ -52,17 +52,6 @@ class EducationalNeedListView(ListView):
                 self.state_=state
             except Exception as e:
                 pass
-
-        # Commented out below lines, because they were hiding needs of other
-        # users from the list view when user was authenticated.
-        #if (not filer_done) and self.request.user.is_authenticated():
-        #    try:
-        #        country = Profile.objects.get(user=self.request.user).country
-        #        users = users.filter(country = country)
-        #        state = Profile.objects.get(user=self.request.user).state
-        #        users = users.filter(state = state)
-        #    except Exception as e:
-        #        pass
 
         if self.request.GET.get('query'):
             query = self.request.GET.get('query')

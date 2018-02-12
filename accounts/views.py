@@ -1,4 +1,5 @@
 import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, update_session_auth_hash
@@ -13,12 +14,13 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
 
+from educational_need.models import EducationalNeed
+
 from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .forms import OrganizationSignupForm, OrganizationCompletionForm
 from .forms import OrganizationUserForm, OrganizationProfileForm
 
-from educational_need.models import EducationalNeed
 from .models import Profile
 from .models import State
 
