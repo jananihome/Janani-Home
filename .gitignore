@@ -9,3 +9,4 @@ geckodriver.log
 .idea/
 /media/*
 secret.txt
+*.sublime-*
