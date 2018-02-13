@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'easy_thumbnails',
     'ckeditor',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -106,13 +107,26 @@ USE_L10N = True
 USE_TZ = True
 
 # Serving static files in development
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# S3 Media Storage
+
+if not DEBUG:
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    DEFAULT_FILE_STORAGE = 'janani_home.storage_backends.MediaStorage'
+    THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE  # easy_thumbnails
+    MEDIAFILES_LOCATION = 'media'
+    MEDIA_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    AWS_QUERYSTRING_AUTH = False
 
 # Avatars
 THUMBNAIL_ALIASES = {
