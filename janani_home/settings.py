@@ -125,7 +125,8 @@ if not DEBUG:
     DEFAULT_FILE_STORAGE = 'janani_home.storage_backends.MediaStorage'
     THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE  # easy_thumbnails
     MEDIAFILES_LOCATION = 'media'
-    MEDIA_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    MEDIA_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME,
+                                                     MEDIAFILES_LOCATION)
     AWS_QUERYSTRING_AUTH = False
 
 # Avatars
