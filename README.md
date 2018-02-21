@@ -1,4 +1,4 @@
-# Janani-Care
+# Janani Home
 
 ## Environment configuration for developers
 * Create virtual environment with Python 3.4+ and activate it.
