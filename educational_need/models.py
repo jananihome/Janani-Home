@@ -1,4 +1,5 @@
 import uuid
+
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
@@ -26,14 +27,12 @@ class EducationalNeed(models.Model):
                 message='Please use only numeric characters.'
             )])
     hide_mobile_number = models.BooleanField(default=True)
-    additional_phone_number = models.CharField(max_length=20,
-                                               blank=True,
-                                               null=True,
-                                               validators=[
-                                                   RegexValidator(
-                                                       regex='^[0-9]*$',
-                                                       message='Please use only numeric characters.'
-                                                   )])
+    additional_phone_number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        validators=[RegexValidator(regex='^[0-9]*$',
+                                   message='Please use only numeric characters.')])
     hide_phone_number = models.BooleanField(default=True)
     current_address = models.TextField()
     hide_current_address = models.BooleanField(default=True)

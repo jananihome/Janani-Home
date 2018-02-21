@@ -1,38 +1,40 @@
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+from decouple import config, Csv
+
+# General app config
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY')
+SERVER_EMAIL = config('SERVER_EMAIL', default='root@localhost')
+SESSION_COOKIE_AGE = 60 * 30
 
-# Generate Secret Key
-try:
-    SECRET_KEY
-except NameError:
-    SECRET_FILE = os.path.join(BASE_DIR, 'secret.txt')
-    try:
-        SECRET_KEY = open(SECRET_FILE).read().strip()
-    except IOError:
-        try:
-            import random
-            SECRET_KEY = ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
-            secret = open(SECRET_FILE, 'w')
-            secret.write(SECRET_KEY)
-            secret.close()
-        except IOError:
-            Exception('Please create a %s file with random characters \
-            to generate your secret key!' % SECRET_FILE)
+# Database
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=500,
+    )
+}
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-SERVER_EMAIL = 'jananihomemail@gmail.com'
-INTERNAL_IPS = '127.0.0.1'
-
-# Change to site domain in production.
-ALLOWED_HOSTS = ['*']
-
+# Email backend
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = 587
 
 # Application definition
 INSTALLED_APPS = [
-    'accounts',
+    'accounts.apps.AccountConfig',
+    'educational_need.apps.EducationalneedConfig',
+    'comment.apps.CommentConfig',
+    'cms.apps.CmsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,18 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'smart_selects',
-    'educational_need',
     'widget_tweaks',
-    'comment',
-    'cms',
-    'django_extensions',
-    'debug_toolbar',
     'easy_thumbnails',
     'ckeditor',
+    'storages',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'janani_care.urls'
+ROOT_URLCONF = 'janani_home.urls'
 
 TEMPLATES = [
     {
@@ -80,15 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'janani_care.wsgi.application'
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+WSGI_APPLICATION = 'janani_home.wsgi.application'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -117,23 +107,27 @@ USE_L10N = True
 USE_TZ = True
 
 # Serving static files in development
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
 
-# Email server configuration
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_USE_TLS = True
-    EMAIL_HOST = ''  # E.g. smtp.gmail.com
-    EMAIL_HOST_USER = ''  # E.g. user@gmail.com
-    EMAIL_HOST_PASSWORD = ''
-    EMAIL_PORT = 587
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# S3 Media Storage
+
+if not DEBUG:
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    DEFAULT_FILE_STORAGE = 'janani_home.storage_backends.MediaStorage'
+    THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE  # easy_thumbnails
+    MEDIAFILES_LOCATION = 'media'
+    MEDIA_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME,
+                                                     MEDIAFILES_LOCATION)
+    AWS_QUERYSTRING_AUTH = False
 
 # Avatars
 THUMBNAIL_ALIASES = {
@@ -144,9 +138,6 @@ THUMBNAIL_ALIASES = {
         'avatar250': {'size': (250, 250), 'crop': True},
     },
 }
-
-# Session timeout
-SESSION_COOKIE_AGE = 60 * 30
 
 # Ckeditor
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'

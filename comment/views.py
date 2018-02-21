@@ -51,18 +51,23 @@ def educational_need_comment(request, pk):
             return redirect('comment_submitted')
     else:
         form = CommentForm()
-    return render(request, 'comment/comment_form.html', {'form': form, 'educational_need': educational_need})
+    template = 'comment/comment_form.html'
+    context = {'form': form, 'educational_need': educational_need}
+    return render(request, template, context)
 
 
 @login_required
 def comment_submitted(request):
-    return render(request, 'comment/comment_submitted.html')
+    template = 'comment/comment_submitted.html'
+    return render(request, template)
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def comment_approval(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, 'comment/comment_approval.html', {'comment': comment})
+    template = 'comment/comment_approval.html'
+    context = {'comment': comment}
+    return render(request, template, context)
 
 
 @user_passes_test(lambda u: u.is_superuser)
