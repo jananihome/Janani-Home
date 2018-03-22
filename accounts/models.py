@@ -9,6 +9,7 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from smart_selects.db_fields import ChainedForeignKey
 from ckeditor.fields import RichTextField
 
+
 class Country(models.Model):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=2)
@@ -120,14 +121,17 @@ class Profile(models.Model):
         null=True,
         verbose_name='Profile image')
     unconfirmed_email = models.EmailField(blank=True, null=True)
-    is_volunteer = models.BooleanField(default=False)
+    is_volunteer = models.BooleanField(
+        default=False,
+        verbose_name='I want to be a volunteer',
+        help_text='Select this if you want to become a volunteer for Janani Care or other organization. You will receive email with instructions when we review your application.')
     is_organization = models.BooleanField(default=False)
     organization_name = models.CharField(
         max_length=200,
         blank=True,
         null=True,
         verbose_name='NGO/Organization name')
-    fax_number =  models.CharField(
+    fax_number = models.CharField(
         max_length=20,
         null=True,
         blank=True,
@@ -148,7 +152,8 @@ class Profile(models.Model):
 
     def get_full_name(self):
         if self.middle_name:
-            return '{} {} {}'.format(self.user.first_name, self.middle_name, self.user.last_name)
+            return '{} {} {}'.format(self.user.first_name, self.middle_name,
+                                     self.user.last_name)
         else:
             return '{} {}'.format(self.user.first_name, self.user.last_name)
 
@@ -165,6 +170,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     """
     if created:
         Profile.objects.create(user=instance)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

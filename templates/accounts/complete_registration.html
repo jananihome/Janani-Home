@@ -21,6 +21,8 @@
                     {{ field.errors }}
                     <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
                     {% render_field field class+="form-control" %}
+                    <br>
+                    {{ field.help_text }}
                 </div>
             {% endfor %}
             {% for field in profile_form %}
@@ -28,6 +30,7 @@
                     {{ field.errors }}
                     <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
                     {% render_field field class+="form-control" %}
+                    {{ field.help_text }}
                 </div>
             {% endfor %}
             <br>
