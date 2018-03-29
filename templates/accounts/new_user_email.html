@@ -1,0 +1,5 @@
+{% autoescape off %}
+New user confirmed their registration: {{ profile.user }}: http://{{ domain }}{% url 'admin:accounts_profile_change' profile.pk %}
+
+This user doesn't require any approval.
+{% endautoescape %}

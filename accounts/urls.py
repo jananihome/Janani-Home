@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^ngo_approval/(?P<pk>\d+)/$', views.ngo_approval, name="ngo_approval"),
     url(r'^(?P<pk>\d+)/ngo_approve/$', views.approve_ngo, name="approve_ngo"),
     url(r'^(?P<pk>\d+)/ngo_reject/$', views.reject_ngo, name="reject_ngo"),
+    url(r'^volunteer_approval/(?P<pk>\d+)/$', views.volunteer_approval, name="volunteer_approval"),
+    url(r'^(?P<pk>\d+)/volunteer_approve/$', views.approve_volunteer, name="approve_volunteer"),
+    url(r'^(?P<pk>\d+)/volunteer_reject/$', views.reject_volunteer, name="reject_volunteer"),
 ]

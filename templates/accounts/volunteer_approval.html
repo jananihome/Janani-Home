@@ -1,0 +1,90 @@
+{% extends 'shared/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load thumbnail %}
+
+{% block meta %}
+    <title>Volunteer Approval - Janani Home</title>
+    <meta name="description" content="" />
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block heading %}
+{% endblock heading %}
+
+{% block sidebar %}
+<div class="row">
+    <div class="col-12 text-center mt-5">
+        {% if messages %}
+        {% for message in messages %}
+            {% if 'error' not in message.tags %}
+            <div class="alert alert-{{ message.tags }} alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        <h4>Volunteer Moderation</h4>
+        <form action="{% url 'approve_volunteer' volunteer.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Approve" class="btn btn-success">
+        </form>
+        <br>
+        <form action="{% url 'reject_volunteer' volunteer.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Reject" class="btn btn-danger">
+        </form>
+    </div>
+</div>
+{% endblock sidebar %}
+
+{% block content %}
+<h1>Approve volunteer</h1>
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+        <div class="card-header">Volunteer Details</div>
+        <div class="card-block row">
+            <div class="col-md-3 text-center">
+                <div class="profile-image">
+                    {% if not volunteer.image %}
+                     <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ user }}" class="img-fluid" />
+                    {% else %}
+                     <img src="{{ volunteer.image|thumbnail_url:'avatar150' }}" alt="{{ user }}" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>{{ volunteer.get_full_name }}</h2>
+                        <p><span class="profile-label">Username:</span>{{ user.username }}</p>
+                        <p><span class="profile-label">Account Status:</span> {% if volunteer.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
+                        <p><span class="profile-label">Volunteer Status:</span> {% if volunteer.approved_volunteer %}<strong>Approved</strong>{% else %}<strong>Not Approved</strong>{% endif %}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Country:</span> {{ volunteer.country.name }}<br>
+                            <span class="profile-label">State:</span> {{ volunteer.state }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Mobile number:</span> {{ volunteer.mobile_number }}<br>
+                            <span class="profile-label">City:</span> {{ volunteer.city }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="profile-label">E-mail:</span> {{ user.email }}</p>
+                    </div>
+                    <div class="col-md-6        ">
+                        <p><span class="profile-label">About:</span><i>{{ volunteer.about|safe }}</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock%}

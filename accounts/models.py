@@ -125,6 +125,14 @@ class Profile(models.Model):
         default=False,
         verbose_name='I want to be a volunteer',
         help_text='Select this if you want to become a volunteer for Janani Care or other organization. You will receive email with instructions when we review your application.')
+    organization_id = models.ForeignKey(
+        'self',
+        blank=True,
+        null=True,
+        verbose_name='Organization',
+        help_text='Only for volunteers. Select the organization you want to work for as a volunteer.',
+        on_delete=models.SET_NULL,
+        limit_choices_to={'is_organization': True},)
     is_organization = models.BooleanField(default=False)
     organization_name = models.CharField(
         max_length=200,
@@ -146,6 +154,7 @@ class Profile(models.Model):
         verbose_name='Address')
     additional_contact_details = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
+    approved_volunteer = models.BooleanField(default=False)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year
@@ -158,7 +167,10 @@ class Profile(models.Model):
             return '{} {}'.format(self.user.first_name, self.user.last_name)
 
     def __str__(self):
-        return self.user.username
+        if self.organization_name:
+            return self.organization_name
+        else:
+            return self.user.username
 
 
 # Define signals to update user profile whenever we create/update User model.
