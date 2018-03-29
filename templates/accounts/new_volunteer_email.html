@@ -1,6 +1,9 @@
 {% autoescape off %}
 New Volunteer confirmed their registration: {{ profile.user }}: http://{{ domain }}{% url 'admin:accounts_profile_change' profile.pk %}
 
-This Volunteer applied for organization: {{ profile.organization_id }}
+This Volunteer applied for organization {{ profile.organization_id }}.
+
+Go to this page to approve or reject the application:
+http://{{ domain }}{% url 'volunteer_approval' profile.pk %}
 
 {% endautoescape %}

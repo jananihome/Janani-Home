@@ -41,7 +41,7 @@ class ProfileCompletionForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('is_volunteer', 'organization_id', 'gender', 'birth_date', 'mobile_number',
-                  'country', 'state', 'about')
+                  'country', 'state', 'city', 'about', 'image')
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
         }

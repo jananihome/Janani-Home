@@ -154,6 +154,7 @@ class Profile(models.Model):
         verbose_name='Address')
     additional_contact_details = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
+    approved_volunteer = models.BooleanField(default=False)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year
