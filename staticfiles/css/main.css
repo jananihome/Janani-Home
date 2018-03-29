@@ -356,3 +356,16 @@ input[type=checkbox] {
     display: block;
     clear: right;
 }
+
+.errorlist {
+    color: red;
+    display: block;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+}
+
+.help-text {
+    color: #777;
+    display: inline;
+}

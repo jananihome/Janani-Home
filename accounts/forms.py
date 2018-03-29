@@ -40,7 +40,7 @@ class ProfileCompletionForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('is_volunteer', 'gender', 'birth_date', 'mobile_number',
+        fields = ('is_volunteer', 'organization_id', 'gender', 'birth_date', 'mobile_number',
                   'country', 'state', 'about')
         widgets = {
             'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
@@ -63,6 +63,8 @@ class ProfileCompletionForm(forms.ModelForm):
         max_year = current_year - 6
         if birth_year > max_year:
             self.add_error('birth_date', 'You must be at least 6 years old!')
+        if cleaned_data['is_volunteer'] and not cleaned_data['organization_id']:
+            self.add_error('organization_id', 'You must select an orgnization if you want to be a volunteer.')
         return cleaned_data
 
 

@@ -18,19 +18,24 @@
             {{ profile_form.non_field_errors }}
             {% for field in user_form %}
                 <div class="form-group row">
-                    {{ field.errors }}
                     <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
+                    {{ field.errors }}
                     {% render_field field class+="form-control" %}
                     <br>
-                    {{ field.help_text }}
+                    <p class="help-text">{{ field.help_text }}</p>
                 </div>
             {% endfor %}
             {% for field in profile_form %}
                 <div class="form-group row">
+                    <label for="{{ form.field.id_for_label }}">
+                        {{ field.label }}
+                        {% if field.help_text %}
+                            <i class="fa fa-question-circle" aria-hidden="true" data-toggle="tooltip" title="{{ field.help_text }}"></i>
+                        {% endif %}
+                        :
+                    </label>                    
                     {{ field.errors }}
-                    <label for="{{ form.field.id_for_label }}">{{ field.label }}:</label>
                     {% render_field field class+="form-control" %}
-                    {{ field.help_text }}
                 </div>
             {% endfor %}
             <br>
