@@ -130,7 +130,7 @@ class Profile(models.Model):
         blank=True,
         null=True,
         verbose_name='Organization',
-        help_text='Only for volunteers. Select the organization you want to volunteer for as a volunteer.',
+        help_text='Only for volunteers. Select the organization you want to work for as a volunteer.',
         on_delete=models.SET_NULL,
         limit_choices_to={'is_organization': True},)
     is_organization = models.BooleanField(default=False)

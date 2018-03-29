@@ -31,6 +31,28 @@ def send_email(subject, message, toemails):
     email = EmailMessage(subject, message, to=toemails)
     email.send()
 
+def send_new_registration_email(request, profile):
+    current_site = get_current_site(request)
+    subject = 'New User registration on Janani Home'
+    message = render_to_string('accounts/new_user_email.html', {
+                'domain': current_site.domain,
+                'profile': profile,
+            })
+    if profile.is_organization:
+        subject = 'New NGO registration on Janani Home'
+        message = render_to_string('accounts/ngo_approval_email.html', {
+                'domain': current_site.domain,
+                'profile': profile,
+            })
+    elif profile.is_volunteer:
+        subject = 'New Volunteer registration on Janani Home'
+        message = render_to_string('accounts/new_volunteer_email.html', {
+                'domain': current_site.domain,
+                'profile': profile,
+            })
+    toemails = [u.email for u in User.objects.filter(is_staff=True)]
+    email = EmailMessage(subject, message, to=toemails)
+    email.send()
 
 def signup(request):
     if request.user.is_authenticated():
@@ -73,6 +95,7 @@ def activate(request, uidb64, token):
             user.is_active = True
             user_form.save()
             profile_form.save()
+            send_new_registration_email(request, user.profile)
             login(request, user)
             return render(request, 'accounts/activation_completed.html')
         else:
@@ -309,18 +332,8 @@ def activate_organization(request, uidb64, token):
             user.profile.active = False  # NGOs need manual approval by admin
             form.save()
             user.save()
-            # Send email to admin
             current_site = get_current_site(request)
-            message = render_to_string('accounts/ngo_approval_email.html', {
-                'domain': current_site.domain,
-                'profile': user.profile,
-            })
-            send_email(
-                subject='New NGO registration on Janani Care',
-                message=message,
-                toemails=[u.email for u in User.objects.filter(is_staff=True)]
-            )
-            # Login user
+            send_new_registration_email(request, user.profile)
             login(request, user)
             return render(request, 'accounts/activation_completed.html')
         else:
