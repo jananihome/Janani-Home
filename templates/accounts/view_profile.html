@@ -27,59 +27,86 @@
         {% endif %}
     {% endfor %}
     {% endif %}
-    <div class="card">
-        <div class="card-header">My details</div>
-        <div class="card-block row">
-            <div class="col-md-3 text-center">
-                <div class="profile-image">
-                    {% if not request.user.profile.image %}
-                      {% if request.user.profile.gender == 'M' %}
-                        <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
-                      {% else %}
-                        <img src="{% static 'img/avatar-female.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
-                      {% endif %}
-                    {% else %}
-                     <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
-                    {% endif %}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">My Details</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="educational-needs-tab" data-toggle="tab" href="#educational-needs" role="tab" aria-controls="educational-needs" aria-selected="false">Educational Needs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="volunteer-tab" data-toggle="tab" href="#volunteer-work" role="tab" aria-controls="volunteer-work" aria-selected="false">Volunteer Work</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="card">
+            <div class="card-block row">
+                <div class="col-md-3 text-center">
+                    <div class="profile-image">
+                        {% if not request.user.profile.image %}
+                          {% if request.user.profile.gender == 'M' %}
+                            <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+                          {% else %}
+                            <img src="{% static 'img/avatar-female.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+                          {% endif %}
+                        {% else %}
+                         <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <h3>{{ request.user.profile.get_full_name }}</h3>
+                    <p><i>{{ request.user.profile.about|safe }}</i></p>
+                    <p>Birth date: {{ request.user.profile.birth_date }}</p>
+                    <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, {{ request.user.profile.country.name }}</p>
+                    <p>Mobile number: {{ request.user.profile.mobile_number }} {% if request.user.profile.hide_mobile_number %}(Hidden from public){% endif %}</p>
+                    <p>Phone number: {{ request.user.profile.phone_number }} {% if request.user.profile.hide_phone_number %}(Hidden from public){% endif %}</p>
+                    <p>E-mail: {{ request.user.email }}</p>
+
                 </div>
             </div>
-            <div class="col-md-7">
-                <h3>{{ request.user.profile.get_full_name }}</h3>
-                <p><i>{{ request.user.profile.about|safe }}</i></p>
-                <p>Birth date: {{ request.user.profile.birth_date }}</p>
-                <p>Location: {{ request.user.profile.zip_code }} {{ request.user.profile.city }}, {{ request.user.profile.district }}, {{ request.user.profile.state }}, {{ request.user.profile.country.name }}</p>
-                <p>Mobile number: {{ request.user.profile.mobile_number }} {% if request.user.profile.hide_mobile_number %}(Hidden from public){% endif %}</p>
-                <p>Phone number: {{ request.user.profile.phone_number }} {% if request.user.profile.hide_phone_number %}(Hidden from public){% endif %}</p>
-                <p>E-mail: {{ request.user.email }}</p>
-
+        </div>
+      </div>
+      <div class="tab-pane fade" id="educational-needs" role="tabpanel" aria-labelledby="educational-needs-tab">
+        <div class="card">
+            <div class="card-block profile-card">
+                {% if educational_needs %}
+                    {% for need in educational_needs %}
+                        {% if not need.closed %}
+                        <p>
+                            <h5>{% if need.pk != request.user.profile.active_educational_need.pk %}<span class="badge badge-secondary">Inactive</span>{% endif %}
+                            {% if need.pk == request.user.profile.active_educational_need.pk %}<span class="badge badge-success">Active</span>{% endif %}
+                            <a href="{% url 'detail_view' pk=need.pk %}">{{ need.title }}</a></h5>
+                            {% if need.pk != request.user.profile.active_educational_need.pk %}<a class="btn btn-outline-success btn-sm" role="button" href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% else %}<a class="btn btn-outline-warning btn-sm" role="button" href="{% url 'deactivate_need' pk=need.pk %}">Deactivate</a>{% endif %}
+                            <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'edit_need' pk=need.pk %}">Edit</a>
+                            <a class="btn btn-outline-danger btn-sm" href="{% url 'delete_need' pk=need.pk %}">Delete</a>
+                            <a class="btn btn-outline-info btn-sm" role="button" href="{% url 'educational_need_comment' need.pk %}">Close &amp; Leave Comment</a>
+                        </p>
+                        {% else %}
+                        <h5><p><span class="badge badge-dark">Closed</span> <a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a></p></h5>
+                        {% endif %}
+                        <hr>
+                    {% endfor %}
+                    {% else %}
+                        You don't have any educational needs.
+                {% endif %}
+                <a href="{% url 'add_need' %}" class="btn btn-secondary float-right" role="button">+ New Educational Need</a>
             </div>
         </div>
-    </div>
-    <br/>
-    <div class="card">
-    <div class="card-header">My educational needs</div>
-        <div class="card-block profile-card">
-            {% if educational_needs %}
-                {% for need in educational_needs %}
-                    {% if not need.closed %}
-                    <p>
-                        <h5>{% if need.pk != request.user.profile.active_educational_need.pk %}<span class="badge badge-secondary">Inactive</span>{% endif %}
-                        {% if need.pk == request.user.profile.active_educational_need.pk %}<span class="badge badge-success">Active</span>{% endif %}
-                        <a href="{% url 'detail_view' pk=need.pk %}">{{ need.title }}</a></h5>
-                        {% if need.pk != request.user.profile.active_educational_need.pk %}<a class="btn btn-outline-success btn-sm" role="button" href="{% url 'activate_need' pk=need.pk %}">Activate</a>{% else %}<a class="btn btn-outline-warning btn-sm" role="button" href="{% url 'deactivate_need' pk=need.pk %}">Deactivate</a>{% endif %}
-                        <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'edit_need' pk=need.pk %}">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" href="{% url 'delete_need' pk=need.pk %}">Delete</a>
-                        <a class="btn btn-outline-info btn-sm" role="button" href="{% url 'educational_need_comment' need.pk %}">Close &amp; Leave Comment</a>
-                    </p>
-                    {% else %}
-                    <h5><p><span class="badge badge-dark">Closed</span> <a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a></p></h5>
-                    {% endif %}
-                    <hr>
-                {% endfor %}
-                {% else %}
-                    You don't have any educational needs.
+      </div>
+      <div class="tab-pane fade" id="volunteer-work" role="tabpanel" aria-labelledby="volunteer-tab">
+        Volunteer Status: 
+        {% if request.user.profile.is_volunteer %}
+            {% if request.user.profile.approved_volunteer %}
+                approved by {{ request.user.profile.organization_id }}
+            {% else %}
+                awaiting approval by {{ request.user.profile.organization_id }}
             {% endif %}
-            <a href="{% url 'add_need' %}" class="btn btn-secondary float-right" role="button">+ New Educational Need</a>
-        </div>
+        {% else %}
+            inactive
+        {% endif %}
+      </div>
     </div>
 {% endblock %}

@@ -250,6 +250,10 @@ input[type=checkbox] {
     padding: 20px;
 }
 
+.nav-tabs a:hover {
+    font-weight:600;
+}
+
 /* Educational Need Detail View */
 
 .need-content .profile-image {
@@ -369,3 +373,4 @@ input[type=checkbox] {
     color: #777;
     display: inline;
 }
+
