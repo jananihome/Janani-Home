@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'educational_need.apps.EducationalneedConfig',
     'comment.apps.CommentConfig',
     'cms.apps.CmsConfig',
+    'volunteers.apps.VolunteersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

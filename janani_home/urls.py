@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^comment/', include('comment.urls')),
+    url(r'^volunteers/', include('volunteers.urls')),
     url(r'', include('educational_need.urls')),
     url(r'', include('cms.urls')),
 ]

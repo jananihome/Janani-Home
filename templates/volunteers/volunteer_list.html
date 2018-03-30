@@ -1,0 +1,58 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block meta %}
+    <title>Volunteers - Janani Home</title>
+    <meta name="description" content="" />
+{% endblock %}
+
+{% block heading %}
+{% endblock heading %}
+
+{% block sidebar %}
+<h2>Volunteer for Janani Home!</h2>
+<p>Help children in need by applying for volunteer work with Janani Home or other NGO.</p>
+<p class="text-center"><a href="http://www.jananihome.org/volunteer-conditions/" class="btn btn-lg btn-dark">Learn More</a></p>
+{% endblock sidebar %}
+
+{% block content %}
+	<h1>Volunteers <span class="text-muted"><small>working for Janani Home and other NGOs</small></span></h1>
+	{% for volunteer in volunteers %}
+    <div class="card">
+        <div class="card-header">{{ volunteer.user.first_name }}</div>
+        <div class="card-block row">
+            <div class="col-md-3 text-center">
+                <div class="profile-image">
+                    {% if not volunteer.image %}
+                     <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ user }}" class="img-fluid" />
+                    {% else %}
+                     <img src="{{ volunteer.image|thumbnail_url:'avatar150' }}" alt="{{ user }}" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><span class="profile-label">Volunteer Status:</span> {% if volunteer.approved_volunteer %}<strong>Approved</strong>{% else %}<strong>Not Approved</strong>{% endif %}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Country:</span> {{ volunteer.country.name }}<br>
+                            <span class="profile-label">State:</span> {{ volunteer.state }}<br>
+                            <span class="profile-label">City:</span> {{ volunteer.city }}<br>
+                        	<span class="profile-label">E-mail:</span> {{ volunteer.user.email }}<br/>
+                            <span class="profile-label">Mobile number:</span> {{ volunteer.mobile_number }}<br>
+                            {% if volunteer.phone_number %}<span class="profile-label">Phone number:</span> {{ volunteer.phone_number }}{% endif %}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="profile-label">About:</span><i>{{ volunteer.about|safe }}</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+			<br>
+	{% endfor %}
+{% endblock %}
