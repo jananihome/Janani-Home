@@ -97,16 +97,37 @@
         </div>
       </div>
       <div class="tab-pane fade" id="volunteer-work" role="tabpanel" aria-labelledby="volunteer-tab">
-        Volunteer Status: 
-        {% if request.user.profile.is_volunteer %}
-            {% if request.user.profile.approved_volunteer %}
-                approved by {{ request.user.profile.organization_id }}
-            {% else %}
-                awaiting approval by {{ request.user.profile.organization_id }}
-            {% endif %}
-        {% else %}
-            inactive
-        {% endif %}
+        <div class="card">
+            <div class="card-block">
+                Volunteer Status: 
+                {% if request.user.profile.is_volunteer %}
+                    {% if request.user.profile.approved_volunteer %}
+                        approved by {{ request.user.profile.organization_id }}<br/>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'volunteer_cancellation' pk=request.user.profile.pk %}" role="button">Cancel Application</a>
+                    {% else %}
+                        awaiting approval by {{ request.user.profile.organization_id }}<br/>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'volunteer_cancellation' pk=request.user.profile.pk %}" role="button">Cancel Application</a>
+                    {% endif %}
+                {% else %}
+                    inactive
+                    <hr>
+                    <h4>Apply for volunteer work</h4>
+                    <p>Select the organization you want to work for as a volunteer. You will receive a message once your application has been processed by the NGO.</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in volunteer_form %}
+                            <p>
+                                {{ field.label }}: {{ field }}
+                                {% if field.help_text %}
+                                    <i class="fa fa-question-circle" aria-hidden="true" data-toggle="tooltip" title="{{ field.help_text }}"></i>
+                                {% endif %}
+                            </p>
+                        {% endfor %}
+                        <button class="btn btn-secondary btn-sm" type="submit">Send Application</button>
+                    </form>             
+                {% endif %}
+            </div>
+        </div>
       </div>
     </div>
 {% endblock %}
