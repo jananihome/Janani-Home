@@ -43,7 +43,7 @@ class ProfileCompletionForm(forms.ModelForm):
         fields = ('is_volunteer', 'organization_id', 'gender', 'birth_date', 'mobile_number',
                   'country', 'state', 'city', 'about', 'image')
         widgets = {
-            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):
