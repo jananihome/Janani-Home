@@ -475,7 +475,7 @@ def volunteer_cancellation(request, pk):
         message='Volunteer {} ({}) opted out from your organization.'.format(volunteer.get_full_name(), volunteer),
         toemails=[volunteer.organization_id.user.email]
     )
-    messages.info(request, _('You have canncelled your cooperation with {}. If you wish, you can now apply to other NGO.'.format(volunteer.organization_id)))
+    messages.info(request, _('You have cancelled your cooperation with {}. If you wish, you can now apply to other NGO.'.format(volunteer.organization_id)))
     volunteer.organization_id = None
     volunteer.save()
     return redirect('view_profile')
