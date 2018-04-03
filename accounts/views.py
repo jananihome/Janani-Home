@@ -10,6 +10,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
@@ -20,6 +21,7 @@ from .forms import SignupForm, UserCompletionForm, ProfileCompletionForm
 from .forms import ProfileForm, UserForm, PasswordChangeForm
 from .forms import OrganizationSignupForm, OrganizationCompletionForm
 from .forms import OrganizationUserForm, OrganizationProfileForm
+from .forms import VolunteerApplicationForm
 
 from .models import Profile
 from .models import State
@@ -117,9 +119,28 @@ def view_profile(request):
     if request.user.profile.is_organization:
         template = 'accounts/ngo_profile.html'
     else:
-        educational_needs = EducationalNeed.objects.filter(user=request.user)
-        template = 'accounts/view_profile.html'
-        context = {'educational_needs': educational_needs}
+        if request.method == 'POST':
+            volunteer_form = VolunteerApplicationForm(request.POST, instance=request.user.profile)
+            if volunteer_form.is_valid():
+                volunteer_form.save()
+                
+                # Send email to admins
+                current_site = get_current_site(request)
+                subject = 'New Volunteer application on Janani Home'
+                message = render_to_string('accounts/new_volunteer_email.html', {
+                'domain': current_site.domain,
+                'profile': request.user.profile,
+                })
+                toemails = [u.email for u in User.objects.filter(is_staff=True)]
+                email = EmailMessage(subject, message, to=toemails)
+                email.send()
+                messages.info(request, _('Thank you! You will receive a message when NGO reviews your application.'))
+                return redirect('view_profile')
+        else:
+            volunteer_form = VolunteerApplicationForm(instance=request.user.profile)
+            educational_needs = EducationalNeed.objects.filter(user=request.user)
+            template = 'accounts/view_profile.html'
+            context = {'educational_needs': educational_needs,'volunteer_form': volunteer_form}
     return render(request, template, context)
 
 
@@ -386,7 +407,6 @@ def reject_ngo(request, pk):
         message=render_to_string('accounts/ngo_rejected_email.html'),
         toemails=[ngo.user.email]
     )
-    # Send email to NGO
     messages.info(request, _('Profile was rejected. NGO will receive an email\
                              with this information.'))
     return redirect('ngo_approval', ngo.pk)
@@ -414,6 +434,8 @@ def approve_volunteer(request, pk):
 
     if request.user.is_superuser or admin_profile == volunteer.organization_id:
         volunteer.approved_volunteer = True
+        volunteer.volunteer_start_date = timezone.now()
+        volunteer.volunteer_cancellation_date = None
         volunteer.save()
         # Send email to Volunteer
         send_email(
@@ -430,13 +452,30 @@ def approve_volunteer(request, pk):
 def reject_volunteer(request, pk):
     volunteer = get_object_or_404(Profile, pk=pk)
     volunteer.approved_volunteer = False
+    volunteer.volunteer_cancellation_date = timezone.now()
     volunteer.save()
     send_email(
         subject='Your volunteer application was rejected by NGO',
         message=render_to_string('accounts/volunteer_rejected_email.html'),
-        toemails=[volunteer.user.email]
+        toemails=[volunteer.user.email],
     )
-    # Send email to NGO
     messages.info(request, _('Profile was rejected. Volunteer will receive an email\
                              with this information.'))
     return redirect('volunteer_approval', volunteer.pk)
+
+@login_required
+def volunteer_cancellation(request, pk):
+    volunteer = get_object_or_404(Profile, pk=pk)
+    volunteer.is_volunteer = False
+    volunteer.approved_volunteer = False
+    volunteer.volunteer_cancellation_date = timezone.now()
+    # Send email to NGO
+    send_email(
+        subject='Volunteer cancelled work with your organization',
+        message='Volunteer {} ({}) opted out from your organization.'.format(volunteer.get_full_name(), volunteer),
+        toemails=[volunteer.organization_id.user.email]
+    )
+    messages.info(request, _('You have cancelled your cooperation with {}. If you wish, you can now apply to other NGO.'.format(volunteer.organization_id)))
+    volunteer.organization_id = None
+    volunteer.save()
+    return redirect('view_profile')

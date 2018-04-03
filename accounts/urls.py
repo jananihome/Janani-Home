@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^volunteer_approval/(?P<pk>\d+)/$', views.volunteer_approval, name="volunteer_approval"),
     url(r'^(?P<pk>\d+)/volunteer_approve/$', views.approve_volunteer, name="approve_volunteer"),
     url(r'^(?P<pk>\d+)/volunteer_reject/$', views.reject_volunteer, name="reject_volunteer"),
+    url(r'^volunteer_cancellation/(?P<pk>\d+)/$', views.volunteer_cancellation, name="volunteer_cancellation"),
 ]

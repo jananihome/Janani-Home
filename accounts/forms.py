@@ -226,3 +226,18 @@ class OrganizationCompletionForm(forms.ModelForm):
         self.fields['zip_code'].required = True
         self.fields['organization_address'].required = True
         self.fields['about'].required = True
+
+
+class VolunteerApplicationForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = (
+            'is_volunteer',
+            'organization_id',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(VolunteerApplicationForm, self).__init__(*args, **kwargs)
+        self.fields['is_volunteer'].required = True
+        self.fields['organization_id'].required = True

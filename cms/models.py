@@ -1,5 +1,6 @@
 from ckeditor.fields import RichTextField
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -57,3 +58,6 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('page', kwargs={'slug':self.slug})
