@@ -2,6 +2,7 @@ import uuid
 
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 from djmoney.models.fields import MoneyField
@@ -70,6 +71,9 @@ class EducationalNeed(models.Model):
 
     def __str__(self):
         return 'Educational Need {}'.format(str(self.pk))
+
+    def get_absolute_url(self):
+        return reverse('detail_view', kwargs={'pk':self.pk})
 
     def save(self, *args, **kwargs):
         if not self.date_uuid:

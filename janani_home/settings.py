@@ -10,6 +10,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
 SERVER_EMAIL = config('SERVER_EMAIL', default='root@localhost')
 SESSION_COOKIE_AGE = 60 * 30
+SITE_ID = 1
 
 # Database
 DATABASES = {
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'smart_selects',
