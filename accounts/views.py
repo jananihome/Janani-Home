@@ -10,6 +10,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import ugettext_lazy as _
@@ -433,6 +434,8 @@ def approve_volunteer(request, pk):
 
     if request.user.is_superuser or admin_profile == volunteer.organization_id:
         volunteer.approved_volunteer = True
+        volunteer.volunteer_start_date = timezone.now()
+        volunteer.volunteer_cancellation_date = None
         volunteer.save()
         # Send email to Volunteer
         send_email(
@@ -449,6 +452,7 @@ def approve_volunteer(request, pk):
 def reject_volunteer(request, pk):
     volunteer = get_object_or_404(Profile, pk=pk)
     volunteer.approved_volunteer = False
+    volunteer.volunteer_cancellation_date = timezone.now()
     volunteer.save()
     send_email(
         subject='Your volunteer application was rejected by NGO',
@@ -464,6 +468,7 @@ def volunteer_cancellation(request, pk):
     volunteer = get_object_or_404(Profile, pk=pk)
     volunteer.is_volunteer = False
     volunteer.approved_volunteer = False
+    volunteer.volunteer_cancellation_date = timezone.now()
     # Send email to NGO
     send_email(
         subject='Volunteer cancelled work with your organization',

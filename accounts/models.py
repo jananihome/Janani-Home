@@ -155,6 +155,8 @@ class Profile(models.Model):
     additional_contact_details = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
     approved_volunteer = models.BooleanField(default=False)
+    volunteer_start_date = models.DateTimeField(blank=True, null=True)
+    volunteer_cancellation_date = models.DateTimeField(blank=True, null=True)
 
     def get_age(self):
         return timezone.now().year - self.birth_date.year
