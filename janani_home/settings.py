@@ -219,3 +219,10 @@ CKEDITOR_CONFIGS = {
         ]),
     },
 }
+
+# App lockdown for staging
+USE_LOCKDOWN = config('USE_LOCKDOWN', default=False)
+if USE_LOCKDOWN:
+    INSTALLED_APPS += ('lockdown',)
+    MIDDLEWARE += ('lockdown.middleware.LockdownMiddleware',)
+    LOCKDOWN_PASSWORDS = config('LOCKDOWN_PASSWORDS', default=False, cast=Csv())
