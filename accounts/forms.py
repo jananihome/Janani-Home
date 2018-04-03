@@ -118,7 +118,7 @@ class ProfileForm(forms.ModelForm):
                   'hide_phone_number', 'country', 'state', 'zip_code', 'city', 'district',
                   'about', 'image', )
         widgets = {
-            'birth_date': forms.DateTimeInput(attrs={'class': 'datetime-input'}),
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):

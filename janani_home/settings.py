@@ -11,6 +11,7 @@ SECRET_KEY = config('SECRET_KEY')
 SERVER_EMAIL = config('SERVER_EMAIL', default='root@localhost')
 SESSION_COOKIE_AGE = 60 * 30
 SITE_ID = 1
+INTERNAL_IPS = '127.0.0.1'
 
 # Database
 DATABASES = {
@@ -50,9 +51,11 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'ckeditor',
     'storages',
+    #'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
