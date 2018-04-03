@@ -11,3 +11,4 @@ geckodriver.log
 secret.txt
 *.sublime-*
 .env
+.vscode/
