@@ -82,6 +82,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cms.context_processors.menu_processor',
+                'janani_home.context_processors.config_processor',
             ],
         },
     },
