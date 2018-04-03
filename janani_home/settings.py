@@ -8,6 +8,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = config('DEBUG', default=False, cast=bool)
 GOOGLE_ANALYTICS_ID = config('GOOGLE_ANALYTICS_ID', default='')
+GOOGLE_SITE_VERIFICATION = config('GOOGLE_SITE_VERIFICATION', default='')
 PASSWORD_RESET_TIMEOUT_DAYS = 4
 SECRET_KEY = config('SECRET_KEY')
 SERVER_EMAIL = config('SERVER_EMAIL', default='root@localhost')

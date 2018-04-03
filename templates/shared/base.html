@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="google-site-verification" content="FEq0u5XQgfddVkYw435V3-hCwUazrWItf2pJAV6wG0E" />
+    {% if config.GOOGLE_SITE_VERIFICATION %}
+    <meta name="google-site-verification" content="{{config.GOOGLE_SITE_VERIFICATION}}" />
+    {% endif %}
     {% include 'shared/styles.html' %}
 
     {% block meta %}
