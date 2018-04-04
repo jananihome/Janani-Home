@@ -68,10 +68,10 @@
 
 
     <div class="loading" style="display: none;">
-        <img src="{% static 'img/loading.gif' %}" alt="Loading...">
+        <img height="100" src="{% static 'img/loading.gif' %}" alt="Loading...">
       
         {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
         {% endif %}
     </div>
 
