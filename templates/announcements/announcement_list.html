@@ -30,8 +30,8 @@
                             <span class="profile-label">Published on:</span> {{ announcement.pub_date }}.<br>
                             <span class="profile-label">Status:</span> {{ announcement.get_status }}.
                             {% if announcement.closed %}
-                                Closed date: {{ announcement.closed_date }}
-                                Closed reason: {{ announcement.closed_reason }}
+                                <span class="profile-label">Closed date:</span> {{ announcement.closed_date }}
+                                <span class="profile-label">Closed reason:</span> {{ announcement.closed_reason }}
                             {% endif %}
                         </p>
                     </div>
