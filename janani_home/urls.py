@@ -17,7 +17,9 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^chaining/', include('smart_selects.urls')),
+    # Our apps
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^announcements/', include('announcements.urls')),
     url(r'^comment/', include('comment.urls')),
     url(r'^volunteers/', include('volunteers.urls')),
     url(r'', include('educational_need.urls')),
