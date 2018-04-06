@@ -37,9 +37,10 @@ else:
 # Application definition
 INSTALLED_APPS = [
     'accounts.apps.AccountConfig',
-    'educational_need.apps.EducationalneedConfig',
-    'comment.apps.CommentConfig',
+    'announcements.apps.AnnouncementsConfig',
     'cms.apps.CmsConfig',
+    'comment.apps.CommentConfig',
+    'educational_need.apps.EducationalneedConfig',
     'volunteers.apps.VolunteersConfig',
     'django.contrib.admin',
     'django.contrib.auth',

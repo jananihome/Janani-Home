@@ -1,0 +1,68 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block meta %}
+    <title>Announcements and Events - Janani Home</title>
+    <meta name="description" content="" />
+{% endblock %}
+
+{% block heading %}
+{% endblock heading %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block content %}
+<h1>Announcements <span class="text-muted">and</span> events <span class="text-muted"><small>on Janani Home</small></span></h1>
+
+{% for announcement in announcements %}
+    <div class="card">
+        <div class="card-header"><span class="h4">{{ announcement.title }}</span></div>
+        <div class="card-block row">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            {{ announcement.description }}
+                        </p>
+                        <p>
+                            <span class="profile-label">Published on:</span> {{ announcement.pub_date }}.<br>
+                            <span class="profile-label">Status:</span> {{ announcement.get_status }}.
+                            {% if announcement.closed %}
+                                Closed date: {{ announcement.closed_date }}
+                                Closed reason: {{ announcement.closed_reason }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Country:</span> {{ announcement.country.name }}<br>
+                            <span class="profile-label">State:</span> {{ announcement.state }}<br>
+                            <span class="profile-label">City:</span> {{ announcement.city }}<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="profile-label">Street address:</span> {{ announcement.street_address }}<br>
+                            {% if announcement.zip_code %}
+                            <span class="profile-label">Zip code:</span> {{ announcement.zip_code }}<br>
+                            {% endif %}
+                            <span class="profile-label">Land mark:</span> {{ announcement.landmark }}<br>
+                        </p>
+                        <!--p><a href="#" role="button" class="btn btn-secondary">Show details</a></p-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="profile-image">
+                    {% if announcement.image %}
+                    <img src="{{ announcement.image|thumbnail_url:'avatar150' }}" alt="{{ announcement.title }}" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endfor %}
+{% endblock content %}
