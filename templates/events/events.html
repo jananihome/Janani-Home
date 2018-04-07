@@ -1,0 +1,134 @@
+{% extends 'shared/base.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block meta %}
+    <title>Events - Janani Home</title>
+    <meta name="description" content="" />
+{% endblock %}
+
+{% block sidebar %}
+    <h2 class="small-heading">Navigation</h2>
+    <p><a href="/">&laquo; Back to Educational Needs</a></p>
+{% endblock sidebar %}
+
+{% block heading %}
+{% endblock heading %}
+
+{% block content %}
+    <h1>Events</h1>
+
+
+   {% if events %}
+        {% for event in events %}
+
+        <h2>{{ event.title }}</h2>
+
+
+
+            <div class="justify-content-center row"  style='display:none'>
+            <div class="col-md-8">
+            <div class="row">
+            <ul id="scroller">
+                {% if images %}
+                    {% for image in images %}
+
+
+                <li>
+                    <a class="col-sm-4" href=" /media/{{image.document}}?image=251" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
+                        <img class="img-fluid" src=" /media/{{image.document}}?image=251" />
+                    </a>
+                </li>
+                       {% endfor %}   
+                   {% endif %}        
+            </ul>
+            </div>
+            </div>
+            </div>
+
+
+    {% endfor %}
+    {% endif %}
+
+<link rel="stylesheet" href="{% static 'css/jquery.simplyscroll.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery.simplyscroll.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+         <script>
+
+               (function($) { // < start of closure
+                   // within this block, $ = django.jQuery
+                   $(document).ready(function() {
+                       $("#scroller").simplyScroll();
+                            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                             event.preventDefault();                                                       
+                             $(this).ekkoLightbox();                                                       
+                         });                                                                               
+                               $('.row').show();
+
+                   });
+               })(jQuery);
+
+
+         </script>
+
+<style>
+/* Container DIV - automatically generated */
+.simply-scroll-container {
+	position: relative;
+}
+
+/* Clip DIV - automatically generated */
+.simply-scroll-clip {
+	position: relative;
+	overflow: hidden;
+}
+
+/* UL/OL/DIV - the element that simplyScroll is inited on
+Class name automatically added to element */
+.simply-scroll-list {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.simply-scroll-list li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.simply-scroll-list li img {
+	border: none;
+	display: block;
+}
+
+/* Custom class modifications - adds to / overrides above
+
+.simply-scroll is default base class */
+
+/* Container DIV */
+.simply-scroll {
+	width: 576px;
+	height: 200px;
+	margin-bottom: 1em;
+}
+
+/* Clip DIV */
+.simply-scroll .simply-scroll-clip {
+	width: 576px;
+	height: 200px;
+}
+
+/* Explicitly set height/width of each list item */
+.simply-scroll .simply-scroll-list li {
+	float: left; /* Horizontal scroll only */
+	width: 290px;
+	height: 200px;
+}
+</style>
+
+{% endblock %}   

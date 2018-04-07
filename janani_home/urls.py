@@ -22,8 +22,10 @@ urlpatterns = [
     url(r'^announcements/', include('announcements.urls')),
     url(r'^comment/', include('comment.urls')),
     url(r'^volunteers/', include('volunteers.urls')),
+    url(r'^events/', include('events.urls')),
     url(r'', include('educational_need.urls')),
     url(r'', include('cms.urls')),
+
 ]
 
 if settings.DEBUG:
