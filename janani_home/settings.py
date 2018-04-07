@@ -10,6 +10,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 GOOGLE_ANALYTICS_ID = config('GOOGLE_ANALYTICS_ID', default='')
 GOOGLE_SITE_VERIFICATION = config('GOOGLE_SITE_VERIFICATION', default='')
 PASSWORD_RESET_TIMEOUT_DAYS = 4
+PHONE_NUMBER = config('PHONE_NUMBER', default='')
 SECRET_KEY = config('SECRET_KEY')
 SERVER_EMAIL = config('SERVER_EMAIL', default='root@localhost')
 SESSION_COOKIE_AGE = 60 * 30
