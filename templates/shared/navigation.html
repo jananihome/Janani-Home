@@ -22,6 +22,11 @@
           Announcements
           {% if request.resolver_match.view_name == 'volunteer_list' %}<span class="sr-only">(current)</span>{% endif %}
       </a>
+        <a class="nav-item nav-link {% if request.resolver_match.view_name == 'view_events' %}active{% endif%}" href="{% url 'view_events' %}">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                Events
+                {% if request.resolver_match.view_name == 'view_profile' %}<span class="sr-only">(current)</span>{% endif %}
+            </a>
       <!--<a class="nav-item nav-link disabled" href="#" tabindex="-1"><i class="fa fa-heartbeat" aria-hidden="true"></i> Blood Donor Contacts</a>-->
         {% if page_items %}
             {% for page_item in page_items %}

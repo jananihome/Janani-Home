@@ -13,13 +13,20 @@ class EventView(generic.DetailView):
 
 @login_required
 def view_events(request):
+    total = {}
+    events = Events.objects.filter().order_by('-event_date')
+    print(events)
+    #print(images)
+    eve_images = []
+    for event in events:
 
-    events = Events.objects.filter()
-    images = Event_Image.objects.filter()
-    print(images)
-    for image in images:
-        print(image)
-        print(image.document)
+        images = Event_Image.objects.filter(event=event.id)
+        event_images = {
+            'event': event,
+            'image': images
+        }
+        eve_images.append(event_images)
+        print(images)
     template = 'events/events.html'
-    context = {'events': events, 'images': images}
+    context = {'events': eve_images}
     return render(request, template, context)

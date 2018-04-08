@@ -1,14 +1,17 @@
 {% extends 'shared/base.html' %}
+{% load widget_tweaks %}
 {% load thumbnail %}
 {% load static %}
 {% block meta %}
-    <title>Events - Janani Home</title>
+    <title>Edit profile - Janani Home</title>
     <meta name="description" content="" />
+    <meta name="robots" content="noindex, nofollow">
 {% endblock %}
 
+
 {% block sidebar %}
-    <h2 class="small-heading">Navigation</h2>
-    <p><a href="/">&laquo; Back to Educational Needs</a></p>
+<h2>Navigation</h2>
+    <a href="{% url 'view_profile' %}">&laquo; Back to profile view</a>
 {% endblock sidebar %}
 
 {% block heading %}
@@ -18,19 +21,24 @@
     <h1>Events</h1>
 
 
+
+
+
+
+
    {% if events %}
         {% for event in events %}
 
-        <h2>{{ event.title }}</h2>
+        <h2>{{ event.event.title }} - {{event.event.event_date}}</h2>
 
 
 
             <div class="justify-content-center row"  style='display:none'>
-            <div class="col-md-8">
+            <div class="col-md-12">
             <div class="row">
-            <ul id="scroller">
-                {% if images %}
-                    {% for image in images %}
+            <ul class="scroller">
+                {% if event.image %}
+                    {% for image in event.image %}
 
 
                 <li>
@@ -38,8 +46,8 @@
                         <img class="img-fluid" src=" /media/{{image.document}}?image=251" />
                     </a>
                 </li>
-                       {% endfor %}   
-                   {% endif %}        
+                       {% endfor %}
+                   {% endif %}
             </ul>
             </div>
             </div>
@@ -49,6 +57,25 @@
     {% endfor %}
     {% endif %}
 
+
+          <!--<script>
+
+
+             $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+              alert('sds');
+              event.preventDefault();
+              $(this).ekkoLightbox();
+          });
+      </script>    -->
+
+
+<!--<script type="text/javascript">
+(function($) {
+	$(function() { //on DOM ready
+
+	});
+ })(jQuery);
+</script>     -->
 <link rel="stylesheet" href="{% static 'css/jquery.simplyscroll.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -61,17 +88,18 @@
                (function($) { // < start of closure
                    // within this block, $ = django.jQuery
                    $(document).ready(function() {
-                       $("#scroller").simplyScroll();
+                       $(".scroller").simplyScroll();
                             $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                             event.preventDefault();                                                       
-                             $(this).ekkoLightbox();                                                       
-                         });                                                                               
+                             event.preventDefault();
+                             $(this).ekkoLightbox();
+                         });
                                $('.row').show();
 
                    });
                })(jQuery);
 
-
+       $('.simply-scroll .simply-scroll-container').css({'width':'99% !important'});
+        $('.simply-scroll .simply-scroll-clip').css({'width':'99% !important'});
          </script>
 
 <style>
@@ -129,6 +157,14 @@ Class name automatically added to element */
 	width: 290px;
 	height: 200px;
 }
+.simply-scroll .simply-scroll-list li{
+margin:6px;
+}
+.simply-scroll-container{
+width:99% !important;
+}
+
+
 </style>
 
-{% endblock %}   
+{% endblock %}
