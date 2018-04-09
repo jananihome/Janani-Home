@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'easy_thumbnails',
     'ckeditor',
+    'ckeditor_uploader',
     'storages',
     #'debug_toolbar',
 ]
@@ -153,6 +154,8 @@ THUMBNAIL_ALIASES = {
 }
 
 # Ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 CKEDITOR_CONFIGS = {
     'default': {
@@ -219,6 +222,23 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath'
         ]),
+    },
+    'admin2': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Maximize', 'Format', 'Bold', 'Italic', 'Underline', '-', 'TextColor', 'BGColor'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink', 'Anchor', 'Image', 'Embed', '-'],
+            ['Undo', 'Redo', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Find', 'Replace', '-', 'SelectAll', '-', 'Source']
+        ],
+        'height': 400,
+        'width': '100%',
+        'extraPlugins': ','.join(
+            [
+                'image2',
+                'embed',
+            ]),
+        'language': 'en',
     },
 }
 
