@@ -6,7 +6,7 @@
 <!-- Infinite scrolling -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js"></script>
-{% if request.resolver_match.view_name == 'list_view'  %}
+{% if request.resolver_match.view_name in 'list_view|comment_list'  %}
 <script>
   var infinite = new Waypoint.Infinite({
     element: $('.infinite-container')[0],

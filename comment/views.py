@@ -6,15 +6,19 @@ from django.http import Http404
 from django.shortcuts import render,get_object_or_404 , redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.views.generic.list import ListView
 
 from educational_need.models import EducationalNeed
 from .forms import CommentForm
 from .models import Comment
 
+class CommentListView(ListView):
+    model = Comment
+    template_name = 'comment/comment_list.html'
+    paginate_by = 4
 
-def comment_list(request):
-    comments = Comment.objects.filter(published=True).order_by('-pk')
-    return render(request, 'comment/comment_list.html' , {'comments': comments,})
+    def get_queryset(self):
+        return Comment.objects.filter(published=True).order_by('-pk')
 
 
 @login_required
