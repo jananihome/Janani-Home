@@ -1,0 +1,69 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load thumbnail %}
+
+{% block meta %}
+    <title>{{ announcement.title }} - Janani Home</title>
+    <meta name="description" content="{{ announcement.description }}" />
+{% endblock %}
+
+{% block heading %}
+    <h1>{{ announcement.title }}</h1>
+{% endblock heading %}
+
+{% block sidebar %}
+    <a href="{% url 'announcement_list' %}">&laquo; Back to announcement list</a>
+{% endblock sidebar %}
+
+{% block content %}
+<div class="card">
+    <div class="card-block row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        {{ announcement.description }}
+                    </p>
+                    <p>
+                        <span class="profile-label">Published on:</span> {{ announcement.pub_date }}<br>
+                        <span class="profile-label">Status:</span> {{ announcement.get_status }}
+                        {% if announcement.closed %}
+                            <span class="profile-label">Closed date:</span> {{ announcement.closed_date }}
+                            <span class="profile-label">Closed reason:</span> {{ announcement.closed_reason }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <span class="profile-label">Country:</span> {{ announcement.country.name }}<br>
+                        <span class="profile-label">State:</span> {{ announcement.state }}<br>
+                        <span class="profile-label">City:</span> {{ announcement.city }}<br>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <span class="profile-label">Street address:</span> {{ announcement.street_address }}<br>
+                        {% if announcement.zip_code %}
+                        <span class="profile-label">Zip code:</span> {{ announcement.zip_code }}<br>
+                        {% endif %}
+                        <span class="profile-label">Land mark:</span> {{ announcement.landmark }}<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 text-center">
+            <div class="profile-image">
+                {% if announcement.image %}
+                <img src="{{ announcement.image|thumbnail_url:'avatar250' }}" alt="{{ announcement.title }}" class="img-fluid">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12">
+                {% autoescape off %}
+                {{ announcement.content }}
+                {% endautoescape %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
