@@ -11,9 +11,10 @@
 {% endblock heading %}
 
 {% block content %}
+<div class="infinite-container">
 	<h1>Comments <span class="text-muted"><small>from Janani Home users</small></span></h1>
-	{% for comment in comments %}
-			<div class="result-{{ result.pk }} card">
+	{% for comment in object_list %}
+			<div class="result-{{ result.pk }} card infinite-item">
 				<div class="card-header">
                 	<h5 class="card-title">{{ comment.pub_date }} by {{ comment.author }}</h5>
             	</div>
@@ -62,4 +63,12 @@
 			</div>
 			<br>
 	{% endfor %}
+</div>
+<div class="loading" style="display: none;">
+	<img height="100" src="{% static 'img/loading.gif' %}" alt="Loading...">
+  
+	{% if page_obj.has_next %}
+		<a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
+	{% endif %}
+</div>
 {% endblock %}

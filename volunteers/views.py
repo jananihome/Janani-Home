@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.views.generic.list import ListView
+
 from accounts.models import Profile
 
 
-def volunteer_list(request):
-    volunteers = Profile.objects.filter(approved_volunteer=True).order_by('-pk')
-    return render(
-        request,
-        'volunteers/volunteer_list.html',
-        {'volunteers': volunteers}
-    )
+class VolunteerList(ListView):
+    model = Profile
+    template_name = 'volunteers/volunteer_list.html'
+    paginate_by = 4
+
+    def get_queryset(self):
+        return Profile.objects.filter(approved_volunteer=True).order_by('-pk')

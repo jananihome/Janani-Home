@@ -23,13 +23,13 @@
     <h2 class="small-heading">Educational Needs {% if active_country %}in {% if active_state and active_state != active_country %}{{ active_state }}, {% endif %}{{ active_country }}{% else %} around the world{% endif %}</h2>
 
     <!-- Result list -->
-    <div class="row result-list">
+    <div class="row result-list infinite-container">
         <div class="col-md-12">{% if active_search or active_country %}<p>{% if active_query %}<span class="badge badge-light">Keyword: "{{ active_query }}"</span>{% endif %}{% if active_country %}<span class="badge badge-light">Country: {{ active_country }}</span>{% endif %}{% if active_state %}
 
             <span class="badge badge-light">State: {{ active_state }}</span>{% endif %} <a href="{% url 'list_view' %}"> <i class="fa fa-refresh" aria-hidden="true"></i></a></p>{% endif %}</div>
         {% for result in object_list %}
         <!-- Result card -->
-        <div class="result-container col-md-6">
+        <div class="result-container col-md-6 infinite-item">
               <div class="result-card card">
               <div class="row">
                   <div class="col-3 text-center result-sidebar">
@@ -64,28 +64,17 @@
             </div>
         </div><!-- Result card -->
         {% endfor %}
-
-        {% if is_paginated %}
-            <!-- Pagination -->
-        <div class="col-md-12">
-                <div class="pagination-container">
-                    <nav aria-label="Pagination">
-                        <ul class="pagination">
-                        {% if page_obj.has_previous %}
-                            <li class="page-item"><a class="btn btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">&laquo; Previous</a></li>
-                        {% else %}
-                            <li class="page-item disabled" tabindex="-1"><a class="page-link" href="#">&laquo; Previous</a></li>
-                        {% endif %}
-                            <li class="page-item disabled" tabindex="-1"><a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
-                        {% if page_obj.has_next %}
-                            <li class="page-item"><a class="btn btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}" aria-label="Next">Next &raquo;</a></li>
-                        {% endif %}
-                        </ul>
-                    </nav>
-                </div><!-- Pagination -->
-        </div>
-        {% endif %}
     </div> <!-- Result list -->
+
+
+    <div class="loading" style="display: none;">
+        <img height="100" src="{% static 'img/loading.gif' %}" alt="Loading...">
+      
+        {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">Loading...</a>
+        {% endif %}
+    </div>
+
 {% endblock content %}
 
 {% block sidebar %}
