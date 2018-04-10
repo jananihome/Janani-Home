@@ -37,6 +37,7 @@ else:
 
 # Application definition
 INSTALLED_APPS = [
+    'events.apps.EventsConfig',
     'accounts.apps.AccountConfig',
     'announcements.apps.AnnouncementsConfig',
     'cms.apps.CmsConfig',
