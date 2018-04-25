@@ -11,7 +11,7 @@ class EventView(generic.DetailView):
     template_name = 'events/events.html'
 
 
-@login_required
+
 def view_events(request):
     total = {}
     events = Events.objects.filter().order_by('-event_date')
