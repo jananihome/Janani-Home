@@ -1,49 +1,30 @@
-from ckeditor.fields import RichTextField
 from django.db import models
 from django.utils import timezone
 
+from ckeditor.fields import RichTextField
+from easy_thumbnails.fields import ThumbnailerImageField
 
-class Events(models.Model):
+
+class Event(models.Model):
     title = models.CharField(
         max_length=200,
         verbose_name= 'Title',
-        help_text= 'Page title visible in the browser and in search engine results.'
+        help_text= 'Event title visible in the browser and in search engine results.'
     )
 
-    event_date = models.DateTimeField('event date', default=timezone.now)
-    description = models.CharField(
+    event_date = models.DateField('event date', default=timezone.now)
+
+    description = models.TextField(
         max_length=200,
         verbose_name= 'Short description',
-        help_text='Short description of the page.'
+        help_text='Short description of the event.'
     )
 
-    # content = RichTextField(
-    #     config_name='admin',
-    #     verbose_name= 'Content',
-    #     help_text='Main page content displayed in rich text.',
-    #     blank=True,
-    #     null=True)
-    #
-    # noindex = models.BooleanField(
-    #     default=False,
-    #     verbose_name='Don\'t index this page',
-    #     help_text='Enable to tell search engine robots to not index this page.',
-    # )
-
-    # show_in_menu = models.BooleanField(
-    #     default=True,
-    #     verbose_name='Show in navigation',
-    #     help_text='Show page in website top navigation menu.',
-    # )
-
-    # page_icon = models.CharField(
-    #     max_length=200,
-    #     blank=True,
-    #     null=True,
-    #     verbose_name='Font Awesome icon class',
-    #     help_text='Enter a Font Awesome class name for the icon in navigation, e.g. "fa fa-info". See all icons here: http://fontawesome.io/icons/',
-    #
-    # )
+    noindex = models.BooleanField(
+        default=False,
+        verbose_name='Don\'t index this page',
+        help_text='Enable to tell search engine robots to not index this event page.',
+    )
 
     sorting_value = models.IntegerField(default=0)
 
@@ -51,9 +32,11 @@ class Events(models.Model):
         return self.title
 
 
+class EventImage(models.Model):
+    name = models.CharField(max_length=255)
+    image = ThumbnailerImageField(upload_to='event_images/')
+    event = models.ForeignKey('Event', related_name="images", null=True, blank=True)
+    sorting_value = models.IntegerField(default=0)
 
-class Event_Image(models.Model):
-    name = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='documents/')
-    event = models.ForeignKey('Events', null=True)
-
+    def __str__(self):
+        return self.name

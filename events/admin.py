@@ -1,7 +1,12 @@
 from django.contrib import admin
 
-from .models import Events
-from .models import Event_Image
+from .models import Event, EventImage
 
-admin.site.register(Events)
-admin.site.register(Event_Image)
+class EventImageInline(admin.TabularInline):
+    model = EventImage
+    extra = 3
+
+class EventAdmin(admin.ModelAdmin):
+    inlines = [ EventImageInline, ]
+
+admin.site.register(Event, EventAdmin)
