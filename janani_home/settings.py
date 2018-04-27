@@ -37,6 +37,7 @@ else:
 
 # Application definition
 INSTALLED_APPS = [
+    'events.apps.EventsConfig',
     'accounts.apps.AccountConfig',
     'announcements.apps.AnnouncementsConfig',
     'cms.apps.CmsConfig',
@@ -150,6 +151,8 @@ THUMBNAIL_ALIASES = {
         'avatar70': {'size': (70, 70), 'crop': True},
         'avatar150': {'size': (150, 150), 'crop': True},
         'avatar250': {'size': (250, 250), 'crop': True},
+        'slide': {'size': (250, 300), 'crop': True},
+        'gallery': {'size': (800, 800), 'crop': False},
     },
 }
 
