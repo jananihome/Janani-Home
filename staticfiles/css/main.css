@@ -145,7 +145,14 @@ input[type=checkbox] {
     justify-content: left;
 }
 
-.result-card h5 {
+.loading {
+    text-align: center;
+    padding: 1em 0;
+}
+
+.infinite-more-link {
+    color: #777;
+    text-align: center;
 }
 
 .result-container {

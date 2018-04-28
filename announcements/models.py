@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from easy_thumbnails.fields import ThumbnailerImageField
 from smart_selects.db_fields import ChainedForeignKey
 
@@ -51,8 +51,8 @@ class Announcement(models.Model):
         verbose_name= 'Short description',
         help_text='Short description of the announcement to be displayed on the list view.'
     )
-    content = RichTextField(
-        config_name='admin',
+    content = RichTextUploadingField(
+        config_name='admin2',
         verbose_name= 'Content',
         help_text='Main announcement content displayed on the detail view in rich text (can contain images etc...).',
         blank=True,

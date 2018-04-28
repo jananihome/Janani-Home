@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^chaining/', include('smart_selects.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # Our apps
     url(r'^accounts/', include('accounts.urls')),
     url(r'^announcements/', include('announcements.urls')),
