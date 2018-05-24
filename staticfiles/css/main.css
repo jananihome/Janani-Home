@@ -197,7 +197,7 @@ input[type=checkbox] {
     margin-left: 1em;
 }
 
-.result-meta .share-icons {
+.share-icons {
     text-align: right;
     padding-top:0.5em;
     font-size: 1.2em;
@@ -207,7 +207,7 @@ input[type=checkbox] {
     padding-left: 0;
 }
 
-.result-meta .share-icons a {
+.share-icons a {
     font-weight: normal;
 }
 
