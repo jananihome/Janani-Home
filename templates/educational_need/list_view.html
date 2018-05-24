@@ -56,11 +56,22 @@
                     </div>
                   </div>
                 </div>
-                    <div class="row result-meta">
-                      <div class="col-6 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amount_required %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
-                      <div class="col-6 read-more"><a class="btn btn-outline-dark" href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
-                      <span class="need-id"><small>ID: {{ result.date_uuid }}</small></span>
+                <div class="row result-meta">
+                    <div class="col-6 amount"><i class="fa fa-money" aria-hidden="true"></i><br>{% if result.amount_required %}{{ result.amount_required }}{% else %}Unknown amount{% endif %}</div>
+                    <div class="col-6 read-more"><a class="btn btn-outline-dark" href="{% url 'detail_view' pk=result.pk %}"><i class="fa fa-list" aria-hidden="true"></i><br>Details</a></div>
+                    <div class="container">
+                        <div class="row">
+                            
+                        </div>
                     </div>
+                    <div class="col-12 share-icons">
+                        <span class="small text-muted">Share:</span>
+                        <a href="http://www.facebook.com/share.php?u=http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=result.pk %}" onclick="return fbs_click()" target="_blank"><i class="fab fa-facebook-square"></i></a>
+                        <a href="http://twitter.com/home?status=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=result.pk %}" title="Click to share this post on Twitter" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                        <a href="whatsapp://send?text=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=result.pk %}" data-action="share/whatsapp/share" title="Share via Whatsapp"><i class="fab fa-whatsapp-square" target="_blank"></i></a>
+                    </div>
+                    <div class="col-12 need-id"><small>ID: {{ result.date_uuid }}</small></div>
+                </div>
             </div>
         </div><!-- Result card -->
         {% endfor %}
