@@ -70,7 +70,10 @@
                             <span class="small text-muted">Share on</span>
                             <a href="http://www.facebook.com/share.php?u=http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=educational_need.pk %}" onclick="return fbs_click()" target="_blank"><i class="fab fa-facebook-square"></i></a>
                             <a href="http://twitter.com/home?status=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=educational_need.pk %}" title="Click to share this post on Twitter" target="_blank"><i class="fab fa-twitter-square"></i></a>
-                            <a href="whatsapp://send?text=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=educational_need.pk %}" data-action="share/whatsapp/share" title="Share via Whatsapp"><i class="fab fa-whatsapp-square" target="_blank"></i></a>
+                            <a href="https://plus.google.com/share?url=http://{{request.META.HTTP_HOST}}{% url 'detail_view' educational_need.pk %}" target="popup"><i class="fab fa-google-plus-square"></i></a>
+                            {% if request.user_agent.is_mobile %}
+                                <a href="whatsapp://send?text=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}{% url 'detail_view' pk=educational_need.pk %}" data-action="share/whatsapp/share" title="Share via Whatsapp"><i class="fab fa-whatsapp-square" target="_blank"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
