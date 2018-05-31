@@ -64,13 +64,15 @@
             {% if config.PHONE_NUMBER %}<i class="fa fa-phone" aria-hidden="true"></i> {{ config.PHONE_NUMBER }}<br>{% endif %}
             <a href="https://www.facebook.com/jananihomepage/" target="_blank">Find us on <i class="fab fa-facebook-f"></i></i>acebook</a>
             <div class="share-icons">
-                <span class="small text-muted">Share on</span>
-                <a href="http://www.facebook.com/share.php?u=http://{{request.META.HTTP_HOST}}" onclick="return fbs_click()" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                {% if request.user_agent.is_mobile %}
-                    <a href="whatsapp://send?text=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}" data-action="share/whatsapp/share" title="Share via Whatsapp"><i class="fab fa-whatsapp-square" target="_blank"></i></a>
-                {% endif %}                        
-                <a href="http://twitter.com/home?status=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}" title="Click to share this post on Twitter" target="_blank"><i class="fab fa-twitter-square"></i></a>
-                <a href="https://plus.google.com/share?url=http://{{request.META.HTTP_HOST}}" target="popup"><i class="fab fa-google-plus-square"></i></a>
+                <span class="text-center">
+                    <span class="small text-muted">Share on</span>
+                    <a href="http://www.facebook.com/share.php?u=http://{{request.META.HTTP_HOST}}" onclick="return fbs_click()" target="_blank"><i class="fab fa-facebook-square"></i></a>
+                    {% if request.user_agent.is_mobile %}
+                        <a href="whatsapp://send?text=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}" data-action="share/whatsapp/share" title="Share via Whatsapp"><i class="fab fa-whatsapp-square" target="_blank"></i></a>
+                    {% endif %}                        
+                    <a href="http://twitter.com/home?status=Help%20people%20in%20need:%20http://{{request.META.HTTP_HOST}}" title="Click to share this post on Twitter" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                    <a href="https://plus.google.com/share?url=http://{{request.META.HTTP_HOST}}" target="popup"><i class="fab fa-google-plus-square"></i></a>
+                </span>
             </div>            
         </footer>
     </div><!-- Site Container -->
