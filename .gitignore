@@ -13,3 +13,4 @@ secret.txt
 .env
 .vscode/
 *.out
+*.swp
