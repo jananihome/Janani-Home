@@ -37,10 +37,8 @@ def educational_need_comment(request, pk):
             comment.save()
             # Update educational need
             educational_need.closed = True
+            educational_need.is_active = False
             educational_need.save()
-            # Update user profile
-            educational_need.user.profile.active_educational_need = None
-            educational_need.user.profile.save()
             # Send email to admin
             current_site = get_current_site(request)
             subject = 'New educational need comment on Janani Care.'

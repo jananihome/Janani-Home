@@ -39,8 +39,7 @@ class EducationalNeedSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        users = Profile.objects.filter(active_educational_need__isnull=False).select_related('active_educational_need').select_related('user').order_by('-active_educational_need__pk')
-        return [user.active_educational_need for user in users]
+        return EducationalNeed.objects.filter(is_active=True)
 
     def lastmod(self, obj):
         return obj.pub_date

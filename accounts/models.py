@@ -115,6 +115,10 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
+    multiple_needs = models.BooleanField(
+        default=False,
+        verbose_name='Can create multiple needs',
+        help_text='Select to allow this user to create multiple needs with separate photo and contact information per need.')
     image = ThumbnailerImageField(
         upload_to='profile_images',
         blank=True,

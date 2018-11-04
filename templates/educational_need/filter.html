@@ -2,38 +2,7 @@
     <span class="input-group">
         <input class="form-control form-control-lg" type="text" id="search" aria-describedby="search" placeholder="Find people in educational need...">
         <span class="input-group-btn">
-            <button type="button" class="btn btn-secondary btn-lg" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse"><i class="fa fa-sliders" aria-hidden="true"></i></button>
             <button type="button" class="btn btn-secondary btn-lg" id="filter_button"><i class="fa fa-search" aria-hidden="true"></i></button>
         </span>
     </span>
-    <div id="filterCollapse" class="collapse form-group">
-        <div class="row">
-            <div class="col-md-4 mt-3 ml-3">
-                <label for="country">Country</label>
-                <select class="custom-select" id="country">
-                    <option value="">(All)</option>
-                    {% for country in countries %}
-                      {% if country.pk == country_ %}
-                        <option value="{{country.pk}}" selected>{{country.name}}</option>
-                      {% else %}
-                        <option value="{{country.pk}}">{{country.name}}</option>
-                      {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-4 mt-3 ml-3">
-                <label for="state">State</label>
-                <select class="custom-select" id="state">
-                    <option value="">(All)</option>
-                    {% for state in states %}
-                        {% if state.pk == state_ %}
-                            <option value="{{state.pk}}" selected>{{state.name}}</option>
-                        {% else %}
-                            <option value="{{state.pk}}">{{state.name}}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-    </div>
 </form>

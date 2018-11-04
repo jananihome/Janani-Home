@@ -7,6 +7,8 @@ from django.utils import timezone
 
 from djmoney.models.fields import MoneyField
 from ckeditor.fields import RichTextField
+from smart_selects.db_fields import ChainedForeignKey
+from easy_thumbnails.fields import ThumbnailerImageField
 
 
 class EducationalNeed(models.Model):
@@ -68,6 +70,46 @@ class EducationalNeed(models.Model):
     )
 
     verified = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+
+    extended = models.BooleanField(default=False)
+    ext_first_name = models.CharField(max_length=200, blank=True, null=True)
+    ext_middle_name = models.CharField(max_length=200, blank=True, null=True)
+    ext_last_name = models.CharField(max_length=200, blank=True, null=True)
+    # Gender field
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDER_CHOICES = ((MALE, 'Male'), (FEMALE, 'Female'))
+    ext_gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default=MALE, blank=True, null=True)
+    ext_birth_date = models.DateField(blank=True, null=True)
+    ext_country = models.ForeignKey(
+        'accounts.Country',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    ext_state = ChainedForeignKey(
+        'accounts.State',
+        on_delete=models.SET_NULL,
+        chained_field="ext_country",
+        chained_model_field="country",
+        show_all=False,
+        auto_choose=True,
+        sort=True,
+        null=True,
+        blank=True
+    )
+    ext_zip_code = models.CharField(max_length=10, blank=True)
+    ext_city = models.CharField(max_length=50, blank=True)
+    ext_district = models.CharField(max_length=50, blank=True)
+    ext_about = RichTextField(null=True, blank=True)
+    ext_image = ThumbnailerImageField(
+        upload_to='profile_images',
+        blank=True,
+        null=True,
+        verbose_name='Person\'s picture')
+    ext_email = models.EmailField(blank=True, null=True)
+
 
     def __str__(self):
         return 'Educational Need {}'.format(str(self.pk))

@@ -11,7 +11,6 @@ class EducationalNeedAdmin(admin.ModelAdmin):
         'get_state',
         'get_city',
         'amount_required',
-        'get_active',
         'closed',
         'pub_date'
     )
@@ -31,14 +30,5 @@ class EducationalNeedAdmin(admin.ModelAdmin):
     get_city.short_description = 'City'
     get_city.admin_order_field = 'user__profile__city'
 
-    def get_active(self, obj):
-        if obj.user.profile.active_educational_need:
-            if obj.pk == obj.user.profile.active_educational_need.pk:
-                return True
-        else:
-            return False
-
-    get_active.short_description = 'Active'
-    get_active.admin_order_field = 'user__profile__active_educational_need__pk'
 
 admin.site.register(EducationalNeed, EducationalNeedAdmin)

@@ -8,8 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'user',
         'country',
         'state',
-        'city',
-        'active_educational_need',
+        'city'
     )
 admin.site.register(Profile, ProfileAdmin)
 

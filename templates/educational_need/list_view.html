@@ -24,23 +24,33 @@
 
     <!-- Result list -->
     <div class="row result-list infinite-container">
-        <div class="col-md-12">{% if active_search or active_country %}<p>{% if active_query %}<span class="badge badge-light">Keyword: "{{ active_query }}"</span>{% endif %}{% if active_country %}<span class="badge badge-light">Country: {{ active_country }}</span>{% endif %}{% if active_state %}
-
-            <span class="badge badge-light">State: {{ active_state }}</span>{% endif %} <a href="{% url 'list_view' %}"> <i class="fa fa-refresh" aria-hidden="true"></i></a></p>{% endif %}</div>
+        <div class="col-md-12">{% if active_query %}<p><span class="badge badge-light">Keyword: "{{ active_query }}"</span></p>{% endif %}</div>
         {% for result in object_list %}
         <!-- Result card -->
         <div class="result-container col-md-6 infinite-item">
               <div class="result-card card">
               <div class="row">
                   <div class="col-3 text-center result-sidebar">
-                    {% if not result.user.profile.image %}
-                      {% if result.user.profile.gender == 'M' %}
-                        <img src="{% static 'img/avatar-male.jpg' %}" height="70" alt="{{ result.user }}" class="img-fluid" />
-                      {% else %}
-                        <img src="{% static 'img/avatar-female.jpg' %}" height="70" alt="{{ result.user }}" class="img-fluid" />
-                      {% endif %}
-                    {% else %}
-                    <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-fluid">
+                    {% if result.extended %}
+                        {% if not result.ext_image %}
+                          {% if result.ext_gender == 'M' %}
+                            <img src="{% static 'img/avatar-male.jpg' %}" height="70" alt="{{ result.ext_first_name }}" class="img-fluid" />
+                          {% else %}
+                            <img src="{% static 'img/avatar-female.jpg' %}" height="70" alt="{{ result.ext_first_name }}" class="img-fluid" />
+                          {% endif %}
+                        {% else %}
+                            <img src="{{ result.ext_image|thumbnail_url:'avatar70' }}" alt="{{ result.ext_first_name }}" class="img-fluid">
+                        {% endif %}
+                    {% elif not result.extended %}
+                        {% if not result.user.profile.image %}
+                          {% if result.user.profile.gender == 'M' %}
+                            <img src="{% static 'img/avatar-male.jpg' %}" height="70" alt="{{ result.user }}" class="img-fluid" />
+                          {% else %}
+                            <img src="{% static 'img/avatar-female.jpg' %}" height="70" alt="{{ result.user }}" class="img-fluid" />
+                          {% endif %}
+                        {% else %}
+                            <img src="{{ result.user.profile.image|thumbnail_url:'avatar70' }}" alt="{{ result.user }}" class="img-fluid">
+                        {% endif %}
                     {% endif %}
                     <br>Views:<br><i class="fa fa-eye" aria-hidden="true"></i> {{ result.view_count }}
                       <br><span class="result-verification">{% if result.verified %}Verified by Janani Home{% endif %}</span>
@@ -50,7 +60,11 @@
                       <div class="col-12">
                         <div class="title-container"><a href="{% url 'detail_view' pk=result.pk %}"><h5>{{ result.title|truncatechars:45 }}</h5></a></div>
                           <span class=""><small>By <strong>{{ result.user }}</strong></small>
-                        <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
+                        {% if result.extended %}
+                            <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.ext_city }}, {{ result.ext_state }}, {{ result.ext_country }}</p>
+                        {% else %}
+                            <p class="result-location"><i class="fa fa-globe" aria-hidden="true"></i> {{ result.user.profile.city }}, {{ result.user.profile.state }}, {{ result.user.profile.country }}</p>
+                        {% endif %}
                         <p class="result-description"><small>{{ result.requirement_description|striptags|truncatechars:80|safe }}</small></p>
                       </div>
                     </div>

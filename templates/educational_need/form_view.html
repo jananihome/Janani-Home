@@ -29,10 +29,137 @@
 	{% if user.is_authenticated %}
 
 		{% if profile_complete %}
+			{% if is_extended %}
+				<div>
+					<span class="badge badge-warning">Extended Form</span>
+					<strong>You are adding a need on behalf of some other person!</strong>
+				</div>
+			{% endif %}
 			<form method="post" enctype="multipart/form-data">{% csrf_token %}
 				{{ form.media }}
 				{{ form.non_field_errors }}
-				<h2 class="inverted-heading small-heading">1. Describe your educational need</h2>
+				{% if is_extended %}
+					<h2 class="inverted-heading small-heading">0. Describe the person in need</h2>
+					<div class="form-row">
+						<div class="col-md-4">
+							<label for="{{ form.ext_first_name.id_for_label }}">First Name</label>
+							{% for error in form.ext_first_name.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_first_name class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-4">
+							<label for="{{ form.ext_middle_name.id_for_label }}">Middle Name <span class="text-muted">(optional)</span></label>
+							{% for error in form.ext_middle_name.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_middle_name class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-4">
+							<label for="{{ form.ext_last_name.id_for_label }}">Last Name</label>
+							{% for error in form.ext_last_name.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_last_name class+="form-control" rows=2 %}
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-4">
+							<label for="{{ form.ext_gender.id_for_label }}">Gender</label>
+							{% for error in form.ext_gender.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_gender class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-4">
+							<label for="{{ form.ext_birth_date.id_for_label }}">Birth date</label>
+							{% for error in form.ext_birth_date.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_birth_date class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-4">
+							<label for="{{ form.ext_country.id_for_label }}">Country</label>
+							{% for error in form.ext_country.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_country class+="form-control" rows=2 %}
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-3">
+							<label for="{{ form.ext_state.id_for_label }}">State</label>
+							{% for error in form.ext_state.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_state class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-3">
+							<label for="{{ form.ext_city.id_for_label }}">City</label>
+							{% for error in form.ext_city.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_city class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-3">
+							<label for="{{ form.ext_zip_code.id_for_label }}">ZIP Code <span class="text-muted">(optional)</span></label>
+							{% for error in form.ext_zip_code.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_zip_code class+="form-control" rows=2 %}
+						</div>
+						<div class="col-md-3">
+							<label for="{{ form.ext_district.id_for_label }}">District <span class="text-muted">(optional)</span></label>
+							{% for error in form.ext_district.errors %}
+								<div class="container alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+							{% render_field form.ext_district class+="form-control" rows=2 %}
+						</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<p><strong>Briefly describe the person in need and his/her background</strong></p>
+								{% for error in form.ext_about.errors %}
+									<div class="container alert alert-danger">
+										{{ error }}
+									</div>
+								{% endfor %}
+								{% render_field form.ext_about class+="form-control" %}
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<p><strong>Upload a picture of the person in need <span class="text-muted">(optional)</span></strong></p>
+								{% for error in form.ext_image.errors %}
+									<div class="container alert alert-danger">
+										{{ error }}
+									</div>
+								{% endfor %}
+								{% render_field form.ext_image class+="form-control" %}
+							</div>
+						</div>
+				{% endif %}
+				<h2 class="inverted-heading small-heading">1. Describe the need</h2>
 				<div class="form-row">
 					<label for="{{ form.title.id_for_label }}">Subject</label>
 					{% for error in form.title.errors %}
@@ -72,7 +199,7 @@
 					{% endfor %}
 					{% render_field form.amount_required class+="form-control" %}
 				</div>
-				<h2 class="inverted-heading small-heading">2. Provide your details for verification</h2>
+				<h2 class="inverted-heading small-heading">2. Provide contact details</h2>
 
 				<div class="form-row">
 					<div class="col-md-6">
@@ -119,13 +246,24 @@
 
 				<div class="form-row">
 					<div class="col-md-6">
-						<label for="{{ form.additional_mobile_number.id_for_label }}">{{ form.additional_mobile_number.label }} <span class="text-muted">(optional)</span></label>
+						<label for="{{ form.additional_mobile_number.id_for_label }}">
+							{% if is_extended %}
+								Mobile number
+							{% else %}
+								{{ form.additional_mobile_number.label }} <span class="text-muted">(optional)</span>
+							{% endif %}
+						</label>
 						{% for error in form.additional_mobile_number.errors %}
 							<div class="container alert alert-danger">
 								{{ error }}
 							</div>
 						{% endfor %}
-						{% render_field form.additional_mobile_number class+="form-control" rows=2 value=request.user.profile.mobile_number %}
+
+						{% if is_extended %}
+							{% render_field form.additional_mobile_number class+="form-control" rows=2 %}
+						{% else %}
+							{% render_field form.additional_mobile_number class+="form-control" rows=2 value=request.user.profile.mobile_number %}
+						{% endif %}
 						<div class="form-check">
 								<label for="{{ form.hide_mobile_number.id_for_label }}" class="form-check-label pl-0">
 								{% render_field form.hide_mobile_number class+="form-check-input" rows=2 %}
@@ -139,13 +277,23 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="{{ form.additional_phone_number.id_for_label }}">{{ form.additional_phone_number.label }} <span class="text-muted">(optional)</span></label>
+						<label for="{{ form.additional_phone_number.id_for_label }}">
+							{% if is_extended %}
+								Phone number <span class="text-muted">(optional)
+							{% else %}
+								{{ form.additional_phone_number.label }} <span class="text-muted">(optional)</span>
+							{% endif %}
+						</label>
 						{% for error in form.additional_phone_number.errors %}
 							<div class="container alert alert-danger">
 								{{ error }}
 							</div>
 						{% endfor %}
-						{% render_field form.additional_phone_number class+="form-control" rows=2 value=request.user.profile.phone_number %}
+						{% if is_extended %}
+							{% render_field form.additional_phone_number class+="form-control" rows=2 %}
+						{% else %}
+							{% render_field form.additional_phone_number class+="form-control" rows=2 value=request.user.profile.phone_number %}
+						{% endif %}
 						<div class="form-check">
 							<label for="{{ form.additional_mobile_number.id_for_label }}" class="form-check-label pl-0">
 								{% render_field form.hide_phone_number class+="form-check-input" rows=2 %}
@@ -158,8 +306,19 @@
 							</label>
 						</div>
 					</div>
-				</div>
+					<div><strong>Tip:</strong> Make at least one phone number public, so that users who want to help can contact you easily.</div>
 
+				</div>
+				<div class="form-row">
+					<label for="{{ form.ext_email.id_for_label }}">E-mail address <span class="text-muted">(optional)</span></label>
+					{% for error in form.ext_email.errors %}
+						<div class="container alert alert-danger">
+							{{ error }}
+						</div>
+					{% endfor %}
+					{% render_field form.ext_email class+="form-control" rows=3 %}
+					<div><strong>Tip:</strong> If you provide e-mail address, Janani Home users will be able to send messages via contact form.</div>
+				</div>
 				<div class="form-row">
 					<div class="col-md-6">
 					<label for="{{ form.college_school_address.id_for_label }}">{{ form.college_school_address.label }}</label>
