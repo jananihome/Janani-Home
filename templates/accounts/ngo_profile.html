@@ -27,66 +27,123 @@
         {% endif %}
     {% endfor %}
     {% endif %}
-    <div class="card">
-        <div class="card-header">Details</div>
-        <div class="card-block row">
-            <div class="col-md-3 text-center">
-                <div class="profile-image">
-                    {% if not request.user.profile.image %}
-                     <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile Details</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="educational-needs-tab" data-toggle="tab" href="#educational-needs" role="tab" aria-controls="educational-needs" aria-selected="false">Educational Needs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="volunteer-tab" data-toggle="tab" href="#volunteer-work" role="tab" aria-controls="volunteer-work" aria-selected="false">Volunteers</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="card">
+            <div class="card-block row">
+                <div class="col-md-3 text-center">
+                    <div class="profile-image">
+                        {% if not request.user.profile.image %}
+                         <img src="{% static 'img/avatar-male.jpg' %}" height="120" alt="{{ request.user }}" class="img-fluid" />
+                        {% else %}
+                         <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>{{ request.user.profile.organization_name }}</h2>
+                            <p><span class="profile-label">Username:</span>{{ request.user.username }}</p>
+                            <p><span class="profile-label">Account Status:</span> {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="profile-label">Country:</span> {{ request.user.profile.country.name }}<br>
+                                <span class="profile-label">State:</span> {{ request.user.profile.state }}<br>
+                                <span class="profile-label">City:</span> {{ request.user.profile.city }}<br>
+                                <span class="profile-label">District:</span> {{ request.user.profile.district }}<br>
+                                <span class="profile-label">Zip:</span> {{ request.user.profile.zip_code }}<br>
+                                <span class="profile-label">Address:</span> {{ request.user.profile.organization_address }}<br>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="profile-label">Mobile number:</span> {{ request.user.profile.mobile_number }}<br>
+                                <span class="profile-label">Mobile number 2:</span> {{ request.user.profile.mobile_number_2 }}<br>
+                                <span class="profile-label">Phone number:</span> {{ request.user.profile.phone_number }}<br>
+                                <span class="profile-label">Phone number 2:</span> {{ request.user.profile.phone_number_2 }}<br>
+                                <span class="profile-label">Fax </span> {{ request.user.profile.fax_number }}<br>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="profile-label">Addtional contact details:</span> {{ request.user.profile.additional_contact_details }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><span class="profile-label">E-mail:</span> {{ request.user.email }}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p><span class="profile-label">About:</span><i>{{ request.user.profile.about|safe }}</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="educational-needs" role="tabpanel" aria-labelledby="educational-needs-tab">
+        <div class="card">
+            <div class="card-block profile-card">
+                <p><span class="badge badge-dark">Max active needs: <strong>{% if not request.user.profile.multiple_needs %}1{% else %}unlimited{% endif %}</strong></span></p>
+                {% if educational_needs %}
+                    {% for need in educational_needs %}
+                        {% if not need.closed %}
+                        <p>
+                            <h5>
+                                {% if need.is_active %}
+                                    <span class="badge badge-success">Active</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">Inactive</span>
+                                {% endif %}
+                                <a href="{% url 'detail_view' pk=need.pk %}">{{ need.title }}</a>
+                            </h5>
+                            {% if need.is_active %}
+                                <a class="btn btn-outline-warning btn-sm" role="button" href="{% url 'deactivate_need' pk=need.pk %}">Deactivate</a>
+                            {% else %}
+                                <a class="btn btn-outline-success btn-sm" role="button" href="{% url 'activate_need' pk=need.pk %}">Activate</a>
+                            {% endif %}
+                            <a class="btn btn-outline-dark btn-sm" role="button" href="{% url 'edit_need' pk=need.pk %}">Edit</a>
+                            <a class="btn btn-outline-danger btn-sm" href="{% url 'delete_need' pk=need.pk %}">Delete</a>
+                            <a class="btn btn-outline-info btn-sm" role="button" href="{% url 'educational_need_comment' need.pk %}">Close &amp; Leave Comment</a>
+                        </p>
+                        {% else %}
+                        <h5><p><span class="badge badge-dark">Closed</span> <a href="{% url 'detail_view' pk=need.pk %}">{{ need }}</a></p></h5>
+                        {% endif %}
+                        <hr>
+                    {% endfor %}
                     {% else %}
-                     <img src="{{ request.user.profile.image|thumbnail_url:'avatar150' }}" alt="{{ request.user }}" class="img-fluid">
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>{{ request.user.profile.organization_name }}</h2>
-                        <p><span class="profile-label">Username:</span>{{ request.user.username }}</p>
-                        <p><span class="profile-label">Account Status:</span> {% if request.user.profile.active %}<strong>Active</strong>{% else %}<strong>Inactive</strong> (awaiting moderation){% endif %}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>
-                            <span class="profile-label">Country:</span> {{ request.user.profile.country.name }}<br>
-                            <span class="profile-label">State:</span> {{ request.user.profile.state }}<br>
-                            <span class="profile-label">City:</span> {{ request.user.profile.city }}<br>
-                            <span class="profile-label">District:</span> {{ request.user.profile.district }}<br>
-                            <span class="profile-label">Zip:</span> {{ request.user.profile.zip_code }}<br>
-                            <span class="profile-label">Address:</span> {{ request.user.profile.organization_address }}<br>
-                        </p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>
-                            <span class="profile-label">Mobile number:</span> {{ request.user.profile.mobile_number }}<br>
-                            <span class="profile-label">Mobile number 2:</span> {{ request.user.profile.mobile_number_2 }}<br>
-                            <span class="profile-label">Phone number:</span> {{ request.user.profile.phone_number }}<br>
-                            <span class="profile-label">Phone number 2:</span> {{ request.user.profile.phone_number_2 }}<br>
-                            <span class="profile-label">Fax </span> {{ request.user.profile.fax_number }}<br>
-                        </p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>
-                            <span class="profile-label">Addtional contact details:</span> {{ request.user.profile.additional_contact_details }}
-                        </p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><span class="profile-label">E-mail:</span> {{ request.user.email }}</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p><span class="profile-label">About:</span><i>{{ request.user.profile.about|safe }}</i></p>
-                    </div>
-                </div>
+                        You don't have any educational needs.
+                {% endif %}
+                <a href="{% url 'add_need' %}" class="btn btn-secondary float-right" role="button">+ New Educational Need</a>
             </div>
         </div>
+      </div>
+      <div class="tab-pane fade" id="volunteer-work" role="tabpanel" aria-labelledby="volunteer-tab">
+        <div class="card">
+        <div class="card-header">Volunteers</div>
+            <div class="card-block profile-card">
+                {% if not request.user.profile.active %}
+                    Your account is not active yet and you cannot add volunteers.<br>We will inform you via email once your account is activated.
+                {% endif %}
+            </div>
+        </div>
+      </div>
     </div>
+
     <br/>
-    <div class="card">
-    <div class="card-header">Volunteers</div>
-        <div class="card-block profile-card">
-            {% if not request.user.profile.active %}
-                Your account is not active yet and you cannot add volunteers.<br>We will inform you via email once your account is activated.
-            {% endif %}
-        </div>
-    </div>
 {% endblock %}

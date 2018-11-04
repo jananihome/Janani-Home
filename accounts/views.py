@@ -351,6 +351,7 @@ def activate_organization(request, uidb64, token):
             user.is_active = True
             user.profile.is_organization = True
             user.profile.active = False  # NGOs need manual approval by admin
+            user.profile.multiple_needs = True  # NGOs can add multiple needs by default
             form.save()
             user.save()
             current_site = get_current_site(request)
