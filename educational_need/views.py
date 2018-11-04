@@ -25,7 +25,7 @@ class EducationalNeedListView(ListView):
     def get_queryset(self):
 
         # Select active educational needs
-        active_needs = EducationalNeed.objects.filter(is_active=True)
+        active_needs = EducationalNeed.objects.filter(is_active=True).order_by('-pk')
 
         # Search query
         if self.request.GET.get('query'):
