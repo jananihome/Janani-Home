@@ -12,3 +12,5 @@ secret.txt
 *.sublime-*
 .env
 .vscode/
+*.out
+*.swp

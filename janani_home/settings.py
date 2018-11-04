@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'smart_selects',
     'widget_tweaks',
     'easy_thumbnails',
@@ -124,6 +125,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Authentication backend
 AUTHENTICATION_BACKENDS = ('accounts.backends.CustomModelBackend', )
+
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
