@@ -112,7 +112,7 @@
                         <div class="pagination">
                             <span class="step-links">
                                 {% if users.has_previous %}
-                                    <a href="?page={{ users.previous_page_number }}">previous</a>
+                                    <a href="?page={{ users.previous_page_number }}{% if filter_status %}&user_status={{ filter_status }}{% endif %}">previous</a>
                                 {% endif %}
 
                                 <span class="current">
