@@ -120,7 +120,7 @@
                                 </span>
 
                                 {% if users.has_next %}
-                                    <a href="?page={{ users.next_page_number }}">next</a>
+                                    <a href="?page={{ users.next_page_number }}{% if filter_status %}&user_status={{ filter_status }}{% endif %}">next</a>
                                 {% endif %}
                             </span>
                         </div>
