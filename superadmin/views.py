@@ -66,8 +66,6 @@ def user_list(request):
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
 
-
-
     context = {
         'users': users,
     }
