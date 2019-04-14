@@ -14,6 +14,43 @@
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-12">
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3">
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <label class="input-group-text" for="userStatusSelect">Status</label>
+                                  </div>
+                                  <select name="user_status" class="custom-select" id="userStatusSelect">
+                                    <option {% if not filter_status %}selected{% endif %}>Choose...</option>
+                                    <option value="activated" {% if filter_status == 'activated' %}selected{% endif %}>activated</option>
+                                    <option value="inactive" {% if filter_status == 'inactive' %}selected{% endif %}>inactive</option>
+                                    <option value="volunteer_approved" {% if filter_status == 'volunteer_approved' %}selected{% endif %}>volunteer (approved)</option>
+                                    <option value="volunteer_pending" {% if filter_status == 'volunteer_pending' %}selected{% endif %}>volunteer (pending)</option>
+                                    <option value="organization" {% if filter_status == 'organization' %}selected{% endif %}>organization</option>
+                                    <option value="superuser" {% if filter_status == 'superuser' %}selected{% endif %}>superuser</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <input type="submit" value="Refresh">
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <div class="input-group mb-3">
+                        </div>
+                    </div>
+                    <!--div class="col-sm-12 col-md-6">
+                        <div id="dataTable_filter" class="dataTables_filter">
+                            <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label>
+                        </div>
+                    </div-->
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
                             <thead>
                             <tr role="row">
@@ -25,6 +62,7 @@
                                 <th>Country / State</th>
                                 <th>Created</th>
                                 <th>Last login</th>
+                                <th></th>
                             </tr>
                             </thead>
                         <tbody>
@@ -62,6 +100,7 @@
                                 <td>{% if user.profile.country %}{{ user.profile.country }}{% endif %}{% if user.profile.state %} / {{ user.profile.state }}{% endif %}</td>
                                 <td>{% if user.date_joined %}{{ user.date_joined }}{% endif %}</td>
                                 <td>{% if user.last_login %}{{ user.last_login }}{% endif %}</td>
+                                <td><a href="#" class="btn btn-secondary">Edit</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

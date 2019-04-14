@@ -54,7 +54,34 @@ def dashboard(request):
 def user_list(request):
     template = 'superadmin/user_list.html'
 
-    all_users = User.objects.select_related('profile')
+    if request.method == 'POST':
+        if request.POST['user_status']:
+            filter_status = request.POST['user_status']
+            if filter_status == 'activated':
+                all_users = User.objects.filter(is_active=True).select_related('profile')
+            elif filter_status == 'inactive':
+                all_users = User.objects.filter(is_active=False).select_related('profile')
+            elif filter_status == 'volunteer_approved':
+                all_users = User.objects.filter(profile__is_volunteer=True,
+                                                profile__approved_volunteer=True).select_related('profile')
+            elif filter_status == 'volunteer_pending':
+                all_users = User.objects.filter(profile__is_volunteer=True,
+                                                profile__approved_volunteer=False).select_related('profile')
+            elif filter_status == 'organization':
+                all_users = User.objects.filter(profile__is_organization=True).select_related('profile')
+            elif filter_status == 'superuser':
+                all_users = User.objects.filter(is_superuser=True).select_related('profile')
+            else:
+                filter_status = None
+                all_users = User.objects.select_related('profile')
+        else:
+            filter_status = None
+            all_users = User.objects.select_related('profile')
+    else:
+        all_users = User.objects.select_related('profile')
+        filter_status = None
+
+    all_users = all_users.order_by('-date_joined')
 
     limit = request.GET.get('limit', '20')
     try:
@@ -74,6 +101,7 @@ def user_list(request):
 
     context = {
         'users': users,
+        'filter_status': filter_status
     }
 
     return render(request, template, context)
