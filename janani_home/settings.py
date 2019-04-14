@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cms.apps.CmsConfig',
     'comment.apps.CommentConfig',
     'educational_need.apps.EducationalneedConfig',
+    'superadmin.apps.SuperadminConfig',
     'volunteers.apps.VolunteersConfig',
     'django.contrib.admin',
     'django.contrib.auth',

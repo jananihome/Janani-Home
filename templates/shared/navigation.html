@@ -49,6 +49,10 @@
                     <i class="fa fa-lock" aria-hidden="true"></i>
                     Admin
                 </a>
+                <a class="nav-item nav-link" href="{% url 'superadmin_dashboard' %}" target="_blank">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    Superadmin
+                </a>
             {% endif %}
             <a class="nav-item nav-link {% if request.resolver_match.view_name == 'view_profile' %}active{% endif%}" href="{% url 'view_profile' %}">
                 <i class="fa fa-user-o" aria-hidden="true"></i>
