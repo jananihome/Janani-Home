@@ -82,13 +82,13 @@ def user_list(request):
 
     all_users = all_users.order_by('-date_joined')
 
-    limit = request.GET.get('limit', '1')
+    limit = request.GET.get('limit', '15')
     try:
         paginator = Paginator(all_users, limit)
     except ValueError:
-        paginator = Paginator(all_users, 20)
+        paginator = Paginator(all_users, 15)
     except AssertionError:
-        paginator = Paginator(all_users, 20)
+        paginator = Paginator(all_users, 15)
 
     page = request.GET.get('page', '1')
     try:
