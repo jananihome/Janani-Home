@@ -22,8 +22,9 @@
                                 <th>Status</th>
                                 <th>Name(s)</th>
                                 <th>E-mail</th>
-                                <th>Country</th>
-                                <th>State</th>
+                                <th>Country / State</th>
+                                <th>Created</th>
+                                <th>Last login</th>
                             </tr>
                             </thead>
                         <tbody>
@@ -32,14 +33,16 @@
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.username }}</td>
                                 <td>
+                                  {% if user.is_active %}
+                                    <span class="badge badge-light">activated</span>
+                                  {% else %}
+                                    <span class="badge badge-warning">inactive</span>
+                                  {% endif %}
                                   {% if user.is_superuser %}
                                     <span class="badge badge-danger">superuser</span>
                                   {% endif %}
-                                  {% if not user.is_active %}
-                                    <span class="badge badge-warning">inactive</span>
-                                  {% endif %}
                                   {% if user.profile.is_volunteer and not user.profile.approved_volunteer %}
-                                    <span class="badge badge-info">volunteer (awaiting approval)</span>
+                                    <span class="badge badge-info">volunteer (pending approval)</span>
                                   {% endif %}
                                   {% if user.profile.approved_volunteer %}
                                     <span class="badge badge-success">volunteer (approved)</span>
@@ -47,7 +50,6 @@
                                   {% if user.profile.is_organization %}
                                     <span class="badge badge-dark">organization</span>
                                   {% endif %}
-
                                 </td>
                                 <td>
                                     {% if user.profile.is_organization %}
@@ -57,8 +59,9 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ user.email }}</td>
-                                <th>{% if user.profile.country %}{{ user.profile.country }}{% endif %}</th>
-                                <th>{% if user.profile.state %}{{ user.profile.state }}{% endif %}</th>
+                                <td>{% if user.profile.country %}{{ user.profile.country }}{% endif %}{% if user.profile.state %} / {{ user.profile.state }}{% endif %}</td>
+                                <td>{% if user.date_joined %}{{ user.date_joined }}{% endif %}</td>
+                                <td>{% if user.last_login %}{{ user.last_login }}{% endif %}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

@@ -7,7 +7,18 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            Website Statistics
+            Notifications
+            <hr>
+            {% if alerts %}
+                {% if inactive_users_count %}
+                    <div class="alert alert-warning" role="alert">You have <strong>{{ inactive_users_count }}</strong> inactive user(s).</div>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-success" role="alert">Everything is fine. Good job!</div>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            Statistics
             <hr>
         </div>
         <div class="col-xl-3 col-md-6 mb-4">

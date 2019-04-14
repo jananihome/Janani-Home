@@ -30,6 +30,10 @@ def dashboard(request):
     comment_count = Comment.objects.count()
     event_count = Event.objects.count()
     announcement_count = Announcement.objects.count()
+    inactive_users_count = User.objects.filter(is_active=False).count()
+
+    alerts = inactive_users_count
+
     context = {
         'user_count': user_count,
         'volunteer_count': volunteer_count,
@@ -38,6 +42,8 @@ def dashboard(request):
         'comment_count': comment_count,
         'event_count': event_count,
         'announcement_count': announcement_count,
+        'inactive_users_count': inactive_users_count,
+        'alerts': alerts,
 
     }
     return render(request, template, context)
@@ -50,13 +56,13 @@ def user_list(request):
 
     all_users = User.objects.select_related('profile')
 
-    limit = request.GET.get('limit', '10')
+    limit = request.GET.get('limit', '20')
     try:
         paginator = Paginator(all_users, limit)
     except ValueError:
-        paginator = Paginator(all_users, 10)
+        paginator = Paginator(all_users, 20)
     except AssertionError:
-        paginator = Paginator(all_users, 10)
+        paginator = Paginator(all_users, 20)
 
     page = request.GET.get('page', '1')
     try:
