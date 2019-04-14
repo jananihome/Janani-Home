@@ -1,0 +1,91 @@
+{% extends 'superadmin/base.html' %}
+
+{% block page_heading %}
+    Users
+{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">User Accounts</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                            <thead>
+                            <tr role="row">
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Status</th>
+                                <th>Name(s)</th>
+                                <th>E-mail</th>
+                                <th>Country</th>
+                                <th>State</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr role="row" class="odd">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>
+                                  {% if user.is_superuser %}
+                                    <span class="badge badge-danger">superuser</span>
+                                  {% endif %}
+                                  {% if not user.is_active %}
+                                    <span class="badge badge-warning">inactive</span>
+                                  {% endif %}
+                                  {% if user.profile.is_volunteer and not user.profile.approved_volunteer %}
+                                    <span class="badge badge-info">volunteer (awaiting approval)</span>
+                                  {% endif %}
+                                  {% if user.profile.approved_volunteer %}
+                                    <span class="badge badge-success">volunteer (approved)</span>
+                                  {% endif %}
+                                  {% if user.profile.is_organization %}
+                                    <span class="badge badge-dark">organization</span>
+                                  {% endif %}
+
+                                </td>
+                                <td>
+                                    {% if user.profile.is_organization %}
+                                        {{ user.profile.organization_name }}
+                                    {% else %}
+                                        {{ user.first_name }}{% if user.profile.middle_name %} {{ user.profile.middle_name }}{% endif %} {{ user.last_name }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ user.email }}</td>
+                                <th>{% if user.profile.country %}{{ user.profile.country }}{% endif %}</th>
+                                <th>{% if user.profile.state %}{{ user.profile.state }}{% endif %}</th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if users.has_previous %}
+                                    <a href="?page={{ users.previous_page_number }}">previous</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Page {{ users.number }} of {{ users.paginator.num_pages }}.
+                                </span>
+
+                                {% if users.has_next %}
+                                    <a href="?page={{ users.next_page_number }}">next</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
