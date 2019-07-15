@@ -67,3 +67,19 @@ function goBack() {
     $('.simply-scroll .simply-scroll-clip').css({'width':'99% !important'});
     </script>
 {% endif %}
+
+<script>
+    $(document).ready(function ()
+    {
+     if(sessionStorage["popupShown"] != 'yes') {
+         $('#upgradeModal').modal('show');
+     }
+    });
+
+    $("#upgradeModalClose").click(function (e)
+    {
+     $('#upgradeModal').modal('hide');
+     e.preventDefault();
+     sessionStorage["popupShown"] = 'yes';
+    });
+</script>

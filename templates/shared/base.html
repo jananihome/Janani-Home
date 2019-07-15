@@ -74,6 +74,28 @@
             </div>            
         </footer>
     </div><!-- Site Container -->
+
+    <!-- Popup -->
+    <div class="modal fade" id="upgradeModal" tabindex="-1" role="dialog" aria-labelledby="upgradeModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="upgradeModalLabel">Important Announcement</h5>
+            <button type="button" class="close" data-dismiss="upgradeModal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Site is being upgraded to enable banking transactions and other functionality as well as adhering strictly to government guidelines. Therefore we temporarily stopped updating students details from our side. However we will do our best to process new incoming requests. Site will be fully functional again in a few months. Sorry for the inconvenience.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="upgradeModalClose">Close</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- Popup -->
+
+
     {% include 'shared/javascripts.html' %}
 </body>
 </html>
